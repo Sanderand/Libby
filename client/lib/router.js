@@ -1,19 +1,9 @@
+import { Meteor } from 'meteor/meteor';
+
 FlowRouter.route('/', {
   action: function() {
-    console.log('TROLL');
     BlazeLayout.render('contentLayout', {
-      content: 'list',
-      sidebar: 'sidebar',
-    });
-  }
-});
-
-FlowRouter.route('/:postId', {
-  action: function(a,b) {
-    console.log(a,b);
-    BlazeLayout.render('contentLayout', {
-      content: 'item',
-      sidebar: 'sidebar',
+      content: 'home',
     });
   }
 });
@@ -27,34 +17,69 @@ FlowRouter.notFound = {
   }
 };
 
-//
-// FlowRouter.route('/blog/:postId', {
-//   action: function(params, queryParams) {
-//     console.log('Yeah! We are on the post:', params.postId);
-//   },
-// });
-//
-// var adminRoutes = FlowRouter.group({
-//   prefix: '/admin',
-//   name: 'admin',
-//   triggersEnter: [function(context, redirect) {
-//     console.log('running group triggers');
-//   }],
-// });
-//
-// // handling /admin route
-// adminRoutes.route('/', {
-//   action: function() {
-//     BlazeLayout.render('componentLayout', {content: 'admin'});
-//   },
-//   triggersEnter: [function(context, redirect) {
-//     console.log('running /admin trigger');
-//   }],
-// });
-//
-// // handling /admin/posts
-// adminRoutes.route('/posts', {
-//   action: function() {
-//     BlazeLayout.render('componentLayout', {content: 'posts'});
-//   },
-// });
+// AUTH
+
+var authRoutes = FlowRouter.group({
+  prefix: '/app',
+  name: 'auth',
+  triggersEnter: [function(context, redirect) {
+    if (!Meteor.userId()) {
+      redirect('/');
+    }
+  }],
+});
+
+authRoutes.route('/', {
+  action: function() {
+    BlazeLayout.render('contentLayout', {
+      content: 'dashboard',
+      sidebar: 'sidebar',
+    });
+  },
+});
+
+authRoutes.route('/publications', {
+  action: function() {
+    BlazeLayout.render('contentLayout', {
+      content: 'publications',
+      sidebar: 'sidebar',
+    });
+  },
+});
+
+authRoutes.route('/stats', {
+  action: function() {
+    BlazeLayout.render('contentLayout', {
+      content: 'stats',
+      sidebar: 'sidebar',
+    });
+  },
+});
+
+authRoutes.route('/settings', {
+  action: function() {
+    BlazeLayout.render('contentLayout', {
+      content: 'settings',
+      sidebar: 'sidebar',
+    });
+  },
+});
+
+authRoutes.route('/patrons', {
+  action: function() {
+    BlazeLayout.render('contentLayout', {
+      content: 'patrons',
+      sidebar: 'sidebar',
+    });
+  },
+});
+
+authRoutes.route('/patrons/:patronId', {
+  action: function(a,b) {
+    console.log(a,b);
+    BlazeLayout.render('contentLayout', {
+      content: 'item',
+      sidebar: 'sidebar',
+    });
+  },
+});

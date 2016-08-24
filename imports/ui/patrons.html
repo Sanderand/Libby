@@ -1,16 +1,14 @@
-<template name="list">
+<template name="patrons">
   <section>
     {{> searchBar}}
 
     <div class="pad">
-      <h1>Todo List ({{incompleteCount}})</h1>
+      <h1>Patrons</h1>
 
       <label class="hide-completed">
         <input type="checkbox" />
         Hide Completed Tasks
       </label>
-
-      {{> loginButtons}}
 
       {{#if currentUser}}
         <form class="new-task">

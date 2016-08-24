@@ -4,14 +4,14 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 
 import { Tasks } from '../api/tasks.js';
 import './task.js';
-import './list.html';
+import './patrons.html';
 
-Template.list.onCreated(function bodyOnCreated() {
+Template.patrons.onCreated(function bodyOnCreated() {
   this.state = new ReactiveDict();
   Meteor.subscribe('tasks');
 });
 
-Template.list.helpers({
+Template.patrons.helpers({
   tasks() {
     const instance = Template.instance();
     if (instance.state.get('hideCompleted')) {
@@ -26,7 +26,7 @@ Template.list.helpers({
   },
 });
 
-Template.list.events({
+Template.patrons.events({
   'submit .new-task'(event) {
     // Prevent default browser form submit
     event.preventDefault();

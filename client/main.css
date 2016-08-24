@@ -36,7 +36,7 @@ section {
 }
 
 aside {
-  width: 220px;
+  min-width: 220px;
   background-color: #5b5b5b;
 }
 
@@ -74,6 +74,7 @@ aside a:first-child {
   border: none;
   padding: 0px 10px;
   font-size: 16px;
+  background-color: #fff;
 }
 
 .search-bar .icon {
@@ -83,4 +84,7 @@ aside a:first-child {
   font-size: 16px;
   text-align: center;
   cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: #fff;
 }
