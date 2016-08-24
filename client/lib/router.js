@@ -2,7 +2,6 @@ FlowRouter.route('/', {
   action: function() {
     console.log('TROLL');
     BlazeLayout.render('contentLayout', {
-      header: 'header',
       content: 'list',
       sidebar: 'sidebar',
     });
@@ -13,7 +12,6 @@ FlowRouter.route('/:postId', {
   action: function(a,b) {
     console.log(a,b);
     BlazeLayout.render('contentLayout', {
-      header: 'header',
       content: 'item',
       sidebar: 'sidebar',
     });
@@ -23,7 +21,6 @@ FlowRouter.route('/:postId', {
 FlowRouter.notFound = {
   action: function() {
     BlazeLayout.render('contentLayout', {
-      header: 'header',
       content: 'notFound',
       sidebar: 'sidebar',
     });

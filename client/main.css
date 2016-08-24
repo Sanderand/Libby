@@ -17,20 +17,9 @@ body {
   font-size: 14px;
 }
 
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-  background-color: #9cba8c;
-}
-
 main {
   position: fixed;
-  top: 50px;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
@@ -38,12 +27,16 @@ main {
   flex-direction: row;
 }
 
-section {
+.pad {
   padding: 10px;
 }
 
+section {
+  width: 100%;
+}
+
 aside {
-  width: 160px;
+  width: 220px;
   background-color: #5b5b5b;
 }
 
@@ -56,6 +49,38 @@ aside a {
   text-decoration: none;
 }
 
+aside a.logo {
+    text-align: center;
+    line-height: 140px;
+    height: 140px;
+    font-size: 26px;
+}
+
 aside a:first-child {
   padding-top: 15px;
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  border-bottom: 1px solid;
+}
+
+.search-bar input {
+  height: 50px;
+  flex: 1;
+  outline: none;
+  border: none;
+  padding: 0px 10px;
+  font-size: 16px;
+}
+
+.search-bar .icon {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
 }
