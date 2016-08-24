@@ -1,0 +1,13 @@
+<body>
+  {{> contentLayout}}
+</body>
+
+<template name="contentLayout">
+  <header>
+    {{> Template.dynamic template=header}}
+  </header>
+
+  <main>
+    {{> Template.dynamic template=main}}
+  </main>
+</template>
