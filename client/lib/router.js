@@ -68,18 +68,26 @@ authRoutes.route('/settings', {
 authRoutes.route('/patrons', {
   action: function() {
     BlazeLayout.render('contentLayout', {
-      content: 'patrons',
+      content: 'patronList',
       sidebar: 'sidebar',
     });
   },
 });
 
 authRoutes.route('/patrons/:patronId', {
-  action: function(a,b) {
-    console.log(a,b);
+  action: function(params) {
     BlazeLayout.render('contentLayout', {
-      content: 'item',
+      content: 'patronShow',
       sidebar: 'sidebar',
     });
+  },
+});
+
+authRoutes.route('/patrons/:patronId/edit', {
+  action: function(params) {
+    BlazeLayout.render('contentLayout', {
+      content: 'patronEdit',
+      sidebar: 'sidebar',
+    })
   },
 });

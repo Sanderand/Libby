@@ -1,4 +1,4 @@
-import './patrons.js';
+import './patronList.js';
 import './patron.js';
 import './sidebar.js';
 import './home.js';

@@ -1,41 +1,60 @@
 <template name="patronShow">
+  <section class="pad">
+    <div>Patron Show</div>
+    <div>_id: {{patron._id}}</div>
+    <div>first_name: {{patron.first_name}}</div>
+    <div>last_name: {{patron.last_name}}</div>
+    <div>email: {{patron.email}}</div>
+    <div>phone: {{patron.phone}}</div>
+    <div>street: {{patron.street}}</div>
+    <div>postal_code: {{patron.postal_code}}</div>
+    <div>city: {{patron.city}}</div>
+
+    <a href="/app/patrons/"><button class="btn btn-default">Back</button></a>
+    <a href="/app/patrons/{{patron._id}}/edit"><button class="btn btn-success">Edit</button></a>
+  </section>
 </template>
 
 <template name="patronEdit">
-  <form>
+  <form class="patron-edit-form">
+    <div>
+      <label>_id</label>
+      <input type="text" name="_id" value={{patron._id}}>
+    </div>
+
     <div>
       <label>First Name</label>
-      <input type="text" name="first_name" value="">
+      <input type="text" name="first_name" value={{patron.first_name}}>
     </div>
 
     <div>
       <label>Last Name</label>
-      <input type="text" name="last_name" value="">
+      <input type="text" name="last_name" value={{patron.last_name}}>
     </div>
 
     <div>
       <label>Email</label>
-      <input type="text" name="email" value="">
+      <input type="text" name="email" value={{patron.email}}>
     </div>
 
     <div>
       <label>Phone</label>
-      <input type="text" name="phone" value="">
+      <input type="text" name="phone" value={{patron.phone}}>
     </div>
 
     <div>
       <label>Street</label>
-      <input type="text" name="street" value="">
+      <input type="text" name="street" value={{patron.street}}>
     </div>
 
     <div>
       <label>Postal Code</label>
-      <input type="text" name="postal_code" value="">
+      <input type="text" name="postal_code" value={{patron.postal_code}}>
     </div>
 
     <div>
       <label>City</label>
-      <input type="text" name="city" value="">
+      <input type="text" name="city" value={{patron.city}}>
     </div>
 
     <div>
@@ -48,8 +67,8 @@
     </div>
 
     <div>
-      <button class="btn form-cancel">Cancel</button>
-      <button class="btn form-submit">Submit</button>
+      <a href="/app/patrons/{{patron._id}}"><button class="btn btn-default">Cancel</button></a>
+      <button type="submit" class="btn btn-success form-submit">Submit</button>
     </div>
   </form>
 </template>

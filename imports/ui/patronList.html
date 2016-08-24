@@ -1,0 +1,26 @@
+<template name="patronList">
+  <section>
+    {{> searchBar}}
+
+    <div class="pad">
+      <h1>Patrons</h1>
+
+      <button class="btn btn-default add-patron">Add Patron</button>
+
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Text</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each patrons}}
+            {{> patronListItem}}
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</template>
