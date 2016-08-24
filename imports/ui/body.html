@@ -3,11 +3,9 @@
 </body>
 
 <template name="contentLayout">
-  <header>
-    {{> Template.dynamic template=header}}
-  </header>
-
+  {{> Template.dynamic template=header}}
   <main>
-    {{> Template.dynamic template=main}}
+    {{> Template.dynamic template=sidebar}}
+    {{> Template.dynamic template=content}}
   </main>
 </template>

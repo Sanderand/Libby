@@ -1,27 +1,39 @@
 FlowRouter.route('/', {
   action: function() {
     console.log('TROLL');
-    BlazeLayout.render('contentLayout', { header: "header", main: "list" });
+    BlazeLayout.render('contentLayout', {
+      header: 'header',
+      content: 'list',
+      sidebar: 'sidebar',
+    });
   }
 });
 
 FlowRouter.route('/:postId', {
   action: function(a,b) {
     console.log(a,b);
-    BlazeLayout.render('contentLayout', { header: "header", main: "item" });
+    BlazeLayout.render('contentLayout', {
+      header: 'header',
+      content: 'item',
+      sidebar: 'sidebar',
+    });
   }
 });
 
 FlowRouter.notFound = {
   action: function() {
-    BlazeLayout.render('contentLayout', { header: "header", main: "notFound" });
+    BlazeLayout.render('contentLayout', {
+      header: 'header',
+      content: 'notFound',
+      sidebar: 'sidebar',
+    });
   }
 };
 
 //
 // FlowRouter.route('/blog/:postId', {
 //   action: function(params, queryParams) {
-//     console.log("Yeah! We are on the post:", params.postId);
+//     console.log('Yeah! We are on the post:', params.postId);
 //   },
 // });
 //
