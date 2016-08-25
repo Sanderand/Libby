@@ -30,7 +30,15 @@
 
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
           <label>Type</label>
-          <input class="form-control" type="text" name="type" value={{publication.type}}>
+          <select class="form-control" name="type">
+            <option {{selectedPubType publication.type "Book"}} value="Book">Book</option>
+            <option {{selectedPubType publication.type "Magazine"}} value="Magazine">Magazine</option>
+            <option {{selectedPubType publication.type "DVD"}} value="DVD">DVD</option>
+            <option {{selectedPubType publication.type "Blu-Ray"}} value="Blu-Ray">Blu-Ray</option>
+            <option {{selectedPubType publication.type "Video Game"}} value="Video Game">Video Game</option>
+            <option {{selectedPubType publication.type "Game"}} value="Game">Game</option>
+            <option {{selectedPubType publication.type "Other"}} value="Other">Other</option>
+          </select>
         </div>
       </div>
 
@@ -52,6 +60,10 @@
           <input class="form-control" type="text" name="length" value={{publication.length}}>
         </div>
       </div>
+
+      <hr>
+
+      <h3>Tags</h3>
 
     </form>
   </section>

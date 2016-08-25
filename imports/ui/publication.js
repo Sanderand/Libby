@@ -42,4 +42,8 @@ Template.publication.helpers({
     var publication = Publications.findOne({_id: publicationId}) || {};
     return publication;
   },
+
+  selectedPubType: function(value, compare) {
+    return value == compare ? 'selected' : '';
+  },
 });
