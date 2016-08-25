@@ -1,0 +1,73 @@
+<template name="publicationShow">
+  <section class="pad">
+    <div>
+      <a href="/app/publications/"><button class="btn btn-default">Back</button></a>
+      <a href="/app/publications/{{publication._id}}/edit"><button class="btn btn-success">Edit</button></a>
+      <button class="btn btn-danger remove-publication">Delete</button>
+    </div>
+
+    <hr>
+
+    <div>_id: {{publication._id}}</div>
+    <div>Title: {{publication.title}}</div>
+    <div>Author: {{publication.author}}</div>
+    <div>Publisher: {{publication.publisher}}</div>
+    <div>Type: {{publication.type}}</div>
+    <div>Year: {{publication.year}}</div>
+    <div>Rating: {{publication.rating}}</div>
+    <div>Length: {{publication.length}}</div>
+  </section>
+</template>
+
+<template name="publicationEdit">
+  <section class="pad">
+    <form class="publication-edit-form">
+      <div>
+        <a href="/app/publications/{{publication._id}}"><button type="button" class="btn btn-default">Cancel</button></a>
+        <button type="submit" class="btn btn-success form-submit">Submit</button>
+      </div>
+
+      <hr>
+
+      <!-- <div> -->
+        <!-- <label>_id</label> -->
+        <input type="hidden" name="_id" value={{publication._id}}>
+      <!-- </div> -->
+
+      <div>
+        <label>Title</label>
+        <input type="text" name="title" value={{publication.title}}>
+      </div>
+
+      <div>
+        <label>Author</label>
+        <input type="text" name="author" value={{publication.author}}>
+      </div>
+
+      <div>
+        <label>Publisher</label>
+        <input type="text" name="publisher" value={{publication.publisher}}>
+      </div>
+
+      <div>
+        <label>Type</label>
+        <input type="text" name="type" value={{publication.type}}>
+      </div>
+
+      <div>
+        <label>Year</label>
+        <input type="text" name="year" value={{publication.year}}>
+      </div>
+
+      <div>
+        <label>Rating</label>
+        <input type="text" name="rating" value={{publication.rating}}>
+      </div>
+
+      <div>
+        <label>Length</label>
+        <input type="text" name="length" value={{publication.length}}>
+      </div>
+    </form>
+  </section>
+</template>

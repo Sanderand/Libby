@@ -17,7 +17,7 @@ Template.patronEdit.events({
 
     const target = event.target;
     const patron = {
-      _id: target._id.value,
+      _id: target._id.value || null,
       first_name: target.first_name.value,
       last_name: target.last_name.value,
       email: target.email.value,
@@ -27,19 +27,20 @@ Template.patronEdit.events({
       city: target.city.value,
     };
 
-    Meteor.call('patrons.update', patron, (err, data) => {
+    Meteor.call('patrons.upsert', patron, (err, data) => {
       if (err) {
         console.error(err); // TODO print error to form
-      } else {
-        FlowRouter.go('/app/patrons/' + patron._id);
       }
+
+      const patronId = patron._id || data.insertedId;
+      FlowRouter.go('/app/patrons/' + patronId);
     });
   },
 });
 
 Template.patronEdit.helpers({
   patron: function() {
-    var patronId = FlowRouter.getParam('patronId');
+    const patronId = FlowRouter.getParam('patronId');
     var patron = Patrons.findOne({_id: patronId}) || {};
     return patron;
   },
@@ -52,7 +53,19 @@ Template.patronShow.onCreated(() => {
   Meteor.subscribe('patrons');
 });
 
-Template.patronShow.events({});
+Template.patronShow.events({
+  'click .remove-patron'(event) {
+    const patronId = FlowRouter.getParam('patronId');
+
+    Meteor.call('patrons.remove', patronId, (err, data) => {
+      if (err) {
+        console.error(err); // TODO print error to form
+      } else {
+        FlowRouter.go('/app/patrons/');
+      }
+    });
+  },
+});
 
 Template.patronShow.helpers({
   patron: function() {
@@ -61,23 +74,3 @@ Template.patronShow.helpers({
     return patron;
   },
 });
-//
-// Template.patronShow.events({
-//   'submit .new-patron'(event) {
-//     // Prevent default browser form submit
-//     event.preventDefault();
-//
-//     // Get value from form element
-//     const target = event.target;
-//     const text = target.text.value;
-//
-//     // Insert a patron into the collection
-//     Meteor.call('patrons.insert', text);
-//
-//     // Clear form
-//     target.text.value = '';
-//   },
-//   'click .delete'() {
-//     Meteor.call('patrons.remove', this._id);
-//   },
-// });

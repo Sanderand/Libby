@@ -1,9 +1,12 @@
 import './patronList.js';
 import './patron.js';
+
+import './publicationList.js';
+import './publication.js';
+
 import './sidebar.js';
 import './home.js';
 import './dashboard.js';
-import './publications.js';
 import './stats.js';
 import './settings.js';
 import './searchBar.js';

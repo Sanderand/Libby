@@ -12,5 +12,15 @@ Template.searchBar.events({
 
     console.log('searching for ' + searchValue);
     target.searchValue.value = '';
+
+    Meteor.call('patrons.search', searchValue, (err, data) => {
+      console.log(err, data);
+      
+      if (err) {
+        console.error(err); // TODO print error to form
+      } else if (data) {
+        console.log(data);
+      }
+    });
   },
 });

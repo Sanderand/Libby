@@ -1,0 +1,30 @@
+<template name="publicationList">
+  <section>
+    {{> searchBar}}
+
+    <div class="pad">
+      <h1>Publications</h1>
+
+      <button class="btn btn-default add-publication">Add Publication</button>
+
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>Type</th>
+            <th>Year</th>
+            <th>Rating</th>
+            <th>Length</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each publications}}
+            {{> publicationListItem}}
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</template>

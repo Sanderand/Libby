@@ -38,14 +38,36 @@ authRoutes.route('/', {
   },
 });
 
+// PUBLICATIONS
+
 authRoutes.route('/publications', {
   action: function() {
     BlazeLayout.render('contentLayout', {
-      content: 'publications',
+      content: 'publicationList',
       sidebar: 'sidebar',
     });
   },
 });
+
+authRoutes.route('/publications/:publicationId', {
+  action: function(params) {
+    BlazeLayout.render('contentLayout', {
+      content: 'publicationShow',
+      sidebar: 'sidebar',
+    });
+  },
+});
+
+authRoutes.route('/publications/:publicationId/edit', {
+  action: function(params) {
+    BlazeLayout.render('contentLayout', {
+      content: 'publicationEdit',
+      sidebar: 'sidebar',
+    })
+  },
+});
+
+// STATS
 
 authRoutes.route('/stats', {
   action: function() {
@@ -56,6 +78,8 @@ authRoutes.route('/stats', {
   },
 });
 
+// SETTINGS
+
 authRoutes.route('/settings', {
   action: function() {
     BlazeLayout.render('contentLayout', {
@@ -64,6 +88,8 @@ authRoutes.route('/settings', {
     });
   },
 });
+
+// PATRONS
 
 authRoutes.route('/patrons', {
   action: function() {

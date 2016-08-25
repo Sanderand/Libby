@@ -1,18 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
-import { ReactiveDict } from 'meteor/reactive-dict';
 
 import { Patrons } from '../api/patrons.js';
 import './patronListItem.js';
 import './patronList.html';
 
-Template.patronList.onCreated(function bodyOnCreated() {
-  this.state = new ReactiveDict();
+Template.patronList.onCreated(() => {
   Meteor.subscribe('patrons');
 });
-
-// if (instance.state.get('hideCompleted')) {
-// instance.state.set('hideCompleted', event.target.checked);
 
 Template.patronList.helpers({
   patrons() {

@@ -1,6 +1,13 @@
 <template name="patronShow">
   <section class="pad">
-    <div>Patron Show</div>
+    <div>
+      <a href="/app/patrons/"><button class="btn btn-default">Back</button></a>
+      <a href="/app/patrons/{{patron._id}}/edit"><button class="btn btn-success">Edit</button></a>
+      <button class="btn btn-danger remove-patron">Delete</button>
+    </div>
+
+    <hr>
+
     <div>_id: {{patron._id}}</div>
     <div>first_name: {{patron.first_name}}</div>
     <div>last_name: {{patron.last_name}}</div>
@@ -9,66 +16,68 @@
     <div>street: {{patron.street}}</div>
     <div>postal_code: {{patron.postal_code}}</div>
     <div>city: {{patron.city}}</div>
-
-    <a href="/app/patrons/"><button class="btn btn-default">Back</button></a>
-    <a href="/app/patrons/{{patron._id}}/edit"><button class="btn btn-success">Edit</button></a>
   </section>
 </template>
 
 <template name="patronEdit">
-  <form class="patron-edit-form">
-    <div>
-      <label>_id</label>
-      <input type="text" name="_id" value={{patron._id}}>
-    </div>
+  <section class="pad">
+    <form class="patron-edit-form">
+      <div>
+        <a href="/app/patrons/{{patron._id}}"><button type="button" class="btn btn-default">Cancel</button></a>
+        <button type="submit" class="btn btn-success form-submit">Submit</button>
+      </div>
 
-    <div>
-      <label>First Name</label>
-      <input type="text" name="first_name" value={{patron.first_name}}>
-    </div>
+      <hr>
 
-    <div>
-      <label>Last Name</label>
-      <input type="text" name="last_name" value={{patron.last_name}}>
-    </div>
+      <!-- <div> -->
+        <!-- <label>_id</label> -->
+        <input type="hidden" name="_id" value={{patron._id}}>
+      <!-- </div> -->
 
-    <div>
-      <label>Email</label>
-      <input type="text" name="email" value={{patron.email}}>
-    </div>
+      <div>
+        <label>First Name</label>
+        <input type="text" name="first_name" value={{patron.first_name}}>
+      </div>
 
-    <div>
-      <label>Phone</label>
-      <input type="text" name="phone" value={{patron.phone}}>
-    </div>
+      <div>
+        <label>Last Name</label>
+        <input type="text" name="last_name" value={{patron.last_name}}>
+      </div>
 
-    <div>
-      <label>Street</label>
-      <input type="text" name="street" value={{patron.street}}>
-    </div>
+      <div>
+        <label>Email</label>
+        <input type="text" name="email" value={{patron.email}}>
+      </div>
 
-    <div>
-      <label>Postal Code</label>
-      <input type="text" name="postal_code" value={{patron.postal_code}}>
-    </div>
+      <div>
+        <label>Phone</label>
+        <input type="text" name="phone" value={{patron.phone}}>
+      </div>
 
-    <div>
-      <label>City</label>
-      <input type="text" name="city" value={{patron.city}}>
-    </div>
+      <div>
+        <label>Street</label>
+        <input type="text" name="street" value={{patron.street}}>
+      </div>
 
-    <div>
-      <label>Role</label>
-    </div>
+      <div>
+        <label>Postal Code</label>
+        <input type="text" name="postal_code" value={{patron.postal_code}}>
+      </div>
 
-    <div>
-      <label>Notes</label>
-      <textarea></textarea>
-    </div>
+      <div>
+        <label>City</label>
+        <input type="text" name="city" value={{patron.city}}>
+      </div>
 
-    <div>
-      <a href="/app/patrons/{{patron._id}}"><button class="btn btn-default">Cancel</button></a>
-      <button type="submit" class="btn btn-success form-submit">Submit</button>
-    </div>
-  </form>
+      <div>
+        <label>Role</label>
+      </div>
+
+      <div>
+        <!-- TODO -->
+        <label>Notes</label>
+        <textarea></textarea>
+      </div>
+    </form>
+  </section>
 </template>
