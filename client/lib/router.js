@@ -58,6 +58,26 @@ authRoutes.route('/publications/:publicationId', {
   },
 });
 
+// RENTS
+
+authRoutes.route('/rents/', {
+  action: function() {
+    BlazeLayout.render('contentLayout', {
+      content: 'rentList',
+      sidebar: 'sidebar',
+    });
+  },
+});
+
+authRoutes.route('/rents/:rentId', {
+  action: function() {
+    BlazeLayout.render('contentLayout', {
+      content: 'rent',
+      sidebar: 'sidebar',
+    });
+  },
+});
+
 // STATS
 
 authRoutes.route('/stats', {

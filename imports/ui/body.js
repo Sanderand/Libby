@@ -5,6 +5,9 @@ import './publicationList.js';
 import './publicationTag.js';
 import './publication.js';
 
+import './rent.js';
+import './rentList.js';
+
 import './sidebar.js';
 import './home.js';
 import './dashboard.js';

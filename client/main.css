@@ -37,6 +37,13 @@ aside a.logo {
   font-size: 26px;
 }
 
+aside .divider {
+  height: 35px;
+  line-height: 35px;
+  background-color: #e9e9e9;
+  border-bottom: 1px solid #b8b8b8;
+}
+
 .search-bar {
   display: flex;
   flex-direction: row;

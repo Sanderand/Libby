@@ -1,0 +1,52 @@
+<template name="rent">
+  <section class="pad">
+    <form class="rent-form">
+      <div>
+        <a href="/app/rents/"><button type="button" class="btn btn-default">Dismiss</button></a>
+        <button type="submit" class="btn btn-success form-submit">{{method}} Rent</button>
+      </div>
+
+      <hr>
+
+      <input type="hidden" name="_id" value={{rent._id}}>
+
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Publication Reference</label>
+          <input type="text" class="form-control" name="publicationRef" value={{publicationRef rent.publicationRef}} disabled="disabled">
+        </div>
+
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>User Reference</label>
+          <input type="text" class="form-control" name="userRef" value={{userRef rent.userRef}} disabled="disabled">
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Start</label>
+          <input type="text" class="form-control" name="start_at" value={{moFromNow rent.start_at}} disabled="disabled">
+        </div>
+
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>End</label>
+          <input type="text" class="form-control" name="end_at" value={{moFromNow rent.end_at}} disabled="disabled">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>State</label>
+
+        <select class="form-control" name="state">
+          <option {{selectedPubType rent.state "Initial"}} value="Initial">Initial</option>
+          <option {{selectedPubType rent.state "Extended"}} value="Extended">Extended</option>
+          <option {{selectedPubType rent.state "Overdue"}} value="Overdue">Overdue</option>
+          <option {{selectedPubType rent.state "Returned"}} value="Returned">Returned</option>
+          <option {{selectedPubType rent.state "Lost"}} value="Lost">Lost</option>
+        </select>
+      </div>
+    </form>
+  </section>
+</template>

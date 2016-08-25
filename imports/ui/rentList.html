@@ -1,0 +1,34 @@
+<template name="rentList">
+  <section>
+    {{> searchBar}}
+
+    <div class="pad">
+      <h1>Rents</h1>
+
+      <a href="/app/rents/new"><button class="btn btn-default">Add Rent</button></a>
+
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>Publication</th>
+            <th>User</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>State</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each rents}}
+            <tr class="rent-list-item" data-id={{_id}}>
+              <td>{{publicationRef}}</td>
+              <td>{{userRef}}</td>
+              <td>{{moFromNow start_at}}</td>
+              <td>{{moFromNow end_at}}</td>
+              <td>{{state}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</template>
