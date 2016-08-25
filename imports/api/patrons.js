@@ -12,6 +12,7 @@ if (Meteor.isServer) {
 
 Meteor.methods({
   'patrons.remove'(patronId) {
+    // TODO make sure that user is no longer renting publications
     check(patronId, String);
 
     if (!this.userId) {
