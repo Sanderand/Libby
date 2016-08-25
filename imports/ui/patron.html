@@ -1,69 +1,136 @@
 <template name="patron">
   <section class="pad">
-    <form class="patron-form">
+    <div>
+      <a href="/app/patrons/"><button type="button" class="btn btn-default">Back</button></a>
+
+      {{#if eqMode "VIEW"}}
+        <button type="button" class="btn btn-primary enter-form-mode">Edit</button>
+      {{/if}}
+
+      {{#if eqMode "CREATE"}}
+        <button type="button" class="btn btn-warning enter-view-mode">Abort</button>
+        <button type="button" class="btn btn-success save-changes">Save</button>
+      {{/if}}
+    </div>
+
+    <hr>
+
+    <!-- VIEW -->
+
+    {{#if eqMode "VIEW"}}
+      <h2>{{patron.first_name}} {{patron.last_name}}</h2>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          {{#if patron.email}}
+            <p>
+              <span class="glyphicon glyphicon-envelope pad-right-sm"></span>
+              <a href="mailto:{{patron.email}}">{{patron.email}}</a>
+            </p>
+          {{/if}}
+          {{#if patron.phone}}
+          <p>
+            <span class="glyphicon glyphicon-earphone pad-right-sm"></span>
+            <a href="call:{{patron.phone}}">{{patron.phone}}</a>
+          </p>
+          {{/if}}
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          {{#if address patron}}
+          <p>
+            <span class="glyphicon glyphicon-map-marker pad-right-sm"></span>
+            <span>{{address patron}}</span>
+          </p>
+          {{/if}}
+          {{#if patron.notes}}
+          <p>
+            <span class="glyphicon glyphicon-comment pad-right-sm"></span>
+            <span>{{patron.notes}}</span>
+          </p>
+          {{/if}}
+        </div>
+      </div>
+
+      <br>
+
+      <div class="container no-pad-left no-pad-right">
+        <h4>Rented publications</h4>
+
+        {{#if rentedPublications.length}}
+          {{#each rentedPublications}}
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 no-pad-left no-pad-right card">
+              <div><a href="/app/publications/{{_id}}">{{author}}: {{title}}</a></div>
+              <div>Rented until {{moFormat rent.end_at 'DD.MM.YYYY'}}</div>
+              <div class="btn btn-sm btn-default publication-extend" data-id={{_id}}>Extend</div>
+              <div class="btn btn-sm btn-default publication-return" data-id={{_id}}>Return</div>
+            </div>
+          {{/each}}
+        {{else}}
+          <p>No publications rented at the moment</p>
+        {{/if}}
+      </div>
+    {{/if}}
+
+    <!-- CREATE -->
+
+    {{#if eqMode "CREATE"}}
       <div>
-        <a href="/app/patrons/"><button type="button" class="btn btn-default">Dismiss</button></a>
-        <button type="submit" class="btn btn-success form-submit">Save Changes</button>
-        <a href="/app/patrons/{{patron._id}}/rented" class="btn btn-default">Rented Publications</a>
-      </div>
+        <div class="row">
+          <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>First Name</label>
+            <input class="form-control" type="text" name="first_name" value={{patron.first_name}}>
+          </div>
 
-      <hr>
-
-      <input type="hidden" name="_id" value={{patron._id}}>
-
-      <div class="row">
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <label>First Name</label>
-          <input class="form-control" type="text" name="first_name" value={{patron.first_name}}>
+          <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>Last Name</label>
+            <input class="form-control" type="text" name="last_name" value={{patron.last_name}}>
+          </div>
         </div>
 
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <label>Last Name</label>
-          <input class="form-control" type="text" name="last_name" value={{patron.last_name}}>
-        </div>
-      </div>
+        <div class="row">
+          <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>Email</label>
+            <input class="form-control" type="text" name="email" value={{patron.email}}>
+          </div>
 
-      <div class="row">
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <label>Email</label>
-          <input class="form-control" type="text" name="email" value={{patron.email}}>
-        </div>
-
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <label>Phone</label>
-          <input class="form-control" type="text" name="phone" value={{patron.phone}}>
-        </div>
-      </div>
-
-      <hr>
-
-      <div class="row">
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <label>Street</label>
-          <input class="form-control" type="text" name="street" value={{patron.street}}>
+          <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>Phone</label>
+            <input class="form-control" type="text" name="phone" value={{patron.phone}}>
+          </div>
         </div>
 
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <label>Postal Code</label>
-          <input class="form-control" type="text" name="postal_code" value={{patron.postal_code}}>
+        <hr>
+
+        <div class="row">
+          <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>Street</label>
+            <input class="form-control" type="text" name="street" value={{patron.street}}>
+          </div>
+
+          <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>Postal Code</label>
+            <input class="form-control" type="text" name="postal_code" value={{patron.postal_code}}>
+          </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <label>City</label>
-          <input class="form-control" type="text" name="city" value={{patron.city}}>
+        <div class="row">
+          <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>City</label>
+            <input class="form-control" type="text" name="city" value={{patron.city}}>
+          </div>
         </div>
-      </div>
 
-      <hr>
+        <hr>
 
-      <div class="">
-        <div class="form-group">
-          <label>Notes</label>
-          <textarea class="form-control" rows="3" name="notes">{{patron.notes}}</textarea>
+        <div class="">
+          <div class="form-group">
+            <label>Notes</label>
+            <textarea class="form-control" rows="3" name="notes">{{patron.notes}}</textarea>
+          </div>
         </div>
       </div>
-    </form>
+    {{/if}}
+
   </section>
 </template>

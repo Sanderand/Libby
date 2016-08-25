@@ -12,7 +12,7 @@
       <hr>
 
       {{#if publication.rent}}
-        <p class="bg-warning pad"><a href="/app/patrons/{{publication.rent.patronId}}/rented">Rented</a> until {{moFormat publication.rent.end_at 'DD.MM.YYYY'}}</p>
+        <p class="bg-warning pad"><a href="/app/patrons/{{publication.rent.patronId}}">Rented</a> until {{moFormat publication.rent.end_at 'DD.MM.YYYY'}}</p>
       {{else}}
         <p class="bg-info pad">Available</p>
       {{/if}}
@@ -26,14 +26,14 @@
           <label>ISBN</label>
           <div class="input-group">
             <input class="form-control" type="text" name="isbn" value={{publication.isbn}} placeholder="...">
-            <span class="input-group-addon">Global</span>
+            <span class="input-group-addon btn isbn-look-up">Look Up</span>
           </div>
         </div>
 
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
           <label>Barcode</label>
           <div class="input-group">
-            <input class="form-control" type="text" name="isbn" value={{publication.isbn}} placeholder="...">
+            <input class="form-control" type="text" name="barcode" value={{publication.barcode}} placeholder="...">
             <span class="input-group-addon">Local</span>
           </div>
         </div>
@@ -48,17 +48,36 @@
         </div>
 
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <label>Author</label>
-          <input class="form-control" type="text" name="author" value={{publication.author}}>
+          <label>Subtitle</label>
+          <input class="form-control" type="text" name="subtitle" value={{publication.subtitle}}>
         </div>
       </div>
 
       <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Author</label>
+          <input class="form-control" type="text" name="author" value={{publication.author}}>
+        </div>
+
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
           <label>Publisher</label>
           <input class="form-control" type="text" name="publisher" value={{publication.publisher}}>
         </div>
+      </div>
 
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Year</label>
+          <input class="form-control" type="text" name="year" value={{publication.year}}>
+        </div>
+
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Length</label>
+          <input class="form-control" type="text" name="length" value={{publication.length}}>
+        </div>
+      </div>
+
+      <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
           <label>Type</label>
           <select class="form-control" name="type">
@@ -71,24 +90,16 @@
             <option {{selectedPubType publication.type "Other"}} value="Other">Other</option>
           </select>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <label>Year</label>
-          <input class="form-control" type="text" name="year" value={{publication.year}}>
-        </div>
 
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
           <label>Rating</label>
-          <input class="form-control" type="text" name="rating" value={{publication.rating}}>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <label>Length</label>
-          <input class="form-control" type="text" name="length" value={{publication.length}}>
+          <div class="rating">
+            <span class="glyphicon glyphicon-star active"></span>
+            <span class="glyphicon glyphicon-star active"></span>
+            <span class="glyphicon glyphicon-star active"></span>
+            <span class="glyphicon glyphicon-star active"></span>
+            <span class="glyphicon glyphicon-star inactive"></span>
+          </div>
         </div>
       </div>
     </form>
@@ -97,21 +108,14 @@
 
     {{#if publication._id}}
       <form class="tag-form">
-        <h3>Tags</h3>
-
-        <div class="form-group">
-          <label>Tag name</label>
-          <div class="input-group">
-            <input class="form-control" type="text" name="tagName" placeholder="Add tag...">
-            <span class="input-group-addon">Add</span>
-          </div>
+        <div class="input-group mar-bottom-sm">
+          <span class="input-group-addon"><span class="glyphicon glyphicon-tags"></span></span>
+          <input class="form-control" type="text" name="tagName" placeholder="Hit return to add a tag...">
         </div>
 
-        <div>
-          {{#each publication.tags}}
-            {{> publicationTag}}
-          {{/each}}
-        </div>
+        {{#each publication.tags}}
+          {{> publicationTag}}
+        {{/each}}
       </form>
     {{/if}}
 

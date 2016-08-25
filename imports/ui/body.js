@@ -1,6 +1,5 @@
 import './patronList.js';
 import './patron.js';
-import './patronRented.js';
 
 import './publicationList.js';
 import './publicationTag.js';

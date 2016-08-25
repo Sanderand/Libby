@@ -1,15 +1,17 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
-// import { ReactiveDict } from 'meteor/reactive-dict';
+import { ReactiveDict } from 'meteor/reactive-dict';
 
 import { Publications } from '../api/publications.js';
+import { Books } from '../api/books.js';
 import './publication.html';
 
 
 Template.publication.onCreated(function() {
-  // this.state = new ReactiveDict();
-  // this.state.set('tags', []);
   Meteor.subscribe('publications');
+  
+  this.state = new ReactiveDict();
+  this.state.set('ISBN', '')
 });
 
 Template.publication.events({
@@ -19,12 +21,15 @@ Template.publication.events({
     const target = event.target;
     const publication = {
       _id: target._id.value || null,
+      isbn: target.isbn.value,
+      barcode: target.barcode.value,
       title: target.title.value,
+      subtitle: target.subtitle.value,
       author: target.author.value,
       publisher: target.publisher.value,
       type: target.type.value,
       year: target.year.value,
-      rating: target.rating.value,
+      rating: '5',//target.rating.value,
       length: target.length.value,
     };
 
@@ -61,7 +66,25 @@ Template.publication.events({
     });
 
     target.tagName.value = '';
-  }
+  },
+
+  'keyup [name=isbn]'(event) {
+    Template.instance().state.set('ISBN', event.target.value);
+  },
+
+  'click .isbn-look-up'(event, context) {
+    const ISBN = context.find('[name=isbn]').value;
+
+    Books.queryISBNInfo(ISBN)
+      .then((res) => {
+        for (key in res) {
+          var node = context.find('[name=' + key + ']');
+          if (node && res[key]) {
+            node.value = res[key];
+          }
+        }
+      });
+  },
 });
 
 Template.publication.helpers({
@@ -77,9 +100,5 @@ Template.publication.helpers({
 
   serialize: function(val) {
     return JSON.stringify(val);
-  }
-
-  // tags: function() {
-  //   return Template.instance().state.get('tags');
-  // }
+  },
 });

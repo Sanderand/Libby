@@ -30,6 +30,9 @@ Meteor.methods({
     check(publication.year, String);
     check(publication.rating, String);
     check(publication.length, String);
+    check(publication.isbn, String);
+    check(publication.barcode, String);
+    check(publication.subtitle, String);
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
@@ -44,6 +47,9 @@ Meteor.methods({
         year: publication.year,
         rating: publication.rating,
         length: publication.length,
+        isbn: publication.isbn,
+        barcode: publication.barcode,
+        subtitle: publication.subtitle,
         updatedAt: new Date(),
       }
     });

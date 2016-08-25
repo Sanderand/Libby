@@ -128,12 +128,3 @@ authRoutes.route('/patrons/:patronId', {
     });
   },
 });
-
-authRoutes.route('/patrons/:patronId/rented', {
-  action: function() {
-    BlazeLayout.render('contentLayout', {
-      content: 'patronRented',
-      sidebar: 'sidebar',
-    });
-  },
-});

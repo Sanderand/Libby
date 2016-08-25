@@ -8,12 +8,33 @@ main {
   flex-direction: row;
 }
 
+/* margins and paddings */
+
 .pad {
   padding: 10px;
 }
 
+.pad-right-sm {
+  padding-right: 5px;
+}
+
+.no-pad-left {
+  padding-left: 0 !important;
+}
+
+.no-pad-right {
+  padding-right: 0 !important;
+}
+
+.mar-bottom-sm {
+  margin-bottom: 5px;
+}
+
+/* stuff */
+
 section {
   width: 100%;
+  overflow-y: auto;
 }
 
 aside {
@@ -71,4 +92,59 @@ aside .divider {
   border: none;
   outline: none;
   background-color: #fff;
+}
+
+/* tags */
+
+.chip {
+  height: 30px;
+  display: inline-flex;
+  line-height: 30px;
+  background-color: #e3e3e3;
+  padding: 0px 4px 0px 10px;
+  border-radius: 15px;
+  margin: 5px 0px 5px 5px;
+}
+
+.chip .chip-label {
+  font-size: 14px;
+}
+
+.chip .chip-btn {
+  width: 24px;
+  line-height: 23px;
+  text-align: center;
+  height: 24px;
+  background-color: #b8b8b8;
+  border-radius: 12px;
+  color: #fafafa;
+  margin-top: 3px;
+  margin-left: 5px;
+}
+
+.chip .chip-btn:hover {
+  background-color: #ff6868;
+}
+
+/* rating */
+
+.rating .glyphicon {
+  font-size: 29px;
+  cursor: pointer;
+}
+
+.glyphicon.active {
+  color: #ff6868;
+}
+
+.glyphicon.active:hover {
+  color: #c75353;
+}
+
+.glyphicon.inactive {
+  color: #b8b8b8;
+}
+
+.glyphicon.inactive:hover {
+  color: #828282;
 }
