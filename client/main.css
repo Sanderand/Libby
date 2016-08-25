@@ -65,6 +65,10 @@ aside .divider {
   border-bottom: 1px solid #b8b8b8;
 }
 
+.whitespace {
+  height: 32px;
+}
+
 .search-bar {
   display: flex;
   flex-direction: row;
@@ -147,4 +151,38 @@ aside .divider {
 
 .glyphicon.inactive:hover {
   color: #828282;
+}
+
+/* flex */
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+}
+
+.flex-max {
+  flex: 1;
+}
+
+/* bullet */
+
+.bullet {
+  display: inline-block;
+  background-color: #ff6868;
+  font-size: 14px;
+  color: #fff;
+  line-height: 26px;
+  height: 26px;
+  min-width: 26px;
+  text-align: center;
+  border-radius: 13px;
 }

@@ -13,8 +13,6 @@
       {{/if}}
     </div>
 
-    <hr>
-
     <!-- VIEW -->
 
     {{#if eqMode "VIEW"}}
@@ -54,16 +52,25 @@
 
       <br>
 
-      <div class="container no-pad-left no-pad-right">
+      <div class="">
         <h4>Rented publications</h4>
 
-        {{#if rentedPublications.length}}
+        {{#if rentedPublications.count}}
           {{#each rentedPublications}}
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 no-pad-left no-pad-right card">
-              <div><a href="/app/publications/{{_id}}">{{author}}: {{title}}</a></div>
-              <div>Rented until {{moFormat rent.end_at 'DD.MM.YYYY'}}</div>
-              <div class="btn btn-sm btn-default publication-extend" data-id={{_id}}>Extend</div>
-              <div class="btn btn-sm btn-default publication-return" data-id={{_id}}>Return</div>
+            <div class="flex-row">
+              <div class="pad">
+                <span class="bullet">{{inc @index}}</span>
+              </div>
+
+              <div class="flex-max pad">
+                <div><a href="/app/publications/{{_id}}">{{author}}: {{title}}</a></div>
+                <div>Rented until {{moFormat rent.end_at 'DD.MM.YYYY'}}</div>
+              </div>
+
+              <div class="pad">
+                <div class="btn btn-sm btn-default publication-extend" data-id={{_id}}>Extend</div>
+                <div class="btn btn-sm btn-default publication-return" data-id={{_id}}>Return</div>
+              </div>
             </div>
           {{/each}}
         {{else}}
@@ -75,59 +82,59 @@
     <!-- CREATE -->
 
     {{#if eqMode "CREATE"}}
-      <div>
-        <div class="row">
-          <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>First Name</label>
-            <input class="form-control" type="text" name="first_name" value={{patron.first_name}}>
-          </div>
+      <div class="whitespace"></div>
 
-          <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>Last Name</label>
-            <input class="form-control" type="text" name="last_name" value={{patron.last_name}}>
-          </div>
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>First Name</label>
+          <input class="form-control" type="text" name="first_name" value={{patron.first_name}}>
         </div>
 
-        <div class="row">
-          <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>Email</label>
-            <input class="form-control" type="text" name="email" value={{patron.email}}>
-          </div>
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Last Name</label>
+          <input class="form-control" type="text" name="last_name" value={{patron.last_name}}>
+        </div>
+      </div>
 
-          <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>Phone</label>
-            <input class="form-control" type="text" name="phone" value={{patron.phone}}>
-          </div>
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Email</label>
+          <input class="form-control" type="text" name="email" value={{patron.email}}>
         </div>
 
-        <hr>
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Phone</label>
+          <input class="form-control" type="text" name="phone" value={{patron.phone}}>
+        </div>
+      </div>
 
-        <div class="row">
-          <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>Street</label>
-            <input class="form-control" type="text" name="street" value={{patron.street}}>
-          </div>
+      <div class="whitespace"></div>
 
-          <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>Postal Code</label>
-            <input class="form-control" type="text" name="postal_code" value={{patron.postal_code}}>
-          </div>
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Street</label>
+          <input class="form-control" type="text" name="street" value={{patron.street}}>
         </div>
 
-        <div class="row">
-          <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>City</label>
-            <input class="form-control" type="text" name="city" value={{patron.city}}>
-          </div>
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Postal Code</label>
+          <input class="form-control" type="text" name="postal_code" value={{patron.postal_code}}>
         </div>
+      </div>
 
-        <hr>
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>City</label>
+          <input class="form-control" type="text" name="city" value={{patron.city}}>
+        </div>
+      </div>
 
-        <div class="">
-          <div class="form-group">
-            <label>Notes</label>
-            <textarea class="form-control" rows="3" name="notes">{{patron.notes}}</textarea>
-          </div>
+      <div class="whitespace"></div>
+
+      <div class="">
+        <div class="form-group">
+          <label>Notes</label>
+          <textarea class="form-control" rows="3" name="notes">{{patron.notes}}</textarea>
         </div>
       </div>
     {{/if}}

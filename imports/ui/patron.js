@@ -58,7 +58,12 @@ Template.patron.events({
   },
 
   'click .enter-view-mode'() {
-    Template.instance().state.set('mode', 'VIEW');
+    const patronId = FlowRouter.getParam('patronId');
+    if (patronId === 'new') {
+        FlowRouter.go('/app/patrons');
+    } else {
+      Template.instance().state.set('mode', 'VIEW');
+    }
   },
 });
 
@@ -89,5 +94,9 @@ Template.patron.helpers({
     if (patron.city) addressParts.push(patron.city);
 
     return addressParts.join(', ');
+  },
+
+  inc: function(value) { // TODO make global
+    return parseInt(value) + 1;
   },
 });
