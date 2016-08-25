@@ -25,3 +25,6 @@ practicalmeteor:mocha
 kadira:flow-router
 kadira:blaze-layout
 tomwasd:history-polyfill
+momentjs:moment
+lbee:moment-helpers
+meteorhacks:aggregate

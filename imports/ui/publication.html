@@ -12,7 +12,9 @@
       <hr>
 
       {{#if publication.rent}}
-        <p>Not available; Currently rented</p>
+        <p class="bg-warning pad"><a href="/app/patrons/{{publication.rent.patronId}}/rented">Rented</a> until {{moFormat publication.rent.end_at 'DD.MM.YYYY'}}</p>
+      {{else}}
+        <p class="bg-info pad">Available</p>
       {{/if}}
 
       <hr>
