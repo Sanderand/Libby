@@ -2,10 +2,9 @@ import './patronList.js';
 import './patron.js';
 
 import './publicationList.js';
-import './publicationTag.js';
 import './publication.js';
+import './publicationRent.js';
 
-import './rent.js';
 import './rentList.js';
 
 import './sidebar.js';

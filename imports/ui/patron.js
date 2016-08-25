@@ -13,7 +13,7 @@ Template.patron.onCreated(function() {
 
   const patronId = FlowRouter.getParam('patronId');
   this.state = new ReactiveDict();
-  this.state.set('mode', (patronId === 'new') ? 'CREATE' : 'VIEW');
+  this.state.set('mode', (patronId === 'new') ? 'FORM' : 'VIEW');
 });
 
 Template.patron.events({
@@ -44,6 +44,17 @@ Template.patron.events({
     });
   },
 
+  'click .delete-patron'() {
+    const patronId = FlowRouter.getParam('patronId');
+    Meteor.call('patrons.remove', patronId, (err, data) => {
+      if (err) {
+        console.error(err);
+      }
+
+      FlowRouter.go('/app/patrons/');
+    });
+  },
+
   'click .publication-return'(event) {
     const publicationId = event.currentTarget.dataset.id;
     Meteor.call('publication.rent.return', publicationId, (err, data) => {
@@ -54,7 +65,7 @@ Template.patron.events({
   },
 
   'click .enter-form-mode'() {
-    Template.instance().state.set('mode', 'CREATE');
+    Template.instance().state.set('mode', 'FORM');
   },
 
   'click .enter-view-mode'() {

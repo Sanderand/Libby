@@ -61,7 +61,7 @@ authRoutes.route('/publications/:publicationId', {
 authRoutes.route('/publications/:publicationId/rent', {
   action: function() {
     BlazeLayout.render('contentLayout', {
-      content: 'rent',
+      content: 'publicationRent',
       sidebar: 'sidebar',
     });
   },
@@ -73,15 +73,6 @@ authRoutes.route('/rents/', {
   action: function() {
     BlazeLayout.render('contentLayout', {
       content: 'rentList',
-      sidebar: 'sidebar',
-    });
-  },
-});
-
-authRoutes.route('/rents/:rentId', {
-  action: function() {
-    BlazeLayout.render('contentLayout', {
-      content: 'rent',
       sidebar: 'sidebar',
     });
   },

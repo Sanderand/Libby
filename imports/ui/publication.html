@@ -1,25 +1,126 @@
 <template name="publication">
   <section class="pad">
-    <form class="publication-form">
-      <div>
-        <a href="/app/publications/"><button type="button" class="btn btn-default">Dismiss</button></a>
-        <button type="submit" class="btn btn-success form-submit">Save Changes</button>
+    <div>
+      <a href="/app/publications/"><button type="button" class="btn btn-default">Back</button></a>
 
-        <a href="/app/publications/{{publication._id}}/rent/"><span class="btn btn-primary publication-rent">Rent</span></a>
-        <button type="button" class="btn btn-primary publication-return">Return</button>
-      </div>
-
-      <hr>
-
-      {{#if publication.rent}}
-        <p class="bg-warning pad"><a href="/app/patrons/{{publication.rent.patronId}}">Rented</a> until {{formatDate publication.rent.end_at 'DD.MM.YYYY'}}</p>
-      {{else}}
-        <p class="bg-info pad">Available</p>
+      {{#if eqMode "VIEW"}}
+        <button type="button" class="btn btn-primary enter-form-mode">Edit</button>
       {{/if}}
 
-      <hr>
+      {{#if eqMode "FORM"}}
+        <button type="button" class="btn btn-warning enter-view-mode">Abort</button>
+        <button type="button" class="btn btn-success save-changes">Save</button>
+      {{/if}}
+    </div>
 
-      <input type="hidden" name="_id" value={{publication._id}}>
+    <!-- VIEW -->
+
+    {{#if eqMode "VIEW"}}
+      <div class="whitespace"></div>
+
+      {{#if publication.rent}}
+        <p class="bg-warning pad flex-row">
+          <span class="flex-max warning-info">
+            <span class="glyphicon glyphicon-info-sign text-warning pad-right-sm"></span>
+            <a href="/app/patrons/{{publication.rent.patronId}}">Rented</a>
+            <span>until {{formatDate publication.rent.end_at 'DD.MM.YYYY'}}</span>
+          </span>
+
+          <button class="btn btn-sm btn-warning publication-return">Return</button>
+        </p>
+      {{else}}
+        <p class="bg-info pad flex-row">
+          <span class="flex-max text-info">
+            <span class="glyphicon glyphicon-info-sign pad-right-sm"></span>
+            <span>Available</span>
+          </span>
+
+          <a href="/app/publications/{{publication._id}}/rent/">
+            <span class="btn btn-sm btn-info publication-rent">Rent</span>
+          </a>
+        </p>
+      {{/if}}
+
+      <div class="whitespace"></div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <div>
+            <b>Title:</b>
+            <span>{{publication.title}}</span>
+          </div>
+          <div>
+            <b>Subtitle:</b>
+            <span>{{publication.subtitle}}</span>
+          </div>
+          <div>
+            <b>Author:</b>
+            <span>{{publication.author}}</span>
+          </div>
+          <div>
+            <b>ISBN:</b>
+            <span>{{publication.isbn}}</span>
+          </div>
+          <div>
+            <b>Barcode:</b>
+            <span>{{publication.barcode}}</span>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <div>
+            <b>Publisher:</b>
+            <span>{{publication.publisher}}</span>
+          </div>
+          <div>
+            <b>Type:</b>
+            <span>{{publication.type}}</span>
+          </div>
+          <div>
+            <b>Year:</b>
+            <span>{{publication.year}}</span>
+          </div>
+          <div>
+            <b>Length:</b>
+            <span>{{publication.length}}</span>
+          </div>
+          <div>
+            <label>Rating</label>
+            <div class="rating">
+              <span class="glyphicon glyphicon-star active"></span>
+              <span class="glyphicon glyphicon-star active"></span>
+              <span class="glyphicon glyphicon-star active"></span>
+              <span class="glyphicon glyphicon-star active"></span>
+              <span class="glyphicon glyphicon-star inactive"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="whitespace"></div>
+
+      {{#if publication._id}}
+        <form class="tag-form">
+          <div class="input-group mar-bottom-sm">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-tags"></span></span>
+            <input class="form-control" type="text" name="tagName" placeholder="Hit return to add more tags...">
+          </div>
+
+          {{#each publication.tags}}
+            <div class="chip">
+              <span class="chip-label">{{this}}</span>
+              <span class="chip-btn tag-remove" data-name={{this}}>x</span>
+            </div>
+          {{/each}}
+        </form>
+      {{/if}}
+
+    {{/if}}
+
+    <!-- FORM -->
+
+    {{#if eqMode "FORM"}}
+      <div class="whitespace"></div>
 
       <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -39,7 +140,7 @@
         </div>
       </div>
 
-      <hr>
+      <div class="whitespace"></div>
 
       <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -64,6 +165,8 @@
           <input class="form-control" type="text" name="publisher" value={{publication.publisher}}>
         </div>
       </div>
+
+      <div class="whitespace"></div>
 
       <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -90,33 +193,12 @@
             <option {{selectedPubType publication.type "Other"}} value="Other">Other</option>
           </select>
         </div>
-
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <label>Rating</label>
-          <div class="rating">
-            <span class="glyphicon glyphicon-star active"></span>
-            <span class="glyphicon glyphicon-star active"></span>
-            <span class="glyphicon glyphicon-star active"></span>
-            <span class="glyphicon glyphicon-star active"></span>
-            <span class="glyphicon glyphicon-star inactive"></span>
-          </div>
-        </div>
       </div>
-    </form>
 
-    <hr>
-
-    {{#if publication._id}}
-      <form class="tag-form">
-        <div class="input-group mar-bottom-sm">
-          <span class="input-group-addon"><span class="glyphicon glyphicon-tags"></span></span>
-          <input class="form-control" type="text" name="tagName" placeholder="Hit return to add a tag...">
-        </div>
-
-        {{#each publication.tags}}
-          {{> publicationTag}}
-        {{/each}}
-      </form>
+      {{#if publication._id}}
+        <div class="whitespace"></div>
+        <button class="btn btn-danger btn-block delete-publication">Delete publication</button>
+      {{/if}}
     {{/if}}
 
   </section>

@@ -5,10 +5,10 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import { Publications } from '../api/publications.js';
 import { Patrons } from '../api/patrons.js';
 import * as constants from '../constants.js';
-import './rent.html';
+import './publicationRent.html';
 
 
-Template.rent.onCreated(function() {
+Template.publicationRent.onCreated(function() {
   this.state = new ReactiveDict();
   this.state.set('patronId', undefined);
 
@@ -16,7 +16,7 @@ Template.rent.onCreated(function() {
   Meteor.subscribe('patrons');
 });
 
-Template.rent.events({
+Template.publicationRent.events({
   'submit .rent-form'(event) {
     event.preventDefault();
 
@@ -38,7 +38,7 @@ Template.rent.events({
   }
 });
 
-Template.rent.helpers({
+Template.publicationRent.helpers({
   patrons() {
     return Patrons.find({}, { sort: { createdAt: -1 } });
   },

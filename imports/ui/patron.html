@@ -7,7 +7,7 @@
         <button type="button" class="btn btn-primary enter-form-mode">Edit</button>
       {{/if}}
 
-      {{#if eqMode "CREATE"}}
+      {{#if eqMode "FORM"}}
         <button type="button" class="btn btn-warning enter-view-mode">Abort</button>
         <button type="button" class="btn btn-success save-changes">Save</button>
       {{/if}}
@@ -79,9 +79,9 @@
       </div>
     {{/if}}
 
-    <!-- CREATE -->
+    <!-- FORM -->
 
-    {{#if eqMode "CREATE"}}
+    {{#if eqMode "FORM"}}
       <div class="whitespace"></div>
 
       <div class="row">
@@ -137,6 +137,11 @@
           <textarea class="form-control" rows="3" name="notes">{{patron.notes}}</textarea>
         </div>
       </div>
+
+      {{#if patron._id}}
+        <div class="whitespace"></div>
+        <button class="btn btn-danger btn-block delete-patron">Delete patron</button>
+      {{/if}}
     {{/if}}
 
   </section>
