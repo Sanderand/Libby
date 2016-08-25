@@ -57,4 +57,26 @@ Meteor.methods({
   'publications.stats.count'() {
     return Publications.find().count();
   },
+
+  'publications.tag.add'(publicationId, tagName) {
+    check(publicationId, String);
+    check(tagName, String);
+
+    return Publications.update(publicationId, {
+      $addToSet: {
+        tags: tagName
+      }
+    });
+  },
+
+  'publications.tag.remove'(publicationId, tagName) {
+    check(publicationId, String);
+    check(tagName, String);
+
+    return Publications.update(publicationId, {
+      $pull: {
+        tags: tagName
+      }
+    });
+  },
 });

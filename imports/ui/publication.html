@@ -60,11 +60,27 @@
           <input class="form-control" type="text" name="length" value={{publication.length}}>
         </div>
       </div>
-
-      <hr>
-
-      <h3>Tags</h3>
-
     </form>
+
+    <hr>
+
+    {{#if publication._id}}
+      <form class="tag-form">
+        <h3>Tags</h3>
+
+        <div class="form-group">
+          <label>Tag name</label>
+          <input class="form-control" type="text" name="tagName">
+          <button type="submit" class="btn btn-default">Add</button>
+        </div>
+
+        <div>
+          {{#each publication.tags}}
+            {{> publicationTag}}
+          {{/each}}
+        </div>
+      </form>
+    {{/if}}
+
   </section>
 </template>

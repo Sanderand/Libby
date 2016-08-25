@@ -2,6 +2,7 @@ import './patronList.js';
 import './patron.js';
 
 import './publicationList.js';
+import './publicationTag.js';
 import './publication.js';
 
 import './sidebar.js';

@@ -9,9 +9,3 @@ Template.publicationListItem.events({
     FlowRouter.go('/app/publications/' + publicationId)
   },
 });
-
-Template.publicationListItem.helpers({
-  author() {
-    return 'Paulo Coelho';
-  },
-});

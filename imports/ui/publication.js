@@ -1,11 +1,14 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
+// import { ReactiveDict } from 'meteor/reactive-dict';
 
 import { Publications } from '../api/publications.js';
 import './publication.html';
 
 
 Template.publication.onCreated(function() {
+  // this.state = new ReactiveDict();
+  // this.state.set('tags', []);
   Meteor.subscribe('publications');
 });
 
@@ -34,6 +37,22 @@ Template.publication.events({
       FlowRouter.go('/app/publications/' + publicationId);
     });
   },
+
+  'submit .tag-form'(event) {
+    event.preventDefault();
+
+    const target = event.target;
+    const tagName = target.tagName.value;
+    const publicationId = FlowRouter.getParam('publicationId');
+
+    Meteor.call('publications.tag.add', publicationId, tagName, (err, data) => {
+      if (err) {
+        console.error(err);
+      }
+    });
+
+    target.tagName.value = '';
+  }
 });
 
 Template.publication.helpers({
@@ -46,4 +65,8 @@ Template.publication.helpers({
   selectedPubType: function(value, compare) {
     return value == compare ? 'selected' : '';
   },
+
+  // tags: function() {
+  //   return Template.instance().state.get('tags');
+  // }
 });
