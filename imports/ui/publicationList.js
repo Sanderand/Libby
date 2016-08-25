@@ -7,6 +7,10 @@ import './publicationList.html';
 
 Template.publicationList.onCreated(() => {
   Meteor.subscribe('publications');
+
+  // Meteor.call('publications.with.rent', (err, data) => {
+  //   console.log(data, err);
+  // });
 });
 
 Template.publicationList.helpers({

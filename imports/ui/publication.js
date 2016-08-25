@@ -38,6 +38,15 @@ Template.publication.events({
     });
   },
 
+  'click .publication-return'() {
+    const publicationId = FlowRouter.getParam('publicationId');
+    Meteor.call('publication.rent.return', publicationId, (err, data) => {
+      if (err) {
+        console.error(err);
+      }
+    });
+  },
+
   'submit .tag-form'(event) {
     event.preventDefault();
 
@@ -65,6 +74,10 @@ Template.publication.helpers({
   selectedPubType: function(value, compare) {
     return value == compare ? 'selected' : '';
   },
+
+  serialize: function(val) {
+    return JSON.stringify(val);
+  }
 
   // tags: function() {
   //   return Template.instance().state.get('tags');

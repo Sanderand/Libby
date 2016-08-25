@@ -58,6 +58,15 @@ authRoutes.route('/publications/:publicationId', {
   },
 });
 
+authRoutes.route('/publications/:publicationId/rent', {
+  action: function() {
+    BlazeLayout.render('contentLayout', {
+      content: 'rent',
+      sidebar: 'sidebar',
+    });
+  },
+});
+
 // RENTS
 
 authRoutes.route('/rents/', {
@@ -115,6 +124,15 @@ authRoutes.route('/patrons/:patronId', {
   action: function() {
     BlazeLayout.render('contentLayout', {
       content: 'patron',
+      sidebar: 'sidebar',
+    });
+  },
+});
+
+authRoutes.route('/patrons/:patronId/rented', {
+  action: function() {
+    BlazeLayout.render('contentLayout', {
+      content: 'patronRented',
       sidebar: 'sidebar',
     });
   },

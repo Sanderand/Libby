@@ -1,0 +1,14 @@
+<template name="patronRented">
+  <section class="pad">
+    <h2>Rented Publications</h2>
+
+    <ul>
+      {{#each rented}}
+        <li>
+          {{author}} - {{title}}
+          <button class="btn btn-sm btn-default publication-return" data-id={{_id}}>Return</button>
+        </li>
+      {{/each}}
+    </ul>
+  </section>
+</template>

@@ -1,12 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 
-import { Rents } from '../api/rents.js';
+import { Publications } from '../api/publications.js';
 import './rentList.html';
 
 
 Template.rentList.onCreated(() => {
-  Meteor.subscribe('rents');
+  Meteor.subscribe('publications');
 });
 
 Template.rentList.events({
@@ -18,6 +18,10 @@ Template.rentList.events({
 
 Template.rentList.helpers({
   rents() {
-    return Rents.find({}, { sort: { createdAt: -1 } });
+    // return Publications.find({
+    //   '_id': { '$exists': 1 }
+    // }, (err, data) => {
+    //   console.log(err, data);
+    // });
   },
 });

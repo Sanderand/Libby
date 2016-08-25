@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 
+import * as constants from '../constants.js';
 export const Publications = new Mongo.Collection('publications');
 
 if (Meteor.isServer) {
@@ -76,6 +77,37 @@ Meteor.methods({
     return Publications.update(publicationId, {
       $pull: {
         tags: tagName
+      }
+    });
+  },
+
+  'publication.rent.upsert'(publicationId, patronId) {
+    check(publicationId, String);
+    check(patronId, String);
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    return Publications.upsert(publicationId, {
+      $set: {
+        'rent.start_at': new Date(),
+        'rent.end_at': new Date(Date.now() + constants.rent_duration),
+        'rent.patronId': patronId,
+      }
+    });
+  },
+
+  'publication.rent.return'(publicationId) {
+    check(publicationId, String);
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    return Publications.update(publicationId, {
+      $unset: {
+        rent: '',
       }
     });
   },

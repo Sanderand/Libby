@@ -1,63 +1,55 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
+import { ReactiveDict } from 'meteor/reactive-dict';
 
-import { Rents } from '../api/rents.js';
+import { Publications } from '../api/publications.js';
+import { Patrons } from '../api/patrons.js';
 import * as constants from '../constants.js';
 import './rent.html';
 
 
 Template.rent.onCreated(function() {
-  Meteor.subscribe('rents');
+  this.state = new ReactiveDict();
+  this.state.set('patronId', undefined);
+
+  Meteor.subscribe('publications');
+  Meteor.subscribe('patrons');
 });
 
 Template.rent.events({
   'submit .rent-form'(event) {
     event.preventDefault();
 
-    const target = event.target;
-    const rent = {
-      _id: target._id.value || null,
-      start_at: target.start_at.value,
-      end_at: target.end_at.value,
-      publicationRef: target.publicationRef.value,
-      userRef: target.userRef.value,
-      state: target.state.value,
-    };
+    const publicationId = FlowRouter.getParam('publicationId');
+    const patronId = Template.instance().state.get('patronId');
 
-    Meteor.call('rents.upsert', rent, (err, data) => {
+    Meteor.call('publication.rent.upsert', publicationId, patronId, (err, data) => {
       if (err) {
         console.error(err); // TODO print error to form
       }
 
-      const rentId = rent._id || data.insertedId;
-      FlowRouter.go('/app/rents/' + rentId);
+      FlowRouter.go('/app/publications/' + publicationId);
     });
   },
+
+  'click .patron-select'(event, instance) {
+    const patronId = event.currentTarget.dataset.id;
+    Template.instance().state.set('patronId', patronId);
+  }
 });
 
 Template.rent.helpers({
-  rent: function() {
-    const rentId = FlowRouter.getParam('rentId');
-    var rent = Rents.findOne({_id: rentId}) || {
-      start_at: new Date(),
-      end_at: new Date(Date.now() + constants.rent_duration),
-    };
-    return rent;
+  patrons() {
+    return Patrons.find({}, { sort: { createdAt: -1 } });
+  },
+
+  publication: function() {
+    const publicationId = FlowRouter.getParam('publicationId');
+    var publication = Publications.findOne({_id: publicationId}) || {};
+    return publication;
   },
 
   selectedPubType: function(value, compare) {
     return value == compare ? 'selected' : '';
   },
-
-  publicationRef: function(value) {
-    return value || FlowRouter.getQueryParam('publicationId');
-  },
-
-  userRef: function(value) {
-    return value || FlowRouter.getQueryParam('userId');
-  },
-
-  method: function() {
-    return (FlowRouter.getParam('rentId') === 'new') ? constants.str_method_create : constants.str_method_update;
-  }
 });

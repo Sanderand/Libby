@@ -5,9 +5,15 @@
         <a href="/app/publications/"><button type="button" class="btn btn-default">Dismiss</button></a>
         <button type="submit" class="btn btn-success form-submit">Save Changes</button>
 
-        <a href="/app/rents/new?publicationId={{publication._id}}"><span class="btn btn-primary publication-rent">Rent</span></a>
+        <a href="/app/publications/{{publication._id}}/rent/"><span class="btn btn-primary publication-rent">Rent</span></a>
         <button type="button" class="btn btn-primary publication-return">Return</button>
       </div>
+
+      <hr>
+
+      {{#if publication.rent}}
+        <p>Not available; Currently rented</p>
+      {{/if}}
 
       <hr>
 
