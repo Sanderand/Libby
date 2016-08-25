@@ -19,4 +19,8 @@ Template.publicationList.helpers({
   publications() {
     return Publications.find({});
   },
+
+  isAvailable(publication) {
+    return !(publication.rent && publication.rent.patronId);
+  },
 });

@@ -122,21 +122,33 @@
     {{#if eqMode "FORM"}}
       <div class="whitespace"></div>
 
+      <div class="form-group">
+        <label>ISBN</label>
+        <div class="input-group">
+          <input class="form-control" type="text" name="isbn" value={{publication.isbn}} placeholder="Enter or scan">
+          <span class="input-group-addon btn isbn-look-up">Look Up</span>
+        </div>
+      </div>
+
+      <div class="whitespace"></div>
+
       <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <label>ISBN</label>
-          <div class="input-group">
-            <input class="form-control" type="text" name="isbn" value={{publication.isbn}} placeholder="...">
-            <span class="input-group-addon btn isbn-look-up">Look Up</span>
-          </div>
+          <label>Barcode</label>
+          <input class="form-control" type="text" name="barcode" value={{publication.barcode}} placeholder="">
         </div>
 
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <label>Barcode</label>
-          <div class="input-group">
-            <input class="form-control" type="text" name="barcode" value={{publication.barcode}} placeholder="...">
-            <span class="input-group-addon">Local</span>
-          </div>
+          <label>Type</label>
+          <select class="form-control" name="type">
+            <option {{selectedPubType publication.type "Book"}} value="Book">Book</option>
+            <option {{selectedPubType publication.type "Magazine"}} value="Magazine">Magazine</option>
+            <option {{selectedPubType publication.type "DVD"}} value="DVD">DVD</option>
+            <option {{selectedPubType publication.type "Blu-Ray"}} value="Blu-Ray">Blu-Ray</option>
+            <option {{selectedPubType publication.type "Video Game"}} value="Video Game">Video Game</option>
+            <option {{selectedPubType publication.type "Game"}} value="Game">Game</option>
+            <option {{selectedPubType publication.type "Other"}} value="Other">Other</option>
+          </select>
         </div>
       </div>
 
@@ -177,21 +189,6 @@
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
           <label>Length</label>
           <input class="form-control" type="text" name="length" value={{publication.length}}>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <label>Type</label>
-          <select class="form-control" name="type">
-            <option {{selectedPubType publication.type "Book"}} value="Book">Book</option>
-            <option {{selectedPubType publication.type "Magazine"}} value="Magazine">Magazine</option>
-            <option {{selectedPubType publication.type "DVD"}} value="DVD">DVD</option>
-            <option {{selectedPubType publication.type "Blu-Ray"}} value="Blu-Ray">Blu-Ray</option>
-            <option {{selectedPubType publication.type "Video Game"}} value="Video Game">Video Game</option>
-            <option {{selectedPubType publication.type "Game"}} value="Game">Game</option>
-            <option {{selectedPubType publication.type "Other"}} value="Other">Other</option>
-          </select>
         </div>
       </div>
 

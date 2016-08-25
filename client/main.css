@@ -8,6 +8,16 @@ main {
   flex-direction: row;
 }
 
+/* texts */
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
 /* margins and paddings */
 
 .pad {

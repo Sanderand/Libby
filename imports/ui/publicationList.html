@@ -13,6 +13,7 @@
             <th>Publisher</th>
             <th>Type</th>
             <th>Rating</th>
+            <th>Available</th>
           </tr>
         </thead>
         <tbody>
@@ -22,7 +23,19 @@
               <td>{{author}}</td>
               <td>{{publisher}}</td>
               <td>{{type}}</td>
-              <td>{{rating}}</td>
+              <td class="text-center">
+                {{#if rating}}
+                  <span>{{rating}}</span>
+                  <span class="glyphicon glyphicon-star"></span>
+                {{/if}}
+              </td>
+              <td class="text-center">
+                {{#if isAvailable this}}
+                  <span class="glyphicon glyphicon-ok"></span>
+                {{else}}
+                  <span class="glyphicon glyphicon-remove"></span>
+                {{/if}}
+              </td>
             </tr>
           {{/each}}
         </tbody>
