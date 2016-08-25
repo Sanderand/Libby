@@ -29,6 +29,7 @@ Meteor.methods({
     check(patron.street, String);
     check(patron.postal_code, String);
     check(patron.city, String);
+    check(patron.notes, String);
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
@@ -43,6 +44,7 @@ Meteor.methods({
         street: patron.street,
         postal_code: patron.postal_code,
         city: patron.city,
+        notes: patron.notes,
         updatedAt: new Date(),
       }
     });
@@ -52,5 +54,9 @@ Meteor.methods({
     check(searchValue, String);
 
     // TODO
+  },
+
+  'patrons.stats.count'() {
+    return Patrons.find().count();
   },
 });

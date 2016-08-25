@@ -1,18 +1,16 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
-import { ReactiveDict } from 'meteor/reactive-dict';
 
 import { Publications } from '../api/publications.js';
 import './publication.html';
 
 
-Template.publicationEdit.onCreated(() => {
-  this.state = new ReactiveDict();
+Template.publication.onCreated(function() {
   Meteor.subscribe('publications');
 });
 
-Template.publicationEdit.events({
-  'submit .publication-edit-form'(event) {
+Template.publication.events({
+  'submit .publication-form'(event) {
     event.preventDefault();
 
     const target = event.target;
@@ -38,38 +36,9 @@ Template.publicationEdit.events({
   },
 });
 
-Template.publicationEdit.helpers({
+Template.publication.helpers({
   publication: function() {
     const publicationId = FlowRouter.getParam('publicationId');
-    var publication = Publications.findOne({_id: publicationId}) || {};
-    return publication;
-  },
-});
-
-// SHOW
-
-Template.publicationShow.onCreated(() => {
-  this.state = new ReactiveDict();
-  Meteor.subscribe('publications');
-});
-
-Template.publicationShow.events({
-  'click .remove-publication'(event) {
-    const publicationId = FlowRouter.getParam('publicationId');
-
-    Meteor.call('publications.remove', publicationId, (err, data) => {
-      if (err) {
-        console.error(err); // TODO print error to form
-      } else {
-        FlowRouter.go('/app/publications/');
-      }
-    });
-  },
-});
-
-Template.publicationShow.helpers({
-  publication: function() {
-    var publicationId = FlowRouter.getParam('publicationId');
     var publication = Publications.findOne({_id: publicationId}) || {};
     return publication;
   },

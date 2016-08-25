@@ -14,9 +14,3 @@ Template.publicationList.helpers({
     return Publications.find({}, { sort: { createdAt: -1 } });
   },
 });
-
-Template.publicationList.events({
-  'click .add-publication'(event) {
-    FlowRouter.go('/app/publications/new/edit'); // TODO move to constants
-  },
-});

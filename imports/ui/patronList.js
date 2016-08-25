@@ -14,9 +14,3 @@ Template.patronList.helpers({
     return Patrons.find({}, { sort: { createdAt: -1 } });
   },
 });
-
-Template.patronList.events({
-  'click .add-patron'(event) {
-    FlowRouter.go('/app/patrons/new/edit'); // TODO move to constants
-  },
-});

@@ -53,4 +53,8 @@ Meteor.methods({
 
     // TODO
   },
+
+  'publications.stats.count'() {
+    return Publications.find().count();
+  },
 });

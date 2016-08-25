@@ -1,73 +1,58 @@
-<template name="publicationShow">
+<template name="publication">
   <section class="pad">
-    <div>
-      <a href="/app/publications/"><button class="btn btn-default">Back</button></a>
-      <a href="/app/publications/{{publication._id}}/edit"><button class="btn btn-success">Edit</button></a>
-      <button class="btn btn-danger remove-publication">Delete</button>
-    </div>
-
-    <hr>
-
-    <div>_id: {{publication._id}}</div>
-    <div>Title: {{publication.title}}</div>
-    <div>Author: {{publication.author}}</div>
-    <div>Publisher: {{publication.publisher}}</div>
-    <div>Type: {{publication.type}}</div>
-    <div>Year: {{publication.year}}</div>
-    <div>Rating: {{publication.rating}}</div>
-    <div>Length: {{publication.length}}</div>
-  </section>
-</template>
-
-<template name="publicationEdit">
-  <section class="pad">
-    <form class="publication-edit-form">
+    <form class="publication-form">
       <div>
-        <a href="/app/publications/{{publication._id}}"><button type="button" class="btn btn-default">Cancel</button></a>
-        <button type="submit" class="btn btn-success form-submit">Submit</button>
+        <a href="/app/publications/"><button type="button" class="btn btn-default">Dismiss</button></a>
+        <button type="submit" class="btn btn-success form-submit">Save Changes</button>
       </div>
 
       <hr>
 
-      <!-- <div> -->
-        <!-- <label>_id</label> -->
-        <input type="hidden" name="_id" value={{publication._id}}>
-      <!-- </div> -->
+      <input type="hidden" name="_id" value={{publication._id}}>
 
-      <div>
-        <label>Title</label>
-        <input type="text" name="title" value={{publication.title}}>
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Title</label>
+          <input class="form-control" type="text" name="title" value={{publication.title}}>
+        </div>
+
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Author</label>
+          <input class="form-control" type="text" name="author" value={{publication.author}}>
+        </div>
       </div>
 
-      <div>
-        <label>Author</label>
-        <input type="text" name="author" value={{publication.author}}>
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Publisher</label>
+          <input class="form-control" type="text" name="publisher" value={{publication.publisher}}>
+        </div>
+
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Type</label>
+          <input class="form-control" type="text" name="type" value={{publication.type}}>
+        </div>
       </div>
 
-      <div>
-        <label>Publisher</label>
-        <input type="text" name="publisher" value={{publication.publisher}}>
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Year</label>
+          <input class="form-control" type="text" name="year" value={{publication.year}}>
+        </div>
+
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Rating</label>
+          <input class="form-control" type="text" name="rating" value={{publication.rating}}>
+        </div>
       </div>
 
-      <div>
-        <label>Type</label>
-        <input type="text" name="type" value={{publication.type}}>
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Length</label>
+          <input class="form-control" type="text" name="length" value={{publication.length}}>
+        </div>
       </div>
 
-      <div>
-        <label>Year</label>
-        <input type="text" name="year" value={{publication.year}}>
-      </div>
-
-      <div>
-        <label>Rating</label>
-        <input type="text" name="rating" value={{publication.rating}}>
-      </div>
-
-      <div>
-        <label>Length</label>
-        <input type="text" name="length" value={{publication.length}}>
-      </div>
     </form>
   </section>
 </template>

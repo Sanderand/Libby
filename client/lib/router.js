@@ -50,20 +50,11 @@ authRoutes.route('/publications', {
 });
 
 authRoutes.route('/publications/:publicationId', {
-  action: function(params) {
+  action: function() {
     BlazeLayout.render('contentLayout', {
-      content: 'publicationShow',
+      content: 'publication',
       sidebar: 'sidebar',
     });
-  },
-});
-
-authRoutes.route('/publications/:publicationId/edit', {
-  action: function(params) {
-    BlazeLayout.render('contentLayout', {
-      content: 'publicationEdit',
-      sidebar: 'sidebar',
-    })
   },
 });
 
@@ -101,19 +92,10 @@ authRoutes.route('/patrons', {
 });
 
 authRoutes.route('/patrons/:patronId', {
-  action: function(params) {
+  action: function() {
     BlazeLayout.render('contentLayout', {
-      content: 'patronShow',
+      content: 'patron',
       sidebar: 'sidebar',
     });
-  },
-});
-
-authRoutes.route('/patrons/:patronId/edit', {
-  action: function(params) {
-    BlazeLayout.render('contentLayout', {
-      content: 'patronEdit',
-      sidebar: 'sidebar',
-    })
   },
 });
