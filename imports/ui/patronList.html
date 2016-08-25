@@ -13,12 +13,15 @@
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
-            <th>Address</th>
           </tr>
         </thead>
         <tbody>
           {{#each patrons}}
-            {{> patronListItem}}
+            <tr class="patron-list-item" data-id={{_id}}>
+              <td>{{name}}</td>
+              <td>{{email}}</td>
+              <td>{{phone}}</td>
+            </tr>
           {{/each}}
         </tbody>
       </table>

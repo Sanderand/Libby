@@ -14,14 +14,18 @@
             <th>Author</th>
             <th>Publisher</th>
             <th>Type</th>
-            <th>Year</th>
             <th>Rating</th>
-            <th>Length</th>
           </tr>
         </thead>
         <tbody>
           {{#each publications}}
-            {{> publicationListItem}}
+            <tr class="publication-list-item" data-id={{_id}}>
+              <td>{{title}}</td>
+              <td>{{author}}</td>
+              <td>{{publisher}}</td>
+              <td>{{type}}</td>
+              <td>{{rating}}</td>
+            </tr>
           {{/each}}
         </tbody>
       </table>
