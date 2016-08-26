@@ -3,26 +3,42 @@
     {{> searchBar}}
 
     <div class="pad">
-      <h1>Patrons <a href="/app/patrons/new"><span class="glyphicon glyphicon-plus-sign"></span></a></h1>
+      <div class="flex-row">
+        <h1 class="flex-max">Patrons</h1>
+        <a class="plus-btn text-primary text-primary-hover" href="/app/patrons/new">
+          <span class="glyphicon glyphicon-plus-sign"></span>
+        </a>
+      </div>
 
-      <table class="table table-hover table-striped">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each patrons}}
-            <tr class="patron-list-item" data-id={{_id}}>
-              <td>{{name}}</td>
-              <td>{{email}}</td>
-              <td>{{phone}}</td>
-            </tr>
-          {{/each}}
-        </tbody>
-      </table>
+      {{#each patrons}}
+        <div class="card flex-row open-patron" data-id={{_id}}>
+          <div class="flex-max">
+            <div class="card-left-top">
+              {{maxLength name "30"}}
+            </div>
+            <div class="card-left-bottom">
+              <span>{{phone}}</span>
+              {{#if email}}
+                <span>· {{ email}}</span>
+              {{/if}}
+            </div>
+          </div>
+
+          <div class="flex-column flex-self-stretch">
+            <div class="card-right-bottom">
+              {{#if street}}
+                <div>{{street}}</div>
+              {{/if}}
+              {{#if postal_code}}
+                <div>{{postal_code}}</div>
+              {{/if}}
+              {{#if city}}
+                <div>{{city}}</div>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      {{/each}}
     </div>
   </section>
 </template>

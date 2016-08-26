@@ -9,7 +9,7 @@ Template.patronList.onCreated(() => {
 });
 
 Template.patronList.events({
-  'click .patron-list-item'(event) {
+  'click .open-patron'(event) {
     const patronId = event.currentTarget.dataset.id;
     FlowRouter.go('/app/patrons/' + patronId)
   },

@@ -9,7 +9,7 @@ Template.publicationList.onCreated(() => {
 });
 
 Template.publicationList.events({
-  'click .publication-list-item'(event) {
+  'click .open-publication'(event) {
     const publicationId = event.currentTarget.dataset.id;
     FlowRouter.go('/app/publications/' + publicationId)
   },
@@ -20,7 +20,7 @@ Template.publicationList.helpers({
     return Publications.find({});
   },
 
-  isAvailable(publication) {
-    return !(publication.rent && publication.rent.patronId);
+  isRented(publication) {
+    return (publication.rent && publication.rent.patronId);
   },
 });

@@ -3,43 +3,46 @@
     {{> searchBar}}
 
     <div class="pad">
-      <h1>Publications <a href="/app/publications/new"><span class="glyphicon glyphicon-plus-sign"></span></a></h1>
+      <div class="flex-row">
+        <h1 class="flex-max">Publications</h1>
+        <a class="plus-btn text-primary text-primary-hover" href="/app/publications/new">
+          <span class="glyphicon glyphicon-plus-sign"></span>
+        </a>
+      </div>
 
-      <table class="table table-hover table-striped">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Publisher</th>
-            <th>Type</th>
-            <th>Rating</th>
-            <th>Available</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each publications}}
-            <tr class="publication-list-item" data-id={{_id}}>
-              <td>{{title}}</td>
-              <td>{{author}}</td>
-              <td>{{publisher}}</td>
-              <td>{{type}}</td>
-              <td class="text-center">
-                {{#if rating}}
-                  <span>{{rating}}</span>
-                  <span class="glyphicon glyphicon-star"></span>
-                {{/if}}
-              </td>
-              <td class="text-center">
-                {{#if isAvailable this}}
-                  <span class="glyphicon glyphicon-ok"></span>
-                {{else}}
-                  <span class="glyphicon glyphicon-remove"></span>
-                {{/if}}
-              </td>
-            </tr>
-          {{/each}}
-        </tbody>
-      </table>
+      {{#each publications}}
+        <div class="card flex-row open-publication" data-id={{_id}}>
+          <div class="flex-max">
+            <div class="card-left-top">
+              <span>{{maxLength title "30"}}</span>
+              {{#if subtitle}}
+                <small>· {{maxLength subtitle "30"}}</small>
+              {{/if}}
+            </div>
+            <div class="card-left-bottom">
+              <span>{{author}}</span>
+              {{#if publisher}}
+                <span>({{publisher}})</span>
+              {{/if}}
+            </div>
+          </div>
+
+          <div class="flex-column flex-self-stretch">
+            <div class="card-right-top flex-max">
+              {{#if rating}}
+                <span>{{rating}}</span>
+                <span class="glyphicon glyphicon-star text-icon text-primary"></span>
+              {{/if}}
+            </div>
+            <div class="card-right-bottom">
+              <span>{{type}}</span>
+              {{#if isRented this}}
+                <span class="text-primary">is rented</span>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      {{/each}}
     </div>
   </section>
 </template>
