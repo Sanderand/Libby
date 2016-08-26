@@ -131,7 +131,9 @@
             {{#each publication.tags}}
               <div class="chip">
                 <span class="chip-label">{{this}}</span>
-                <span class="chip-btn tag-remove" data-name={{this}}>x</span>
+                <span class="chip-btn tag-remove" data-name={{this}}>
+                  <span class="glyphicon glyphicon-remove"></span>
+                </span>
               </div>
             {{/each}}
           </div>

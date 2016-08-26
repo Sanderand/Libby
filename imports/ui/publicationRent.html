@@ -27,7 +27,7 @@
         <div class="card">
           <h4 class="text-light">Results</h4>
 
-          {{#if searchResults.count}}
+          {{#if searchResults.length}}
             <div class="results">
               {{#each searchResults}}
                 <div class="chip select-patron {{activeClass this._id}}" data-id={{this._id}}>
@@ -39,7 +39,7 @@
               {{/each}}
             </div>
           {{else}}
-            <div>Couldn't find patron for the criteria XYZ</div>
+            <p>Couldn't find patron for the criteria <span class="text-primary">{{searchQuery}}</span>.</p>
           {{/if}}
         </div>
       {{/if}}

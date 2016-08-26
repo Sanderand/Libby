@@ -191,6 +191,7 @@ aside .divider {
 }
 
 .chip-btn .glyphicon {
+  top: 2px;
   font-size: 12px;
 }
 

@@ -51,10 +51,23 @@ Meteor.methods({
     });
   },
 
-  'patrons.search'(searchValue) {
-    check(searchValue, String);
+  'patrons.search.name'(searchQuery) {
+    check(searchQuery, String);
 
-    // TODO
+    const regex = new RegExp(searchQuery, 'i');
+
+    return Patrons.find({
+      $or: [{
+        first_name: regex,
+      }, {
+        last_name: regex,
+      }]
+    }, {
+      limit: 5,
+      sort: {
+        last_name: 1,
+      },
+    }).fetch();
   },
 
   'patrons.stats.count'() {

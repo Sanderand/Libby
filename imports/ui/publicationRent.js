@@ -22,13 +22,18 @@ Template.publicationRent.onCreated(function() {
 Template.publicationRent.events({
   'submit .search-form'(event) {
     event.preventDefault();
-    var instance = Template.instance();
-    instance.state.set('searchPending', true);
 
-    setTimeout(function() {
+    const searchQuery = event.target.searchQuery.value;
+    var instance = Template.instance();
+
+    instance.state.set('searchPending', true);
+    instance.state.set('searchQuery', searchQuery);
+
+    Meteor.call('patrons.search.name', searchQuery, (err, res) => {
+      instance.state.set('searchResults', res);
       instance.state.set('searchPending', false);
       instance.state.set('searchDone', true);
-    }.bind(this), 1000);
+    });
   },
 
   'click .select-patron'(event) {
@@ -39,7 +44,7 @@ Template.publicationRent.events({
     const patronId = Template.instance().state.get('selectedPatron');
     const publicationId = FlowRouter.getParam('publicationId');
 
-    Meteor.call('publication.rent.upsert', publicationId, patronId, (err, data) => {
+    Meteor.call('publication.rent.upsert', publicationId, patronId, (err, res) => {
       if (err) {
         console.error(err); // TODO print error to form
       }
@@ -72,11 +77,11 @@ Template.publicationRent.helpers({
     return Template.instance().state.get('selectedPatron');
   },
 
+  searchQuery: function() {
+    return Template.instance().state.get('searchQuery');
+  },
+
   searchResults: function() {
-    return Patrons.find({}, {
-      sort: {
-        createdAt: -1,
-      }
-    });
+    return Template.instance().state.get('searchResults');
   },
 });

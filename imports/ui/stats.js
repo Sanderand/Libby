@@ -17,7 +17,7 @@ Template.stats.onCreated(function() {
     this.state.set('patronsCount', data);
   });
 
-    Meteor.call('publications.stats.count', (err, data) => {
+  Meteor.call('publications.stats.count', (err, data) => {
     this.state.set('publicationsCount', data);
   });
 });

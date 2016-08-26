@@ -17,7 +17,11 @@ Template.publicationList.events({
 
 Template.publicationList.helpers({
   publications() {
-    return Publications.find({});
+    return Publications.find({}, {
+      sort: {
+        title: 1,
+      }
+    });
   },
 
   isRented(publication) {
