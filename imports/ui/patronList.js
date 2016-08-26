@@ -17,20 +17,10 @@ Template.patronList.events({
 
 Template.patronList.helpers({
   patrons() {
-    return Patrons.find({}, { sort: { createdAt: -1 } });
-  },
-
-  name() {
-    return this.first_name + ' ' + this.last_name;
-  },
-
-  address() {
-    var addressParts = [];
-
-    if (this.street) addressParts.push(this.street);
-    if (this.postal_code) addressParts.push(this.postal_code);
-    if (this.city) addressParts.push(this.city);
-
-    return addressParts.join(', ');
+    return Patrons.find({}, {
+      sort: {
+        last_name: 1
+      }
+    });
   },
 });

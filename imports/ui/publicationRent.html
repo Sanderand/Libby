@@ -1,24 +1,49 @@
 <template name="publicationRent">
   <section class="pad">
-    <form class="rent-form">
-      <div>
-        <a href="/app/rents/"><button type="button" class="btn btn-default">Dismiss</button></a>
-        <button type="submit" class="btn btn-success form-submit">{{method}} Rent</button>
-      </div>
+    <div>
+      <a href="/app/publications/{{publicationId}}"><button type="button" class="btn btn-default">Back</button></a>
+      {{#if selectedPatron}}
+        <button type="button" class="btn btn-primary rent-publication">Save</button>
+      {{/if}}
+    </div>
 
-      <hr>
+    <div class="whitespace"></div>
 
-      <h4>Select a patron</h4>
+    <div class="card">
+      <h4 class="text-light">Search patron</h4>
 
-      <ul>
-      {{#each patrons}}
-        <li class="patron-select" data-id={{_id}}>{{first_name}} {{last_name}}</li>
-      {{/each}}
-      </ul>
+      <form class="form-group search-form">
+        <div class="input-group mar-bottom-sm">
+          <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+          <input class="form-control" type="text" name="searchQuery" placeholder="Hit return to search a patron">
+        </div>
+      </form>
+    </div>
 
-      <hr>
+    {{#if searchPending}}
+      {{> spinner}}
+    {{else}}
+      {{#if searchDone}}
+        <div class="card">
+          <h4 class="text-light">Results</h4>
 
-      <input type="hidden" name="_id" value={{publication._id}}>
-    </form>
+          {{#if searchResults.count}}
+            <div class="results">
+              {{#each searchResults}}
+                <div class="chip select-patron {{activeClass this._id}}" data-id={{this._id}}>
+                  <span class="chip-label">{{this.first_name}} {{this.last_name}}</span>
+                  <span class="chip-btn">
+                    <span class="glyphicon glyphicon-ok"></span>
+                  </span>
+                </div>
+              {{/each}}
+            </div>
+          {{else}}
+            <div>Couldn't find patron for the criteria XYZ</div>
+          {{/if}}
+        </div>
+      {{/if}}
+    {{/if}}
+
   </section>
 </template>

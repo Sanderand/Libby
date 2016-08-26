@@ -6,22 +6,38 @@ import { Publications } from '../api/publications.js';
 import { Patrons } from '../api/patrons.js';
 import * as constants from '../constants.js';
 import './publicationRent.html';
+import './spinner.html';
 
 
 Template.publicationRent.onCreated(function() {
-  this.state = new ReactiveDict();
-  this.state.set('patronId', undefined);
-
   Meteor.subscribe('publications');
   Meteor.subscribe('patrons');
+
+  this.state = new ReactiveDict();
+  this.state.set('searchDone', false);
+  this.state.set('searchPending', false);
+  this.state.set('selectedPatron', false);
 });
 
 Template.publicationRent.events({
-  'submit .rent-form'(event) {
+  'submit .search-form'(event) {
     event.preventDefault();
+    var instance = Template.instance();
+    instance.state.set('searchPending', true);
 
+    setTimeout(function() {
+      instance.state.set('searchPending', false);
+      instance.state.set('searchDone', true);
+    }.bind(this), 1000);
+  },
+
+  'click .select-patron'(event) {
+    Template.instance().state.set('selectedPatron', event.currentTarget.dataset.id);
+  },
+
+  'click .rent-publication'() {
+    const patronId = Template.instance().state.get('selectedPatron');
     const publicationId = FlowRouter.getParam('publicationId');
-    const patronId = Template.instance().state.get('patronId');
 
     Meteor.call('publication.rent.upsert', publicationId, patronId, (err, data) => {
       if (err) {
@@ -30,26 +46,37 @@ Template.publicationRent.events({
 
       FlowRouter.go('/app/publications/' + publicationId);
     });
+    console.log('TBI');
   },
-
-  'click .patron-select'(event, instance) {
-    const patronId = event.currentTarget.dataset.id;
-    Template.instance().state.set('patronId', patronId);
-  }
 });
 
 Template.publicationRent.helpers({
-  patrons() {
-    return Patrons.find({}, { sort: { createdAt: -1 } });
+  publicationId: function() {
+    return FlowRouter.getParam('publicationId');
   },
 
-  publication: function() {
-    const publicationId = FlowRouter.getParam('publicationId');
-    var publication = Publications.findOne({_id: publicationId}) || {};
-    return publication;
+  activeClass: function(resultPatronId) {
+    const selectedPatronId = Template.instance().state.get('selectedPatron');
+    return (resultPatronId === selectedPatronId) ? 'active' : '';
   },
 
-  selectedPubType: function(value, compare) {
-    return value == compare ? 'selected' : '';
+  searchPending: function() {
+    return Template.instance().state.get('searchPending');
+  },
+
+  searchDone: function() {
+    return Template.instance().state.get('searchDone');
+  },
+
+  selectedPatron: function() {
+    return Template.instance().state.get('selectedPatron');
+  },
+
+  searchResults: function() {
+    return Patrons.find({}, {
+      sort: {
+        createdAt: -1,
+      }
+    });
   },
 });

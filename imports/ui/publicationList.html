@@ -11,15 +11,18 @@
       </div>
 
       {{#each publications}}
-        <div class="card flex-row open-publication" data-id={{_id}}>
+        <div class="card flex-row open-publication pointer" data-id={{_id}}>
           <div class="flex-max">
             <div class="card-left-top">
-              <span>{{maxLength title "30"}}</span>
+              <span>{{maxLength title 30}}</span>
               {{#if subtitle}}
-                <small>· {{maxLength subtitle "30"}}</small>
+                <small>· {{maxLength subtitle 30}}</small>
               {{/if}}
             </div>
             <div class="card-left-bottom">
+              {{#if tags}}
+                <small class="glyphicon glyphicon-tags text-primary pad-right-sm"></small>
+              {{/if}}
               <span>{{author}}</span>
               {{#if publisher}}
                 <span>({{publisher}})</span>

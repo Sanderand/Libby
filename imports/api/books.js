@@ -10,18 +10,22 @@ export const Books = {
         url: this.basePath + '?q=' + isbn + '+isbn',
       })
       .done((res) => {
-        if (res.items && res.items[0] && res.items[0].volumeInfo) {
-          deferred.resolve({
-            title: res.items[0].volumeInfo.title || null,
-            subtitle: res.items[0].volumeInfo.subtitle || null,
-            author: res.items[0].volumeInfo.authors.join(', ') || null,
-            publisher: res.items[0].volumeInfo.publisher || null,
-            year: res.items[0].volumeInfo.publishedDate || null,
-            description: res.items[0].volumeInfo.description || null,
-          });
-        } else {
-          deferred.resolve(null);
+        if (res && res.items) {
+          const match = this.getISBNMatch(res.items, isbn)
+
+          if (match) {
+            deferred.resolve({
+              title: match.volumeInfo.title || null,
+              subtitle: match.volumeInfo.subtitle || null,
+              author: match.volumeInfo.authors.join(', ') || null,
+              publisher: match.volumeInfo.publisher || null,
+              year: match.volumeInfo.publishedDate || null,
+              description: match.volumeInfo.description || null,
+            });
+          }
         }
+
+        deferred.resolve(null);
       })
       .fail((err) => {
         console.error('BOOK LOOKUP ERROR', err);
@@ -32,6 +36,19 @@ export const Books = {
     }
 
     return deferred.promise();
+  },
+
+
+  getISBNMatch: function(items, isbn) {
+    return items.filter((item) => {
+      if (item.volumeInfo && item.volumeInfo.industryIdentifiers) {
+        for (var i = 0; i < item.volumeInfo.industryIdentifiers.length; i++) {
+          if (item.volumeInfo.industryIdentifiers[i].identifier === isbn) {
+            return true;
+          }
+        }
+      }
+    })[0];
   },
 
   isValidISBN: function(isbn) {

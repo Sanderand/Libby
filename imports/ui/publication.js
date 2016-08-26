@@ -26,6 +26,7 @@ Template.publication.events({
       barcode: context.find('[name=barcode]').value,
       title: context.find('[name=title]').value,
       subtitle: context.find('[name=subtitle]').value,
+      description: context.find('[name=description]').value,
       author: context.find('[name=author]').value,
       publisher: context.find('[name=publisher]').value,
       type: context.find('[name=type]').value,

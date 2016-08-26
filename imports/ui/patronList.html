@@ -11,30 +11,31 @@
       </div>
 
       {{#each patrons}}
-        <div class="card flex-row open-patron" data-id={{_id}}>
+        <div class="card flex-row open-patron pointer" data-id={{_id}}>
           <div class="flex-max">
             <div class="card-left-top">
-              {{maxLength name "30"}}
+              {{maxLength first_name 20}} {{maxLength last_name 20}}
             </div>
             <div class="card-left-bottom">
-              <span>{{phone}}</span>
+              {{#if notes}}
+                <small class="glyphicon glyphicon-comment text-primary pad-right-sm"></small>
+              {{/if}}
+              {{#if phone}}
+                <span>{{phone}} ·</span>
+              {{/if}}
               {{#if email}}
-                <span>· {{ email}}</span>
+                <span>{{email}}</span>
               {{/if}}
             </div>
           </div>
 
           <div class="flex-column flex-self-stretch">
             <div class="card-right-bottom">
-              {{#if street}}
-                <div>{{street}}</div>
-              {{/if}}
-              {{#if postal_code}}
-                <div>{{postal_code}}</div>
-              {{/if}}
-              {{#if city}}
-                <div>{{city}}</div>
-              {{/if}}
+              <div>{{street}}</div>
+              <div>
+                <span>{{postal_code}}</span>
+                <span>{{city}}</span>
+              </div>
             </div>
           </div>
         </div>

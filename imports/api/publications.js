@@ -33,6 +33,7 @@ Meteor.methods({
     check(publication.isbn, String);
     check(publication.barcode, String);
     check(publication.subtitle, String);
+    check(publication.description, String);
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
@@ -50,6 +51,7 @@ Meteor.methods({
         isbn: publication.isbn,
         barcode: publication.barcode,
         subtitle: publication.subtitle,
+        description: publication.description,
         updatedAt: new Date(),
       }
     });
