@@ -11,6 +11,7 @@ Template.publication.onCreated(function() {
   Meteor.subscribe('publications');
 
   const publicationId = FlowRouter.getParam('publicationId');
+
   this.state = new ReactiveDict();
   this.state.set('ISBN', '')
   this.state.set('mode', (publicationId === 'new') ? 'FORM' : 'VIEW');
@@ -31,7 +32,6 @@ Template.publication.events({
       publisher: context.find('[name=publisher]').value,
       type: context.find('[name=type]').value,
       year: context.find('[name=year]').value,
-      rating: '5', // context.find('[name=rating]').value,
       length: context.find('[name=length]').value,
     };
 
@@ -119,12 +119,30 @@ Template.publication.events({
       Template.instance().state.set('mode', 'VIEW');
     }
   },
+
+  'click .set-rating'(event) {
+    const publicationId = FlowRouter.getParam('publicationId');
+    const rating = parseInt(event.currentTarget.dataset.rating);
+
+    Meteor.call('publications.rate', publicationId, rating, (err, res) => {
+      if (err) {
+        console.error(err);
+      }
+    });
+  },
 });
 
 Template.publication.helpers({
   publication: function() {
     const publicationId = FlowRouter.getParam('publicationId');
-    var publication = Publications.findOne({_id: publicationId}) || {};
+    var instance = Template.instance();
+
+    var publication = Publications.findOne({
+      _id: publicationId
+    }) || {};
+
+    instance.state.set('rating', publication.rating);
+    
     return publication;
   },
 
@@ -134,5 +152,10 @@ Template.publication.helpers({
 
   eqMode: function(mode) {
     return (Template.instance().state.get('mode') === mode);
+  },
+
+  getRatingClass: function(rating) {
+    const currentRating = parseInt(Template.instance().state.get('rating'));
+    return (parseInt(rating) <= currentRating) ? 'active' : 'inactive';
   },
 });

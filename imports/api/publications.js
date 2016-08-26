@@ -28,7 +28,6 @@ Meteor.methods({
     check(publication.publisher, String);
     check(publication.type, String);
     check(publication.year, String);
-    check(publication.rating, String);
     check(publication.length, String);
     check(publication.isbn, String);
     check(publication.barcode, String);
@@ -46,7 +45,6 @@ Meteor.methods({
         publisher: publication.publisher,
         type: publication.type,
         year: publication.year,
-        rating: publication.rating,
         length: publication.length,
         isbn: publication.isbn,
         barcode: publication.barcode,
@@ -65,6 +63,17 @@ Meteor.methods({
 
   'publications.stats.count'() {
     return Publications.find().count();
+  },
+
+  'publications.rate'(publicationId, rating) {
+    check(publicationId, String);
+    check(rating, Number);
+
+    return Publications.update(publicationId, {
+      $set: {
+        rating: rating
+      }
+    });
   },
 
   'publications.tag.add'(publicationId, tagName) {

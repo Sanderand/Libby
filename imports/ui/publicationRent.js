@@ -51,7 +51,6 @@ Template.publicationRent.events({
 
       FlowRouter.go('/app/publications/' + publicationId);
     });
-    console.log('TBI');
   },
 });
 
