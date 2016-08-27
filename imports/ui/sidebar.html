@@ -3,13 +3,18 @@
     <a href="/app/" class="logo">
       <img src="/img/logo.png">
     </a>
-    <a href="/app/patrons/">PATRONS</a>
-    <a href="/app/publications/">PUBLICATIONS</a>
-    <a href="/app/rents/">RENTS</a>
+
+    <a href="/app/patrons/" class="{{isActivePath regex='^\\/app/patrons'}}">Patrons</a>
+    <a href="/app/publications/" class="{{isActivePath regex='^\\/app/publications'}}">Publications</a>
+    <a href="/app/rents/" class="{{isActivePath regex='^\\/app/rents'}}">Rents</a>
+
     <div class="divider"></div>
-    <a href="/app/stats/">STATS</a>
+
+    <a href="/app/stats/" class="{{isActivePath regex='^\\/app/stats'}}">Stats</a>
+
     <div class="divider"></div>
-    <a href="/app/settings/">SETTINGS</a>
-    <a href="" class="logout-btn">LOGOUT</a>
+
+    <a href="/app/settings/" class="{{isActivePath regex='^\\/app/settings'}}">Settings</a>
+    <a href class="logout-btn">Logout</a>
   </aside>
 </template>

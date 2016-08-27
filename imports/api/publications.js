@@ -115,6 +115,11 @@ Meteor.methods({
     });
   },
 
+  'publication.rent.extend'(publicationId) {
+    // TODO
+    console.log('IMPLEMENT: EXTEND PUBLCIATION');
+  },
+
   'publication.rent.return'(publicationId) {
     check(publicationId, String);
 
@@ -127,5 +132,18 @@ Meteor.methods({
         rent: '',
       }
     });
+  },
+
+  'publication.rented.fetch'(searchQuery) {
+    return Publications.find({
+      rent: {
+        $exists: true,
+      }
+    }, {
+      limit: 10,
+      sort: {
+        'rent.end_at': 1,
+      },
+    }).fetch();
   },
 });

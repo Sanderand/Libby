@@ -2,17 +2,12 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
-import { Publications } from '../api/publications.js';
-import { Patrons } from '../api/patrons.js';
 import * as constants from '../constants.js';
 import './publicationRent.html';
 import './spinner.html';
 
 
 Template.publicationRent.onCreated(function() {
-  Meteor.subscribe('publications');
-  Meteor.subscribe('patrons');
-
   this.state = new ReactiveDict();
   this.state.set('searchDone', false);
   this.state.set('searchPending', false);

@@ -3,32 +3,32 @@
     {{> searchBar}}
 
     <div class="pad">
-      <h1>Rents</h1>
+      <h1>Rented Publications</h1>
 
-      <a href="/app/rents/new"><button class="btn btn-default">Add Rent</button></a>
+      {{#each rentedPublications}}
+      <!--  TODO: check if returns are overdue -->
+        <div class="card flex-row open-publication pointer" data-id={{_id}}>
+          <div class="flex-max">
+            <div class="card-left-top">
+              <span>{{maxLength title 30}}</span>
+              {{#if subtitle}}
+                <small>· {{maxLength subtitle 30}}</small>
+              {{/if}}
+            </div>
+            <div class="card-left-bottom">
+              <span>{{author}}</span>
+              {{#if publisher}}
+                <span>({{publisher}})</span>
+              {{/if}}
+            </div>
+          </div>
 
-      <table class="table table-hover table-striped">
-        <thead>
-          <tr>
-            <th>Publication</th>
-            <th>User</th>
-            <th>Start</th>
-            <th>End</th>
-            <th>State</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each rents}}
-            <tr class="rent-list-item" data-id={{_id}}>
-              <td>{{publicationRef}}</td>
-              <td>{{userRef}}</td>
-              <td>{{fromNow start_at}}</td>
-              <td>{{fromNow end_at}}</td>
-              <td>{{state}}</td>
-            </tr>
-          {{/each}}
-        </tbody>
-      </table>
+          <div>
+            <div class="btn btn-sm btn-warning publication-extend" data-id={{_id}}>Extend</div>
+            <div class="btn btn-sm btn-primary publication-return" data-id={{_id}}>Return</div>
+          </div>
+        </div>
+      {{/each}}
     </div>
   </section>
 </template>

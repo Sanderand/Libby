@@ -64,6 +64,15 @@ Template.patron.events({
     });
   },
 
+  'click .publication-extend'(event) {
+    const publicationId = event.currentTarget.dataset.id;
+    Meteor.call('publication.rent.extend', publicationId, (err, data) => {
+      if (err) {
+        console.error(err);
+      }
+    });
+  },
+
   'click .enter-form-mode'() {
     Template.instance().state.set('mode', 'FORM');
   },

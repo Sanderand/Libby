@@ -67,6 +67,15 @@ Template.publication.events({
     });
   },
 
+  'click .publication-extend'() {
+    const publicationId = FlowRouter.getParam('publicationId');
+    Meteor.call('publication.rent.extend', publicationId, (err, data) => {
+      if (err) {
+        console.error(err);
+      }
+    });
+  },
+
   'submit .tag-form'(event) {
     event.preventDefault();
 
@@ -142,7 +151,7 @@ Template.publication.helpers({
     }) || {};
 
     instance.state.set('rating', publication.rating);
-    
+
     return publication;
   },
 
