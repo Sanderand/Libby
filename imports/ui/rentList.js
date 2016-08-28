@@ -25,13 +25,19 @@ Template.rentList.events({
   },
 
   'click .publication-return'(event) {
+    var instance = Template.instance();
     event.preventDefault();
     event.stopPropagation();
-    
+
     const publicationId = event.currentTarget.dataset.id;
     Meteor.call('publication.rent.return', publicationId, (err, data) => {
       if (err) {
         console.error(err);
+      } else {
+        const rentedPublications = instance.state.get('rentedPublications').filter((publication) => {
+          return (publication._id !== publicationId);
+        });
+        instance.state.set('rentedPublications', rentedPublications);
       }
     });
   },
@@ -39,7 +45,7 @@ Template.rentList.events({
   'click .publication-extend'(event) {
     event.preventDefault();
     event.stopPropagation();
-    
+
     const publicationId = event.currentTarget.dataset.id;
     Meteor.call('publication.rent.extend', publicationId, (err, data) => {
       if (err) {
