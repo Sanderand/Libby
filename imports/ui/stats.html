@@ -2,9 +2,16 @@
   <section class="pad">
     <h1>Stats</h1>
 
-    <ul>
-      <li><b>{{patronsCount}}</b> Patrons</li>
-      <li><b>{{publicationsCount}}</b> Publications</li>
-    </ul>
+    <div class="card">
+      <h4 class="text-light">Patrons</h4>
+      <p>Registered: <b>{{patronsCount}}</b></p>
+    </div>
+
+    <div class="card">
+      <h4 class="text-light">Publications</h4>
+      <p>Registered: <b>{{publicationsCount}}</b></p>
+      <p>Available: <b>{{publicationsAvailable}}</b></p>
+      <p>Rented: <b>{{publicationsRented}}</b></p>
+    </div>
   </section>
 </template>

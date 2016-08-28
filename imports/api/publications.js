@@ -65,6 +65,14 @@ Meteor.methods({
     return Publications.find().count();
   },
 
+  'publications.stats.rented'() {
+    return Publications.find({
+      rent: {
+        $exists: true,
+      }
+    }).count();
+  },
+
   'publications.rate'(publicationId, rating) {
     check(publicationId, String);
     check(rating, Number);
