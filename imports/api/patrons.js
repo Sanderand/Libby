@@ -12,6 +12,15 @@ if (Meteor.isServer) {
 
     return Patrons.find({
       libRef: user.profile.libRef,
+    }, {
+      fields: {
+        first_name: true,
+        last_name: true,
+        email: true,
+        phone: true,
+        notes: true,
+        address: true,
+      }
     });
   });
 
@@ -63,7 +72,6 @@ Meteor.methods({
           city: patron.address.city,
         },
         notes: patron.notes,
-        updatedAt: new Date(),
       }
     });
   },

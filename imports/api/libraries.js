@@ -61,7 +61,6 @@ Meteor.methods({
           postal_code: library.address.postal_code,
           city: library.address.city,
         },
-        updatedAt: new Date(),
       }
     });
   },

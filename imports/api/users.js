@@ -7,6 +7,11 @@ if (Meteor.isServer) {
 
     return Meteor.users.find({
       libRef: user.profile.libRef,
+    }, {
+      fields: {
+        username: true,
+        role: true,
+      }
     });
   });
 

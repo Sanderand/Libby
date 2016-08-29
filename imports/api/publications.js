@@ -13,6 +13,22 @@ if (Meteor.isServer) {
 
     return Publications.find({
       libRef: user.profile.libRef,
+    }, {
+      fields: {
+        title: true,
+        author: true,
+        publisher: true,
+        type: true,
+        year: true,
+        length: true,
+        isbn: true,
+        barcode: true,
+        subtitle: true,
+        description: true,
+        rating: true,
+        tags: true,
+        rent: true,
+      }
     });
   });
 
@@ -65,7 +81,6 @@ Meteor.methods({
         barcode: publication.barcode,
         subtitle: publication.subtitle,
         description: publication.description,
-        updatedAt: new Date(),
       }
     });
   },
