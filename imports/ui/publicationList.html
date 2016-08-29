@@ -20,10 +20,8 @@
               {{/if}}
             </div>
             <div class="card-left-bottom">
-              {{#if tags}}
-                <small class="glyphicon glyphicon-tags text-primary pad-right-sm"></small>
-              {{/if}}
-              <span>{{author}}</span>
+              <b>{{type}}</b>
+              <span> · {{author}}</span>
               {{#if publisher}}
                 <span>({{publisher}})</span>
               {{/if}}
@@ -32,15 +30,27 @@
 
           <div class="flex-column flex-self-stretch">
             <div class="card-right-top flex-max">
-              {{#if rating}}
-                <span>{{rating}}</span>
+              {{#if le 1 rating}}
+                <span class="glyphicon glyphicon-star text-icon text-primary"></span>
+              {{/if}}
+              {{#if le 2 rating}}
+                <span class="glyphicon glyphicon-star text-icon text-primary"></span>
+              {{/if}}
+              {{#if le 3 rating}}
+                <span class="glyphicon glyphicon-star text-icon text-primary"></span>
+              {{/if}}
+              {{#if le 4 rating}}
+                <span class="glyphicon glyphicon-star text-icon text-primary"></span>
+              {{/if}}
+              {{#if le 5 rating}}
                 <span class="glyphicon glyphicon-star text-icon text-primary"></span>
               {{/if}}
             </div>
             <div class="card-right-bottom">
-              <span>{{type}}</span>
               {{#if isRented this}}
                 <span class="text-primary">is rented</span>
+              {{else}}
+                <span>available</span>
               {{/if}}
             </div>
           </div>

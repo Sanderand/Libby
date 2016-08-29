@@ -13,8 +13,11 @@ Template.registerHelper('serialize', (data) => {
 });
 
 Template.registerHelper('eq', (a, b) => {
-	//  {{#if eq fruit 'pineapple'}}...{{/if}}
-	return a === b;
+	return a === b; // {{#if eq fruit 'pineapple'}}...{{/if}}
+});
+
+Template.registerHelper('le', (a, b) => {
+	return a <= b;
 });
 
 Template.registerHelper('maxLength', (val, len) => {

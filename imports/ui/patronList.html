@@ -17,25 +17,24 @@
               {{maxLength first_name 20}} {{maxLength last_name 20}}
             </div>
             <div class="card-left-bottom">
-              {{#if notes}}
-                <small class="glyphicon glyphicon-comment text-primary pad-right-sm"></small>
-              {{/if}}
+              <span>{{phone}}</span>
               {{#if phone}}
-                <span>{{phone}} ·</span>
+                {{#if email}}
+                  <span> · </span>
+                {{/if}}
               {{/if}}
-              {{#if email}}
-                <span>{{email}}</span>
-              {{/if}}
+              <span>{{email}}</span>
             </div>
           </div>
 
           <div class="flex-column flex-self-stretch">
+            <div class="card-right-top flex-max">
+              {{#if notes}}
+                <span class="glyphicon glyphicon-comment text-icon text-primary"></span>
+              {{/if}}
+            </div>
             <div class="card-right-bottom">
-              <div>{{street}}</div>
-              <div>
-                <span>{{postal_code}}</span>
-                <span>{{city}}</span>
-              </div>
+              <span>{{inlineAddress address}}</span>
             </div>
           </div>
         </div>
