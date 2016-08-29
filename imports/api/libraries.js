@@ -12,7 +12,23 @@ if (Meteor.isServer) {
 
     return Libraries.find({
       _id: user.profile.libRef,
+    }, {
+      fields: {
+        _id: true,
+        name: true,
+        notes: true,
+        organization: true,
+        phone: true,
+        email: true,
+        address: true,
+      }
     });
+  });
+
+  Libraries.deny({
+    insert() { return true; },
+    update() { return true; },
+    remove() { return true; },
   });
 }
 

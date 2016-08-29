@@ -11,8 +11,8 @@ if (Meteor.isServer) {
   });
 
   Meteor.users.deny({
-    update: function () {
-      return true;
-    }
+    insert() { return true; },
+    update() { return true; },
+    remove() { return true; },
   });
 }

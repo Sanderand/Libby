@@ -14,6 +14,12 @@ if (Meteor.isServer) {
       libRef: user.profile.libRef,
     });
   });
+
+  Patrons.deny({
+    insert() { return true; },
+    update() { return true; },
+    remove() { return true; },
+  });
 }
 
 Meteor.methods({
