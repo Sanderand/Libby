@@ -6,6 +6,7 @@ import '../imports/api/libraries.js';
 import '../imports/api/patrons.js';
 import '../imports/api/publications.js';
 import '../imports/api/books.js';
+import '../imports/api/quotes.js';
 
 
 Meteor.startup(() => {

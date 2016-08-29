@@ -1,10 +1,10 @@
 <template name="dashboard">
   <section>
-    {{> searchBar}}
-
     <div class="pad">
-      <h1>Dashboard</h1>
-      <p>There's no place like home</p>
+      <div class="quote-wrapper text-center">
+        <span class="quote">{{randomQuote.quote}}</span>
+        <span class="author">{{randomQuote.author}}</span>
+      </div>
     </div>
   </section>
 </template>

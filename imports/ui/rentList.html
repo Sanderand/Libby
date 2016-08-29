@@ -1,9 +1,12 @@
 <template name="rentList">
   <section>
-    {{> searchBar}}
+    <form class="search-bar flex-row">
+      <input class="flex-max" type="text" placeholder="Search rented publications" name="searchValue">
+      <button type="submit" class="icon"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
 
     <div class="pad">
-      <h1>Rented Publications</h1>
+      <h2>Rented Publications</h2>
 
       {{#each rentedPublications}}
       <!--  TODO: check if returns are overdue -->

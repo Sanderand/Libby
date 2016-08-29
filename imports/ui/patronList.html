@@ -1,10 +1,13 @@
 <template name="patronList">
   <section>
-    {{> searchBar}}
+    <form class="search-bar flex-row">
+      <input class="flex-max" type="text" placeholder="Search patrons" name="searchValue">
+      <button type="submit" class="icon"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
 
     <div class="pad">
       <div class="flex-row">
-        <h1 class="flex-max">Patrons</h1>
+        <h2 class="flex-max">Patrons</h2>
         <a class="plus-btn text-primary text-primary-hover" href="/app/patrons/new">
           <span class="glyphicon glyphicon-plus-sign"></span>
         </a>

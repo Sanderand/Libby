@@ -104,13 +104,21 @@ aside .link.active {
   background-color: #fff;
 }
 
-aside .link.logo {
+aside a.logo {
+  display: block;
+  width: 200px;
   height: 200px;
 }
 
+aside a.logo img {
+  width: 200px;
+  height: 200px;
+    min-width: 200px;
+    min-height: 200px;
+}
+
 aside .divider {
-  height: 35px;
-  line-height: 35px;
+  height: 25px;
 }
 
 .text-icon {
@@ -118,7 +126,7 @@ aside .divider {
 }
 
 .plus-btn {
-  font-size: 36px;
+  font-size: 32px;
   margin-top: 18px;
 }
 
@@ -139,15 +147,11 @@ aside .divider {
 }
 
 .search-bar {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
   border-bottom: 1px solid #e9e9e9;
 }
 
 .search-bar input {
   height: 50px;
-  flex: 1;
   outline: none;
   border: none;
   padding: 0px 10px;
@@ -354,4 +358,38 @@ aside .divider {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+
+/* quote */
+.quote-wrapper {
+  padding: 100px 60px;
+}
+
+.quote-wrapper .author {
+  color: #777;
+  font-size: 14px;
+  padding-left: 10px;
+}
+
+.quote-wrapper .quote {
+  color: #ff6868;
+  font-size: 22px;
+  font-weight: 200;
+  line-height: 35px;
+}
+
+.quote-wrapper .quote:after,
+.quote-wrapper .quote:before {
+  font-size: 35px;
+  vertical-align: middle;
+}
+
+.quote-wrapper .quote:before {
+  content: '“';
+  padding-right: 2px;
+}
+
+.quote-wrapper .quote:after {
+  content: '”';
+  padding-left: 2px;
 }

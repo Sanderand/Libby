@@ -13,7 +13,6 @@ import './home.js';
 import './dashboard.js';
 import './stats.js';
 import './library.js';
-import './searchBar.js';
 
 import './body.html';
 import './notFound.html';

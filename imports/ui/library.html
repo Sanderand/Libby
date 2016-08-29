@@ -8,16 +8,13 @@
       {{#if eqMode "FORM"}}
         <button type="button" class="btn btn-default enter-view-mode">Abort</button>
         <button type="button" class="btn btn-success save-changes">Save</button>
-        {{#if library._id}}
-          <button class="btn btn-danger delete-library">Delete</button>
-        {{/if}}
       {{/if}}
     </div>
 
     <!-- VIEW -->
 
     {{#if eqMode "VIEW"}}
-      <h1>Library</h1>
+      <h2>Library</h2>
 
       <div class="card">
         <h4>

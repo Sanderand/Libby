@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
+import { ReactiveDict } from 'meteor/reactive-dict';
 
 import { Publications } from '../api/publications.js';
 import './rentList.html';
@@ -7,6 +8,9 @@ import './rentList.html';
 
 Template.rentList.onCreated(function() {
   Meteor.subscribe('publications');
+
+  this.state = new ReactiveDict();
+  this.state.set('searchQuery', '');
 });
 
 Template.rentList.events({
@@ -38,14 +42,38 @@ Template.rentList.events({
       }
     });
   },
+
+  'submit .search-bar'(event) {
+    event.preventDefault();
+    const searchQuery = event.target.searchValue.value;
+    Template.instance().state.set('searchQuery', searchQuery);
+  },
 });
 
 Template.rentList.helpers({
   rentedPublications: function() {
-    return Publications.find({
+    const searchQuery = Template.instance().state.get('searchQuery');
+    var selector = {
       rent: {
         $exists: true,
       }
-    });
+    };
+    const options = {
+      sort: {
+        title: 1,
+      }
+    }
+
+    if (searchQuery && searchQuery.length > 1) { // TODO use constant
+      const regex = new RegExp(searchQuery, 'i');
+
+      selector['$or'] = [{
+        title: regex,
+      }, {
+        author: regex,
+      }];
+    }
+
+    return Publications.find(selector, options);
   },
 });
