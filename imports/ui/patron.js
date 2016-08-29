@@ -59,7 +59,7 @@ Template.patron.events({
 
   'click .publication-return'(event) {
     const publicationId = event.currentTarget.dataset.id;
-    Meteor.call('publication.rent.return', publicationId, (err, data) => {
+    Meteor.call('publication.return', publicationId, (err, data) => {
       if (err) {
         console.error(err);
       }
@@ -68,7 +68,7 @@ Template.patron.events({
 
   'click .publication-extend'(event) {
     const publicationId = event.currentTarget.dataset.id;
-    Meteor.call('publication.rent.extend', publicationId, (err, data) => {
+    Meteor.call('publication.extend', publicationId, (err, data) => {
       if (err) {
         console.error(err);
       }

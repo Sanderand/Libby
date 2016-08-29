@@ -1,0 +1,57 @@
+<template name="settings">
+  <section class="pad">
+    <div>
+      <button type="button" class="btn btn-primary enter-form-mode">Edit</button>
+    </div>
+
+    <h3>Settings</h3>
+
+    <div class="card">
+      <h4 class="text-light">Public page</h4>
+
+      <p>Pri libris audire oportere te. Vim ne doming causae deseruisse, per habeo graeco molestie cu. Error laudem pro ut. At vix omittam placerat consequat</p>
+
+      <div class="checkbox">
+        <label>
+          <input class="public-page" type="checkbox" name="publicPage" checked={{library.hasPublicPage}}> Publish a public page
+        </label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4 class="text-light">Renting</h4>
+
+      <p>Quod debet atomorum ius ne, est ne convenire neglegentur. Usu affert doctus aliquam ad, malorum inermis vulputate at est</p>
+
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Rent days</label>
+          <select class="form-control rent-days" name="rentDays">
+            <option {{selectedClass library.rentDays "7"}} value="7">7 days</option>
+            <option {{selectedClass library.rentDays "14"}} value="14">14 days</option>
+            <option {{selectedClass library.rentDays "28"}} value="28">28 days</option>
+          </select>
+        </div>
+
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <label>Rent extend days</label>
+          <select class="form-control extend-days" name="extendDays">
+            <option {{selectedClass library.extendDays "7"}} value="7">7 days</option>
+            <option {{selectedClass library.extendDays "14"}} value="14">14 days</option>
+            <option {{selectedClass library.extendDays "28"}} value="28">28 days</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4 class="text-light">Session</h4>
+
+      <p>Perfecto voluptatum ne pro, putent suavitate aliquando ex mea.</p>
+
+      <div class="text-right">
+        <a href="/app/logout/"><button type="button" class="btn btn-danger">Log out</button></a>
+      </div>
+    </div>
+  </section>
+</template>

@@ -9,4 +9,8 @@ Template.logoutConfirm.events({
       console.log('successfully logged out');
     });
   },
+
+  'click .cancel'() {
+    FlowRouter.go('/app/settings/');
+  },
 });

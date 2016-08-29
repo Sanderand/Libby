@@ -3,6 +3,7 @@ import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 
 import * as constants from '../constants.js';
+import { Libraries } from './libraries.js';
 export const Publications = new Mongo.Collection('publications');
 
 
@@ -118,7 +119,7 @@ Meteor.methods({
     });
   },
 
-  'publication.rent.upsert'(publicationId, patronId) {
+  'publication.rent'(publicationId, patronId) {
     check(publicationId, String);
     check(patronId, String);
 
@@ -126,21 +127,53 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
-    return Publications.upsert(publicationId, {
+    const library = Libraries.findOne({
+      _id: Meteor.user().profile.libRef,
+    });
+
+    const rentDays = library.rentDays;
+    console.log(library, rentDays);
+
+    return Publications.update(publicationId, {
       $set: {
         'rent.start_at': new Date(),
-        'rent.end_at': new Date(Date.now() + constants.rent_duration),
+        'rent.end_at': new Date(Date.now() + rentDays * 24 * 60 * 60 * 1000),
         'rent.patronId': patronId,
+        'rent.extended': false,
       }
     });
   },
 
-  'publication.rent.extend'(publicationId) {
-    // TODO
-    console.log('IMPLEMENT: EXTEND PUBLCIATION');
+  'publication.extend'(publicationId) {
+    check(publicationId, String);
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    const publication = Publications.findOne({
+      _id: publicationId,
+    });
+
+    if (publication.rent.extended === false) {
+      const rentEndTimestamp = new Date(publication.rent.end_at).getTime();
+
+      const library = Libraries.findOne({
+        _id: Meteor.user().profile.libRef,
+      });
+
+      console.log(publication, library);
+
+      return Publications.update(publicationId, {
+        $set: {
+          'rent.end_at': new Date(rentEndTimestamp + library.extendDays * 24 * 60 * 60 * 1000),
+          'rent.extended': true,
+        }
+      });
+    }
   },
 
-  'publication.rent.return'(publicationId) {
+  'publication.return'(publicationId) {
     check(publicationId, String);
 
     if (!this.userId) {

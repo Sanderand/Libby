@@ -11,6 +11,12 @@ Template.dashboard.onCreated(function() {
   this.state.set('randomQuote', Quotes.getRandomQuote());
 });
 
+Template.dashboard.events({
+  'click .next-quote'() {
+    Template.instance().state.set('randomQuote', Quotes.getRandomQuote());
+  },
+});
+
 Template.dashboard.helpers({
   randomQuote() {
     return Template.instance().state.get('randomQuote');

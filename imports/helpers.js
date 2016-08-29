@@ -38,3 +38,7 @@ Template.registerHelper('inlineAddress', (address) => {
 		return addressParts.join(', ');
 	}
 });
+
+Template.registerHelper('selectedClass', (a, b) => {
+	return a == b ? 'selected' : '';
+});

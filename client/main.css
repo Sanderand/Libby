@@ -369,6 +369,7 @@ aside .divider {
   color: #777;
   font-size: 14px;
   padding-left: 10px;
+  white-space: nowrap; /* no line breaks */
 }
 
 .quote-wrapper .quote {

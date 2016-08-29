@@ -32,7 +32,7 @@ Template.publicationRent.events({
     const patronId = Template.instance().state.get('selectedPatron');
     const publicationId = FlowRouter.getParam('publicationId');
 
-    Meteor.call('publication.rent.upsert', publicationId, patronId, (err, res) => {
+    Meteor.call('publication.rent', publicationId, patronId, (err, res) => {
       if (err) {
         console.error(err); // TODO print error to form
       }

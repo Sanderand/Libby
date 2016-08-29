@@ -14,13 +14,15 @@
     <!-- VIEW -->
 
     {{#if eqMode "VIEW"}}
-      <h2>Library</h2>
+      <h3>
+        <span>{{library.name}}</span>
+        {{#if library.organization}}
+          <span class="text-light">· {{library.organization}}</span>
+        {{/if}}
+      </h3>
 
       <div class="card">
-        <h4>
-          <span>{{library.name}}</span>
-          <span class="text-light">· {{library.organization}}</span>
-        </h4>
+        <h4 class="text-light">General</h4>
 
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -53,15 +55,6 @@
             {{/if}}
           </div>
         </div>
-      </div>
-
-      <div class="card">
-        <h4 class="text-light">Hours</h4>
-        <ul>
-          <li>Mo - Fr: 8am - 10pm</li>
-          <li>Sa: 10am - 8pm</li>
-          <li>Su: 10am - 6pm</li>
-        </ul>
       </div>
 
       <div class="card">

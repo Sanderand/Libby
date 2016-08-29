@@ -109,6 +109,17 @@ authRoutes.route('/library', {
   },
 });
 
+// SETTINGS
+
+authRoutes.route('/settings', {
+  action: function() {
+    BlazeLayout.render('contentLayout', {
+      content: 'settings',
+      sidebar: 'sidebar',
+    });
+  },
+});
+
 // PATRONS
 
 authRoutes.route('/patrons', {

@@ -1,3 +1,5 @@
+// templates + logic
+
 import './patronList.js';
 import './patron.js';
 
@@ -8,11 +10,14 @@ import './publicationRent.js';
 import './rentList.js';
 
 import './logoutConfirm.js';
-import './sidebar.js';
 import './home.js';
 import './dashboard.js';
 import './stats.js';
 import './library.js';
+import './settings.js';
+
+// pure templates
 
 import './body.html';
+import './sidebar.html';
 import './notFound.html';

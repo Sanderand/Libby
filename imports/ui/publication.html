@@ -28,7 +28,9 @@
             <span>until {{formatDate publication.rent.end_at 'DD.MM.YYYY'}}</span>
           </span>
 
-          <span class="btn btn-sm btn-warning publication-extend mar-right-sm">Extend</span>
+          {{#if eq publication.rent.extended false}}
+            <div class="btn btn-sm btn-warning publication-extend mar-right-sm">Extend</div>
+          {{/if}}
           <span class="btn btn-sm btn-primary publication-return">Return</span>
         </div>
       {{else}}
@@ -170,13 +172,13 @@
           <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <label>Type</label>
             <select class="form-control" name="type">
-              <option {{selectedPubType publication.type "Book"}} value="Book">Book</option>
-              <option {{selectedPubType publication.type "Magazine"}} value="Magazine">Magazine</option>
-              <option {{selectedPubType publication.type "DVD"}} value="DVD">DVD</option>
-              <option {{selectedPubType publication.type "Blu-Ray"}} value="Blu-Ray">Blu-Ray</option>
-              <option {{selectedPubType publication.type "Video Game"}} value="Video Game">Video Game</option>
-              <option {{selectedPubType publication.type "Game"}} value="Game">Game</option>
-              <option {{selectedPubType publication.type "Other"}} value="Other">Other</option>
+              <option {{selectedClass publication.type "Book"}} value="Book">Book</option>
+              <option {{selectedClass publication.type "Magazine"}} value="Magazine">Magazine</option>
+              <option {{selectedClass publication.type "DVD"}} value="DVD">DVD</option>
+              <option {{selectedClass publication.type "Blu-Ray"}} value="Blu-Ray">Blu-Ray</option>
+              <option {{selectedClass publication.type "Video Game"}} value="Video Game">Video Game</option>
+              <option {{selectedClass publication.type "Game"}} value="Game">Game</option>
+              <option {{selectedClass publication.type "Other"}} value="Other">Other</option>
             </select>
           </div>
         </div>

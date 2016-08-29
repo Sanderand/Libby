@@ -21,6 +21,10 @@ if (Meteor.isServer) {
         phone: true,
         email: true,
         address: true,
+        
+        hasPublicPage: true,
+        rentDays: true,
+        extendDays: true,
       }
     });
   });
@@ -63,5 +67,52 @@ Meteor.methods({
         },
       }
     });
+  },
+
+  'libraries.setPublicPage'(hasPublicPage) {
+    const user = Meteor.user();
+    const libRef = user.profile.libRef;
+
+    if (user.profile.role === 'ADMIN') { // TODO use constants
+      check(hasPublicPage, Boolean);
+
+      return Libraries.update(libRef, {
+        $set: {
+          hasPublicPage: hasPublicPage,
+        }
+      });
+    }
+  },
+
+  'libraries.setRentDays'(rentDays) {
+    const user = Meteor.user();
+    const libRef = user.profile.libRef;
+
+    if (user.profile.role === 'ADMIN') { // TODO use constants
+      check(rentDays, Number);
+      rentDays = parseInt(rentDays);
+
+      return Libraries.update(libRef, {
+        $set: {
+          rentDays: rentDays,
+        }
+      });
+    }
+  },
+
+  'libraries.setExtendDays'(extendDays) {
+    const user = Meteor.user();
+    const libRef = user.profile.libRef;
+
+    if (user.profile.role === 'ADMIN') { // TODO use constants
+      check(extendDays, Number);
+      extendDays = parseInt(extendDays);
+
+      return Libraries.update(libRef, {
+        $set: {
+          extendDays: extendDays,
+        }
+      });
+    }
   },
 });

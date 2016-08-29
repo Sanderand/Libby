@@ -60,7 +60,7 @@ Template.publication.events({
 
   'click .publication-return'() {
     const publicationId = FlowRouter.getParam('publicationId');
-    Meteor.call('publication.rent.return', publicationId, (err, data) => {
+    Meteor.call('publication.return', publicationId, (err, data) => {
       if (err) {
         console.error(err);
       }
@@ -69,7 +69,7 @@ Template.publication.events({
 
   'click .publication-extend'() {
     const publicationId = FlowRouter.getParam('publicationId');
-    Meteor.call('publication.rent.extend', publicationId, (err, data) => {
+    Meteor.call('publication.extend', publicationId, (err, data) => {
       if (err) {
         console.error(err);
       }
@@ -153,10 +153,6 @@ Template.publication.helpers({
     instance.state.set('rating', publication.rating);
 
     return publication;
-  },
-
-  selectedPubType: function(value, compare) {
-    return value == compare ? 'selected' : '';
   },
 
   eqMode: function(mode) {
