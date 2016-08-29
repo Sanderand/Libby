@@ -254,6 +254,14 @@ aside .divider {
   align-self: stretch;
 }
 
+.flex-center {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
 /* bullet */
 
 .bullet {
@@ -275,6 +283,7 @@ aside .divider {
   padding: 10px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
   margin-bottom: 14px;
+  background-color: #fff;
 }
 
 .card-left-top {

@@ -38,6 +38,15 @@ authRoutes.route('/', {
   },
 });
 
+authRoutes.route('/logout', {
+  action: function() {
+    BlazeLayout.render('contentLayout', {
+      content: 'logoutConfirm',
+      sidebar: 'sidebar',
+    });
+  },
+});
+
 // PUBLICATIONS
 
 authRoutes.route('/publications', {

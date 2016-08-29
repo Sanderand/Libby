@@ -7,6 +7,7 @@ import './publicationRent.js';
 
 import './rentList.js';
 
+import './logoutConfirm.js';
 import './sidebar.js';
 import './home.js';
 import './dashboard.js';
