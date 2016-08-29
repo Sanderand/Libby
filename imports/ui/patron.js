@@ -26,10 +26,12 @@ Template.patron.events({
       last_name: context.find('[name=last_name]').value,
       email: context.find('[name=email]').value,
       phone: context.find('[name=phone]').value,
-      street: context.find('[name=street]').value,
-      postal_code: context.find('[name=postal_code]').value,
-      city: context.find('[name=city]').value,
       notes: context.find('[name=notes]').value,
+      address: {
+        street: context.find('[name=street]').value,
+        postal_code: context.find('[name=postal_code]').value,
+        city: context.find('[name=city]').value,
+      },
     };
 
     Meteor.call('patrons.upsert', patron, (err, data) => {
@@ -104,16 +106,6 @@ Template.patron.helpers({
 
   eqMode: function(mode) {
     return (Template.instance().state.get('mode') === mode);
-  },
-
-  address: function(patron) {
-    var addressParts = [];
-
-    if (patron.street) addressParts.push(patron.street);
-    if (patron.postal_code) addressParts.push(patron.postal_code);
-    if (patron.city) addressParts.push(patron.city);
-
-    return addressParts.join(', ');
   },
 
   inc: function(value) { // TODO make global

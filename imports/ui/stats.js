@@ -2,43 +2,40 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
+import { Patrons } from '../api/patrons.js';
+import { Publications } from '../api/publications.js';
 import './stats.html';
 
 
 Template.stats.onCreated(function() {
+  Meteor.subscribe('publications');
+  Meteor.subscribe('patrons');
+
   this.state = new ReactiveDict();
-
-  Meteor.call('patrons.stats.count', (err, data) => {
-    this.state.set('patronsCount', data);
-  });
-
-  Meteor.call('publications.stats.count', (err, data) => {
-    this.state.set('publicationsCount', data);
-  });
-
-  Meteor.call('publications.stats.rented', (err, data) => {
-    this.state.set('publicationsRented', data);
-  });
 });
-
 
 Template.stats.helpers({
   patronsCount() {
-    return Template.instance().state.get('patronsCount');
+    return Patrons.find().count();
   },
 
   publicationsCount() {
-    return Template.instance().state.get('publicationsCount');
+    return Publications.find().count();
   },
 
   publicationsRented() {
-    return Template.instance().state.get('publicationsRented');
+    return Publications.find({
+      rent: {
+        $exists: true,
+      }
+    }).count();
   },
 
   publicationsAvailable() {
-    var instance = Template.instance();
-    const total = instance.state.get('publicationsCount');
-    const rented = instance.state.get('publicationsRented');
-    return (total - rented);
+    return Publications.find({
+      rent: {
+        $exists: false,
+      }
+    }).count();
   },
 });

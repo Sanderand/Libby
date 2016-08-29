@@ -89,12 +89,12 @@ authRoutes.route('/stats', {
   },
 });
 
-// SETTINGS
+// LIBRARY
 
-authRoutes.route('/settings', {
+authRoutes.route('/library', {
   action: function() {
     BlazeLayout.render('contentLayout', {
-      content: 'settings',
+      content: 'library',
       sidebar: 'sidebar',
     });
   },

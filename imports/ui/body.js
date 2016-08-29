@@ -11,7 +11,7 @@ import './sidebar.js';
 import './home.js';
 import './dashboard.js';
 import './stats.js';
-import './settings.js';
+import './library.js';
 import './searchBar.js';
 
 import './body.html';

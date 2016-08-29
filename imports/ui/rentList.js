@@ -1,21 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
-import { ReactiveDict } from 'meteor/reactive-dict';
 
+import { Publications } from '../api/publications.js';
 import './rentList.html';
 
 
 Template.rentList.onCreated(function() {
-  this.state = new ReactiveDict();
-  this.state.set('rentedPublications', []);
-
-  Meteor.call('publication.rented.fetch', (err, data) => {
-    if (err) {
-      console.error(err);
-    } else {
-      this.state.set('rentedPublications', data);
-    }
-  });
+  Meteor.subscribe('publications');
 });
 
 Template.rentList.events({
@@ -25,7 +16,6 @@ Template.rentList.events({
   },
 
   'click .publication-return'(event) {
-    var instance = Template.instance();
     event.preventDefault();
     event.stopPropagation();
 
@@ -33,11 +23,6 @@ Template.rentList.events({
     Meteor.call('publication.rent.return', publicationId, (err, data) => {
       if (err) {
         console.error(err);
-      } else {
-        const rentedPublications = instance.state.get('rentedPublications').filter((publication) => {
-          return (publication._id !== publicationId);
-        });
-        instance.state.set('rentedPublications', rentedPublications);
       }
     });
   },
@@ -57,6 +42,10 @@ Template.rentList.events({
 
 Template.rentList.helpers({
   rentedPublications: function() {
-    return Template.instance().state.get('rentedPublications');
+    return Publications.find({
+      rent: {
+        $exists: true,
+      }
+    });
   },
 });

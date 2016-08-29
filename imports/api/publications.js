@@ -5,9 +5,15 @@ import { check } from 'meteor/check';
 import * as constants from '../constants.js';
 export const Publications = new Mongo.Collection('publications');
 
+
 if (Meteor.isServer) {
-  Meteor.publish('publications', () => {
-    return Publications.find({});
+  Meteor.publish('publications', function() {
+    if(!this.userId) return [];
+    const user = Meteor.users.findOne(this.userId);
+
+    return Publications.find({
+      libRef: user.profile.libRef,
+    });
   });
 }
 
@@ -40,6 +46,9 @@ Meteor.methods({
 
     return Publications.upsert(publication._id, {
       $set: {
+        libRef: Meteor.user().profile.libRef,
+        userRef: Meteor.userId(),
+
         title: publication.title,
         author: publication.author,
         publisher: publication.publisher,
@@ -53,24 +62,6 @@ Meteor.methods({
         updatedAt: new Date(),
       }
     });
-  },
-
-  'publications.search'(searchValue) {
-    check(searchValue, String);
-
-    // TODO
-  },
-
-  'publications.stats.count'() {
-    return Publications.find().count();
-  },
-
-  'publications.stats.rented'() {
-    return Publications.find({
-      rent: {
-        $exists: true,
-      }
-    }).count();
   },
 
   'publications.rate'(publicationId, rating) {
@@ -140,18 +131,5 @@ Meteor.methods({
         rent: '',
       }
     });
-  },
-
-  'publication.rented.fetch'(searchQuery) {
-    return Publications.find({
-      rent: {
-        $exists: true,
-      }
-    }, {
-      limit: 10,
-      sort: {
-        'rent.end_at': 1,
-      },
-    }).fetch();
   },
 });

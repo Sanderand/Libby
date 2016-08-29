@@ -2,33 +2,26 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
+import { Patrons } from '../api/patrons.js';
 import * as constants from '../constants.js';
 import './publicationRent.html';
-import './spinner.html';
 
 
 Template.publicationRent.onCreated(function() {
+  Meteor.subscribe('patrons');
+
   this.state = new ReactiveDict();
-  this.state.set('searchDone', false);
-  this.state.set('searchPending', false);
-  this.state.set('selectedPatron', false);
+  this.state.set('selectedPatron', null);
+  this.state.set('searchQuery', null);
 });
 
 Template.publicationRent.events({
   'submit .search-form'(event) {
     event.preventDefault();
-
     const searchQuery = event.target.searchQuery.value;
-    var instance = Template.instance();
 
-    instance.state.set('searchPending', true);
-    instance.state.set('searchQuery', searchQuery);
-
-    Meteor.call('patrons.search.name', searchQuery, (err, res) => {
-      instance.state.set('searchResults', res);
-      instance.state.set('searchPending', false);
-      instance.state.set('searchDone', true);
-    });
+    Template.instance().state.set('selectedPatron', null);
+    Template.instance().state.set('searchQuery', searchQuery);
   },
 
   'click .select-patron'(event) {
@@ -54,19 +47,6 @@ Template.publicationRent.helpers({
     return FlowRouter.getParam('publicationId');
   },
 
-  activeClass: function(resultPatronId) {
-    const selectedPatronId = Template.instance().state.get('selectedPatron');
-    return (resultPatronId === selectedPatronId) ? 'active' : '';
-  },
-
-  searchPending: function() {
-    return Template.instance().state.get('searchPending');
-  },
-
-  searchDone: function() {
-    return Template.instance().state.get('searchDone');
-  },
-
   selectedPatron: function() {
     return Template.instance().state.get('selectedPatron');
   },
@@ -75,7 +55,29 @@ Template.publicationRent.helpers({
     return Template.instance().state.get('searchQuery');
   },
 
+  activeClass: function(resultPatronId) {
+    const selectedPatronId = Template.instance().state.get('selectedPatron');
+    return (resultPatronId === selectedPatronId) ? 'active' : '';
+  },
+
   searchResults: function() {
-    return Template.instance().state.get('searchResults');
+    const searchQuery = Template.instance().state.get('searchQuery');
+    const regex = new RegExp(searchQuery, 'i');
+
+    if (searchQuery && searchQuery.length) {
+      return Patrons.find({
+        $or: [{
+          first_name: regex,
+        }, {
+          last_name: regex,
+        }]
+      }, {
+        sort: {
+          last_name: 1,
+        },
+      });
+    }
+    
+    return [];
   },
 });

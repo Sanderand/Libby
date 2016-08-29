@@ -23,3 +23,15 @@ Template.registerHelper('maxLength', (val, len) => {
 		return (val.length > len) ? val.substr(0, len) + '...' : val;
 	}
 });
+
+Template.registerHelper('inlineAddress', (address) => {
+	if (address) {
+		var addressParts = [];
+
+		if (address.street) addressParts.push(address.street);
+		if (address.postal_code) addressParts.push(address.postal_code);
+		if (address.city) addressParts.push(address.city);
+
+		return addressParts.join(', ');
+	}
+});

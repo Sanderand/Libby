@@ -1,4 +1,10 @@
+import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
+
+
+Deps.autorun(function() {
+  Meteor.subscribe('users');
+});
 
 Accounts.ui.config({
   passwordSignupFields: 'USERNAME_ONLY',

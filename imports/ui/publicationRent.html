@@ -20,30 +20,18 @@
       </form>
     </div>
 
-    {{#if searchPending}}
-      {{> spinner}}
-    {{else}}
-      {{#if searchDone}}
-        <div class="card">
-          <h4 class="text-light">Results</h4>
+    <div class="card">
+      <h4 class="text-light">Results</h4>
 
-          {{#if searchResults.length}}
-            <div class="results">
-              {{#each searchResults}}
-                <div class="chip select-patron {{activeClass this._id}}" data-id={{this._id}}>
-                  <span class="chip-label">{{this.first_name}} {{this.last_name}}</span>
-                  <span class="chip-btn">
-                    <span class="glyphicon glyphicon-ok"></span>
-                  </span>
-                </div>
-              {{/each}}
-            </div>
-          {{else}}
-            <p>Couldn't find patron for the criteria <span class="text-primary">{{searchQuery}}</span>.</p>
-          {{/if}}
+      {{#each searchResults}}
+        <div class="chip select-patron {{activeClass this._id}}" data-id={{this._id}}>
+          <span class="chip-label">{{this.first_name}} {{this.last_name}}</span>
+          <span class="chip-btn">
+            <span class="glyphicon glyphicon-ok"></span>
+          </span>
         </div>
-      {{/if}}
-    {{/if}}
+      {{/each}}
+    </div>
 
   </section>
 </template>
