@@ -1,37 +1,39 @@
 <template name="publicationRent">
-  <section class="pad">
-    <div>
-      <a href="/app/publications/{{publicationId}}"><button type="button" class="btn btn-default">Back</button></a>
+  <section>
+    <header class="flex-row">
+      <a href="/app/publications/{{publicationId}}" class="glyphicon glyphicon-chevron-left"></a>
+      <span class="title flex-max text-center">Select patron</span>
       {{#if selectedPatron}}
-        <button type="button" class="btn btn-primary rent-publication">Save</button>
+        <span class="glyphicon glyphicon-floppy-disk pointer rent-publication"></span>
+      {{else}}
+        <span class="glyphicon"></span>
       {{/if}}
+    </header>
+
+    <div class="pad">
+      <div class="card">
+        <h5 class="text-light">Search patron</h5>
+
+        <form class="form-group search-form">
+          <div class="input-group mar-bottom-sm">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+            <input class="form-control" type="text" name="searchQuery" placeholder="Hit return to search a patron">
+          </div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h5 class="text-light">Results</h5>
+
+        {{#each searchResults}}
+          <div class="chip select-patron {{activeClass this._id}}" data-id={{this._id}}>
+            <span class="chip-label">{{this.first_name}} {{this.last_name}}</span>
+            <span class="chip-btn">
+              <span class="glyphicon glyphicon-ok"></span>
+            </span>
+          </div>
+        {{/each}}
+      </div>
     </div>
-
-    <div class="whitespace"></div>
-
-    <div class="card">
-      <h5 class="text-light">Search patron</h5>
-
-      <form class="form-group search-form">
-        <div class="input-group mar-bottom-sm">
-          <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-          <input class="form-control" type="text" name="searchQuery" placeholder="Hit return to search a patron">
-        </div>
-      </form>
-    </div>
-
-    <div class="card">
-      <h5 class="text-light">Results</h5>
-
-      {{#each searchResults}}
-        <div class="chip select-patron {{activeClass this._id}}" data-id={{this._id}}>
-          <span class="chip-label">{{this.first_name}} {{this.last_name}}</span>
-          <span class="chip-btn">
-            <span class="glyphicon glyphicon-ok"></span>
-          </span>
-        </div>
-      {{/each}}
-    </div>
-
   </section>
 </template>
