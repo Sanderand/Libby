@@ -15,14 +15,17 @@ if (Meteor.isServer) {
     }, {
       fields: {
         _id: true,
+
         name: true,
         notes: true,
         organization: true,
         phone: true,
         email: true,
         address: true,
-        
+
         hasPublicPage: true,
+        publicId: true,
+        
         rentDays: true,
         extendDays: true,
       }

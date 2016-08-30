@@ -16,6 +16,8 @@ import './stats.js';
 import './library.js';
 import './settings.js';
 
+import './publicProfile.js';
+
 // pure templates
 
 import './body.html';

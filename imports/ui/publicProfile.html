@@ -1,17 +1,54 @@
-<template name="publicationList">
+<template name="publicProfile">
   <section>
-    <header class="flex-row">
-      <button type="button" class="glyphicon glyphicon-menu-hamburger lg-screen-hide"></button>
-      <form class="search flex-max flex-row">
-        <input class="flex-max" type="text" placeholder="Search" name="searchValue">
-        <button type="submit" class="glyphicon glyphicon-search"></button>
-      </form>
-    </header>
-
     <div class="pad">
-      <a class="fab-btn text-primary text-primary-hover" href="/app/publications/new">
-        <span class="glyphicon glyphicon-plus-sign"></span>
-      </a>
+
+      <div class="card">
+        <h5 class="text-light">General</h5>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            {{#if library.name}}
+              <p><b>{{library.name}}</b></p>
+            {{/if}}
+            {{#if library.email}}
+              <p>
+                <span class="glyphicon glyphicon-envelope pad-right-sm"></span>
+                <a href="mailto:{{library.email}}">{{library.email}}</a>
+              </p>
+            {{/if}}
+            {{#if library.phone}}
+            <p>
+              <span class="glyphicon glyphicon-earphone pad-right-sm"></span>
+              <a href="call:{{library.phone}}">{{library.phone}}</a>
+            </p>
+            {{/if}}
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            {{#if library.organization}}
+              <p><b>{{library.organization}}</b></p>
+            {{/if}}
+            {{#if inlineAddress library.address}}
+            <p>
+              <span class="glyphicon glyphicon-map-marker pad-right-sm"></span>
+              <span>{{inlineAddress library.address}}</span>
+            </p>
+            {{/if}}
+            {{#if library.notes}}
+            <p>
+              <span class="glyphicon glyphicon-comment pad-right-sm"></span>
+              <span>{{library.notes}}</span>
+            </p>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="whitespace"></div>
+
+      <div class="text-light text-center">Publications</div>
+
+      <div class="whitespace"></div>
 
       {{#each publications}}
         <div class="card flex-row open-publication pointer" data-id={{_id}}>
@@ -59,6 +96,7 @@
           </div>
         </div>
       {{/each}}
+
     </div>
   </section>
 </template>

@@ -43,10 +43,16 @@ Template.rentList.events({
     });
   },
 
-  'submit .search-bar'(event) {
+  'submit .search'(event) {
     event.preventDefault();
     const searchQuery = event.target.searchValue.value;
     Template.instance().state.set('searchQuery', searchQuery);
+  },
+
+  'keyup .search input'(event) {
+    if (event.currentTarget.value.length === 0) {
+      Template.instance().state.set('searchQuery', '');
+    }
   },
 });
 

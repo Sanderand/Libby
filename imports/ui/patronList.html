@@ -1,17 +1,17 @@
 <template name="patronList">
   <section>
-    <form class="search-bar flex-row">
-      <input class="flex-max" type="text" placeholder="Search patrons" name="searchValue">
-      <button type="submit" class="icon"><span class="glyphicon glyphicon-search"></span></button>
-    </form>
+    <header class="flex-row">
+      <button type="button" class="glyphicon glyphicon-menu-hamburger lg-screen-hide"></button>
+      <form class="search flex-max flex-row">
+        <input class="flex-max" type="text" placeholder="Search" name="searchValue">
+        <button type="submit" class="glyphicon glyphicon-search"></button>
+      </form>
+    </header>
 
     <div class="pad">
-      <div class="flex-row">
-        <h3 class="flex-max">Patrons</h3>
-        <a class="plus-btn text-primary text-primary-hover" href="/app/patrons/new">
-          <span class="glyphicon glyphicon-plus-sign"></span>
-        </a>
-      </div>
+      <a class="fab-btn text-primary text-primary-hover" href="/app/patrons/new">
+        <span class="glyphicon glyphicon-plus-sign"></span>
+      </a>
 
       {{#each patrons}}
         <div class="card flex-row open-patron pointer" data-id={{_id}}>

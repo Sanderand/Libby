@@ -1,17 +1,24 @@
 <template name="stats">
-  <section class="pad">
-    <h3>Statistics</h3>
+  <section>
+    <header class="flex-row">
+      <span class="glyphicon glyphicon-menu-hamburger lg-screen-hide"></span>
+      <span class="glyphicon sm-screen-hide"></span>
+      <div class="title flex-max text-center">Statistics</div>
+      <span class="glyphicon"></span>
+    </header>
 
-    <div class="card">
-      <h4 class="text-light">Patrons</h4>
-      <p>Total: <b>{{patronsCount}}</b></p>
-    </div>
+    <div class="pad">
+      <div class="card">
+        <h5 class="text-light">Patrons</h5>
+        <p>Total: <b>{{patronsCount}}</b></p>
+      </div>
 
-    <div class="card">
-      <h4 class="text-light">Publications</h4>
-      <p>Total: <b>{{publicationsCount}}</b></p>
-      <p>Available: <b>{{publicationsAvailable}}</b></p>
-      <p>Rented: <b>{{publicationsRented}}</b></p>
+      <div class="card">
+        <h5 class="text-light">Publications</h5>
+        <p>Total: <b>{{publicationsCount}}</b></p>
+        <p>Available: <b>{{publicationsAvailable}}</b></p>
+        <p>Rented: <b>{{publicationsRented}}</b></p>
+      </div>
     </div>
   </section>
 </template>

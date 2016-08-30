@@ -1,15 +1,16 @@
 <template name="rentList">
   <section>
-    <form class="search-bar flex-row">
-      <input class="flex-max" type="text" placeholder="Search rented publications" name="searchValue">
-      <button type="submit" class="icon"><span class="glyphicon glyphicon-search"></span></button>
-    </form>
+    <header class="flex-row">
+      <button type="button" class="glyphicon glyphicon-menu-hamburger lg-screen-hide"></button>
+      <form class="search flex-max flex-row">
+        <input class="flex-max" type="text" placeholder="Search" name="searchValue">
+        <button type="submit" class="glyphicon glyphicon-search"></button>
+      </form>
+    </header>
 
     <div class="pad">
-      <h3>Rented Publications</h3>
-
       {{#each rentedPublications}}
-      <!--  TODO: check if returns are overdue -->
+      <!--  TODO: visualize overdue returns -->
         <div class="card flex-row open-publication pointer" data-id={{_id}}>
           <div class="flex-max">
             <div class="card-left-top">
