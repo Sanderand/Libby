@@ -7,6 +7,7 @@ import { Patrons } from '../imports/api/patrons.js';
 import { Publications } from '../imports/api/publications.js';
 import { Books } from '../imports/api/books.js';
 import { Quotes } from '../imports/api/quotes.js';
+import { Public } from '../imports/api/public.js';
 
 
 Meteor.startup(() => {
@@ -23,7 +24,10 @@ Accounts.onCreateUser(function(options, user) {
   }, {
     $set: {
       name: 'My Library',
+
       hasPublicPage: false,
+      publicId: Random.id(),
+
       rentDays: 30,
       extendDays: 15,
     }

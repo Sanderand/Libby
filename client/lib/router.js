@@ -8,6 +8,14 @@ FlowRouter.route('/', {
   }
 });
 
+FlowRouter.route('/libraries/:publicId', {
+  action: function() {
+    BlazeLayout.render('contentLayout', {
+      content: 'publicProfile',
+    });
+  }
+});
+
 FlowRouter.notFound = {
   action: function() {
     BlazeLayout.render('contentLayout', {
