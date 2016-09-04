@@ -34,7 +34,7 @@ Template.publicationRent.events({
 
     Meteor.call('publication.rent', publicationId, patronId, (err, res) => {
       if (err) {
-        console.error(err); // TODO print error to form
+        console.error(err);
       }
 
       FlowRouter.go('/app/publications/' + publicationId);
@@ -77,7 +77,7 @@ Template.publicationRent.helpers({
         },
       });
     }
-    
+
     return [];
   },
 });

@@ -32,7 +32,7 @@ Template.library.events({
 
     Meteor.call('libraries.upsert', library, (err, res) => {
       if (err) {
-        console.error(err); // TODO print error to form
+        console.error(err);
       } else {
         instance.state.set('mode', 'VIEW');
       }

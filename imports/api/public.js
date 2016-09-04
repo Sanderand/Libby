@@ -56,8 +56,6 @@ Meteor.methods({
           type: true,
           year: true,
           length: true,
-          isbn: true,
-          barcode: true,
           subtitle: true,
           description: true,
           rating: true,

@@ -1,5 +1,7 @@
 import { Template } from 'meteor/templating';
 
+// HELPER-HELPERS
+
 Template.registerHelper('fromNow', (date) => {
 	return moment(date).fromNow();
 });
@@ -41,4 +43,18 @@ Template.registerHelper('inlineAddress', (address) => {
 
 Template.registerHelper('selectedClass', (a, b) => {
 	return a == b ? 'selected' : '';
+});
+
+
+Template.registerHelper('inc', (value) => {
+	return parseInt(value) + 1;
+});
+
+// HELPER-EVENTS
+
+Template.body.events({ // TODO: research
+	'click .sidebar-toggle'(a, b, c) {
+		console.log('YOLO');
+		console.log(a,b,c);
+	},
 });

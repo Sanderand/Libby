@@ -3,7 +3,7 @@
     <header class="flex-row">
       {{#if eqMode "VIEW"}}
         <span class="glyphicon sm-screen-hide"></span>
-        <span class="glyphicon glyphicon-menu-hamburger lg-screen-hide"></span>
+        <span class="glyphicon glyphicon-menu-hamburger sidebar-toggle lg-screen-hide"></span>
       {{else}}
         <span class="glyphicon glyphicon-chevron-left enter-view-mode"></span>
       {{/if}}
@@ -11,9 +11,9 @@
       <span class="title flex-max text-center">Library</span>
 
       {{#if eqMode "VIEW"}}
-        <span class="glyphicon glyphicon-pencil pointer enter-form-mode"></span>
+        <span class="glyphicon glyphicon-pencil enter-form-mode"></span>
       {{else}}
-        <span class="glyphicon glyphicon-floppy-disk pointer save-changes"></span>
+        <span class="glyphicon glyphicon-floppy-disk save-changes"></span>
       {{/if}}
     </header>
 

@@ -8,7 +8,7 @@ FlowRouter.route('/', {
   }
 });
 
-FlowRouter.route('/libraries/:publicId', {
+FlowRouter.route('/public/:publicId', {
   action: function() {
     BlazeLayout.render('contentLayout', {
       content: 'publicProfile',

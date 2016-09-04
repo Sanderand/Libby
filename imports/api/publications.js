@@ -14,6 +14,7 @@ if (Meteor.isServer) {
 
     return Publications.find({
       libRef: user.profile.libRef,
+
     }, {
       fields: {
         title: true,
@@ -42,13 +43,18 @@ if (Meteor.isServer) {
 
 Meteor.methods({
   'publications.remove'(publicationId) {
-    check(publicationId, String);
-
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
-    return Publications.remove(publicationId);
+    check(publicationId, String);
+
+    Publications.update(publicationId, {
+      $set: {
+        deleted: true,
+        deleted_at: new Date(),
+      }
+    });
   },
 
   'publications.upsert'(publication) {

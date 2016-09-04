@@ -1,5 +1,7 @@
+import * as constants from '../constants.js';
+
 export const Books = {
-  apiKey: '', // TODO
+  apiKey: constants.googleAPIKey,
   basePath: 'https://www.googleapis.com/books/v1/volumes',
 
   queryISBNInfo: function(isbn) {

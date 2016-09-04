@@ -37,7 +37,7 @@ Template.publication.events({
 
     Meteor.call('publications.upsert', publication, (err, data) => {
       if (err) {
-        console.error(err); // TODO print error to form
+        console.error(err);
       }
 
       // update path and go to view mode

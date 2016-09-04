@@ -3,6 +3,7 @@ import { AccountsServer } from 'meteor/accounts-base'
 
 import { Users } from '../imports/api/users.js';
 import { Libraries } from '../imports/api/libraries.js';
+import { Logs } from '../imports/api/logs.js';
 import { Patrons } from '../imports/api/patrons.js';
 import { Publications } from '../imports/api/publications.js';
 import { Books } from '../imports/api/books.js';

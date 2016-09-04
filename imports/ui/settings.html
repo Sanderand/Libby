@@ -1,7 +1,7 @@
 <template name="settings">
   <section>
     <header class="flex-row">
-      <span class="glyphicon glyphicon-menu-hamburger lg-screen-hide"></span>
+      <span class="glyphicon glyphicon-menu-hamburger sidebar-toggle lg-screen-hide"></span>
       <span class="glyphicon sm-screen-hide"></span>
       <div class="title flex-max text-center">Settings</div>
       <span class="glyphicon"></span>
@@ -18,7 +18,7 @@
             <input class="public-page" type="checkbox" name="publicPage" checked={{library.hasPublicPage}}>
             <span>Publish a public page</span>
             {{#if library.hasPublicPage}}
-              (<a href="/libraries/{{library.publicId}}">show</a>)
+              (<a href="/public/{{library.publicId}}">show</a>)
             {{/if}}
           </label>
         </div>
@@ -49,6 +49,12 @@
           </div>
         </div>
       </div>
+
+      <div class="whitespace"></div>
+
+      <div class="text-light text-center">· · ·</div>
+
+      <div class="whitespace"></div>
 
       <div class="card">
         <h5 class="text-light">Session</h5>

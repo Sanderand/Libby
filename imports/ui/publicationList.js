@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
+import * as constants from '../constants.js';
 import { Publications } from '../api/publications.js';
 import './publicationList.html';
 
@@ -42,7 +43,7 @@ Template.publicationList.helpers({
       }
     }
 
-    if (searchQuery && searchQuery.length > 1) { // TODO use constant
+    if (searchQuery && searchQuery.length > constants.minQueryLength) {
       const regex = new RegExp(searchQuery, 'i');
 
       selector['$or'] = [{

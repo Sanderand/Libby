@@ -33,14 +33,18 @@ if (Meteor.isServer) {
 
 Meteor.methods({
   'patrons.remove'(patronId) {
-    // TODO make sure that user is no longer renting publications
-    check(patronId, String);
-
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
-    return Patrons.remove(patronId);
+    check(patronId, String);
+
+    Patrons.update(patronId, {
+      $set: {
+        deleted: true,
+        deleted_at: new Date(),
+      }
+    });
   },
 
   'patrons.upsert'(patron) {

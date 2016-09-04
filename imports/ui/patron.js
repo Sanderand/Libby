@@ -36,7 +36,7 @@ Template.patron.events({
 
     Meteor.call('patrons.upsert', patron, (err, data) => {
       if (err) {
-        console.error(err); // TODO print error to form
+        console.error(err);
       }
 
       // update path and go to view mode
@@ -106,9 +106,5 @@ Template.patron.helpers({
 
   eqMode: function(mode) {
     return (Template.instance().state.get('mode') === mode);
-  },
-
-  inc: function(value) { // TODO make global
-    return parseInt(value) + 1;
   },
 });

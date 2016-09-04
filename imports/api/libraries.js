@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 
+import * as constants from '../constants.js';
 export const Libraries = new Mongo.Collection('libraries');
 
 
@@ -25,7 +26,7 @@ if (Meteor.isServer) {
 
         hasPublicPage: true,
         publicId: true,
-        
+
         rentDays: true,
         extendDays: true,
       }
@@ -76,7 +77,7 @@ Meteor.methods({
     const user = Meteor.user();
     const libRef = user.profile.libRef;
 
-    if (user.profile.role === 'ADMIN') { // TODO use constants
+    if (user.profile.role === constants.roles.admin) {
       check(hasPublicPage, Boolean);
 
       return Libraries.update(libRef, {
@@ -91,7 +92,7 @@ Meteor.methods({
     const user = Meteor.user();
     const libRef = user.profile.libRef;
 
-    if (user.profile.role === 'ADMIN') { // TODO use constants
+    if (user.profile.role === constants.roles.admin) {
       check(rentDays, Number);
       rentDays = parseInt(rentDays);
 
@@ -107,7 +108,7 @@ Meteor.methods({
     const user = Meteor.user();
     const libRef = user.profile.libRef;
 
-    if (user.profile.role === 'ADMIN') { // TODO use constants
+    if (user.profile.role === constants.roles.admin) {
       check(extendDays, Number);
       extendDays = parseInt(extendDays);
 
