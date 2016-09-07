@@ -23,3 +23,15 @@ import './publicProfile.js';
 import './body.html';
 import './sidebar.html';
 import './notFound.html';
+
+// contentLayout-wide events
+
+Template.contentLayout.events({
+	'click .sidebar-toggle': function(e) {
+    $('aside').toggleClass('open');
+	},
+
+	'click aside a': function(e) {
+    $('aside').removeClass('open');
+	},
+});

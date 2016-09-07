@@ -49,12 +49,3 @@ Template.registerHelper('selectedClass', (a, b) => {
 Template.registerHelper('inc', (value) => {
 	return parseInt(value) + 1;
 });
-
-// HELPER-EVENTS
-
-Template.body.events({ // TODO: research
-	'click .sidebar-toggle'(a, b, c) {
-		console.log('YOLO');
-		console.log(a,b,c);
-	},
-});

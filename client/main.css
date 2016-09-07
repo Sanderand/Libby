@@ -121,6 +121,32 @@ aside .divider {
   height: 25px;
 }
 
+@media (max-width: 600px) {
+  aside {
+    display: none;
+  }
+
+  aside.open {
+    display: block !important;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+  }
+
+  aside .mobile-focus-shade {
+    display: block;
+    position: fixed;
+    left: 200px;
+    background-color: rgba(0, 0, 0, 0.5);
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+  }
+}
+
+/* stuff */
+
 .text-icon {
   font-size: 14px;
 }
