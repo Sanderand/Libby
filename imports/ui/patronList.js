@@ -4,6 +4,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 
 import * as constants from '../constants.js';
 import { Patrons } from '../api/patrons.js';
+import './patronListItem.js';
 import './patronList.html';
 
 
@@ -15,11 +16,6 @@ Template.patronList.onCreated(function() {
 });
 
 Template.patronList.events({
-  'click .open-patron'(event) {
-    const patronId = event.currentTarget.dataset.id;
-    FlowRouter.go('/app/patrons/' + patronId)
-  },
-
   'submit .search'(event) {
     event.preventDefault();
     const searchQuery = event.target.searchValue.value;

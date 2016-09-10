@@ -137,17 +137,18 @@ Meteor.methods({
       _id: Meteor.user().profile.libRef,
     });
 
-    const rentDays = library.rentDays;
-    console.log(library, rentDays);
+    if (library) {
+      const rentDays = library.rentDays;
 
-    return Publications.update(publicationId, {
-      $set: {
-        'rent.start_at': new Date(),
-        'rent.end_at': new Date(Date.now() + rentDays * 24 * 60 * 60 * 1000),
-        'rent.patronId': patronId,
-        'rent.extended': false,
-      }
-    });
+      return Publications.update(publicationId, {
+        $set: {
+          'rent.start_at': new Date(),
+          'rent.end_at': new Date(Date.now() + rentDays * 24 * 60 * 60 * 1000),
+          'rent.patronId': patronId,
+          'rent.extended': 0,
+        }
+      });
+    }
   },
 
   'publication.extend'(publicationId) {
@@ -161,19 +162,17 @@ Meteor.methods({
       _id: publicationId,
     });
 
-    if (publication.rent.extended === false) {
+    const library = Libraries.findOne({
+      _id: Meteor.user().profile.libRef,
+    });
+
+    if (publication && library && publication.rent.extended < library.maxExtends) {
       const rentEndTimestamp = new Date(publication.rent.end_at).getTime();
-
-      const library = Libraries.findOne({
-        _id: Meteor.user().profile.libRef,
-      });
-
-      console.log(publication, library);
 
       return Publications.update(publicationId, {
         $set: {
           'rent.end_at': new Date(rentEndTimestamp + library.extendDays * 24 * 60 * 60 * 1000),
-          'rent.extended': true,
+          'rent.extended': (publication.rent.extended + 1),
         }
       });
     }

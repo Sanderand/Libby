@@ -26,9 +26,11 @@ if (Meteor.isServer) {
 
         hasPublicPage: true,
         publicId: true,
+        nonAdminsCanAddUsers: true,
 
         rentDays: true,
         extendDays: true,
+        maxExtends: true,
       }
     });
   });
@@ -41,6 +43,18 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
+  'libraries.maxExtends'() {
+    const libRef = Meteor.user().profile.libRef;
+
+    return Libraries.findOne({
+      _id: libRef,
+    }, {
+      fields: {
+        maxExtends: true,
+      }
+    });
+  },
+
   'libraries.upsert'(library) {
     const libRef = Meteor.user().profile.libRef;
 
@@ -115,6 +129,37 @@ Meteor.methods({
       return Libraries.update(libRef, {
         $set: {
           extendDays: extendDays,
+        }
+      });
+    }
+  },
+
+  'libraries.setMaxExtends'(maxExtends) {
+    const user = Meteor.user();
+    const libRef = user.profile.libRef;
+
+    if (user.profile.role === constants.roles.admin) {
+      check(maxExtends, Number);
+      maxExtends = parseInt(maxExtends);
+
+      return Libraries.update(libRef, {
+        $set: {
+          maxExtends: maxExtends,
+        }
+      });
+    }
+  },
+
+  'libraries.setNonAdminAddUsers'(nonAdminsCanAddUsers) {
+    const user = Meteor.user();
+    const libRef = user.profile.libRef;
+
+    if (user.profile.role === constants.roles.admin) {
+      check(nonAdminsCanAddUsers, Boolean);
+
+      return Libraries.update(libRef, {
+        $set: {
+          nonAdminsCanAddUsers: nonAdminsCanAddUsers,
         }
       });
     }

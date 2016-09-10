@@ -6,8 +6,7 @@ import './patron.js';
 import './publicationList.js';
 import './publication.js';
 import './publicationRent.js';
-
-import './rentList.js';
+import './publicationActions.js';
 
 import './logoutConfirm.js';
 import './home.js';
@@ -33,5 +32,10 @@ Template.contentLayout.events({
 
 	'click aside a': function(e) {
     $('aside').removeClass('open');
+	},
+
+	'click .pill': function(e) {
+    $('.pill').removeClass('selected');
+		e.currentTarget.classList.add('selected');
 	},
 });

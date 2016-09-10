@@ -3,7 +3,7 @@
     <header class="flex-row">
       <button type="button" class="glyphicon glyphicon-menu-hamburger sidebar-toggle lg-screen-hide"></button>
       <form class="search flex-max flex-row">
-        <input class="flex-max" type="text" placeholder="Search" name="searchValue">
+        <input class="flex-max" type="text" placeholder="Search patrons" name="searchValue">
         <button type="submit" class="glyphicon glyphicon-search"></button>
       </form>
     </header>
@@ -14,33 +14,7 @@
       </a>
 
       {{#each patrons}}
-        <div class="card flex-row open-patron pointer" data-id={{_id}}>
-          <div class="flex-max">
-            <div class="card-left-top">
-              {{maxLength first_name 20}} {{maxLength last_name 20}}
-            </div>
-            <div class="card-left-bottom">
-              <span>{{phone}}</span>
-              {{#if phone}}
-                {{#if email}}
-                  <span> · </span>
-                {{/if}}
-              {{/if}}
-              <span>{{email}}</span>
-            </div>
-          </div>
-
-          <div class="flex-column flex-self-stretch">
-            <div class="card-right-top flex-max">
-              {{#if notes}}
-                <span class="glyphicon glyphicon-comment text-icon text-primary"></span>
-              {{/if}}
-            </div>
-            <div class="card-right-bottom">
-              <span>{{inlineAddress address}}</span>
-            </div>
-          </div>
-        </div>
+        {{> patronListItem}}
       {{/each}}
     </div>
   </section>

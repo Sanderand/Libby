@@ -4,6 +4,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 
 import * as constants from '../constants.js';
 import { Publications } from '../api/publications.js';
+import './publicationListItem.js';
 import './publicationList.html';
 
 
@@ -12,14 +13,10 @@ Template.publicationList.onCreated(function() {
 
   this.state = new ReactiveDict();
   this.state.set('searchQuery', '');
+  this.state.set('filter', constants.filters.all);
 });
 
 Template.publicationList.events({
-  'click .open-publication'(event) {
-    const publicationId = event.currentTarget.dataset.id;
-    FlowRouter.go('/app/publications/' + publicationId)
-  },
-
   'submit .search'(event) {
     event.preventDefault();
     const searchQuery = event.target.searchValue.value;
@@ -31,16 +28,39 @@ Template.publicationList.events({
       Template.instance().state.set('searchQuery', '');
     }
   },
+
+  'click .show-all'(event) {
+    Template.instance().state.set('filter', constants.filters.all);
+  },
+
+  'click .show-available'(event) {
+    Template.instance().state.set('filter', constants.filters.available);
+  },
+
+  'click .show-rented'(event) {
+    Template.instance().state.set('filter', constants.filters.rented);
+  },
 });
 
 Template.publicationList.helpers({
   publications() {
     const searchQuery = Template.instance().state.get('searchQuery');
+    const filter = Template.instance().state.get('filter');
     var selector = {};
     const options = {
       sort: {
         title: 1,
       }
+    }
+
+    if (filter === constants.filters.available) {
+      selector['rent'] = {
+        $exists: false,
+      };
+    } else if (filter === constants.filters.rented) {
+      selector['rent'] = {
+        $exists: true,
+      };
     }
 
     if (searchQuery && searchQuery.length > constants.minQueryLength) {

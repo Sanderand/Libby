@@ -1,0 +1,46 @@
+<template name="publicationListItem">
+  <div class="card flex-row open-publication pointer" data-id={{_id}}>
+    <div class="flex-max">
+      <div class="card-left-top">
+        <span>{{maxLength title 30}}</span>
+        {{#if subtitle}}
+          <small>· {{maxLength subtitle 30}}</small>
+        {{/if}}
+      </div>
+      <div class="card-left-bottom">
+        <b>{{type}}</b>
+        <span> · {{author}}</span>
+        {{#if publisher}}
+          <span>({{publisher}})</span>
+        {{/if}}
+      </div>
+    </div>
+
+    <div class="flex-column flex-self-stretch">
+      <div class="card-right-top flex-max">
+        {{#if le 1 rating}}
+          <span class="glyphicon glyphicon-star text-icon text-primary"></span>
+        {{/if}}
+        {{#if le 2 rating}}
+          <span class="glyphicon glyphicon-star text-icon text-primary"></span>
+        {{/if}}
+        {{#if le 3 rating}}
+          <span class="glyphicon glyphicon-star text-icon text-primary"></span>
+        {{/if}}
+        {{#if le 4 rating}}
+          <span class="glyphicon glyphicon-star text-icon text-primary"></span>
+        {{/if}}
+        {{#if le 5 rating}}
+          <span class="glyphicon glyphicon-star text-icon text-primary"></span>
+        {{/if}}
+      </div>
+      <div class="card-right-bottom">
+        {{#if isRented this}}
+          <span class="text-primary">is rented</span>
+        {{else}}
+          <span>available</span>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</template>

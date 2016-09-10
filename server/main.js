@@ -28,9 +28,12 @@ Accounts.onCreateUser(function(options, user) {
 
       hasPublicPage: false,
       publicId: Random.id(),
+      nonAdminsCanAddUsers: false,
 
       rentDays: 30,
       extendDays: 15,
+      maxExtends: 1,
+
     }
   });
 

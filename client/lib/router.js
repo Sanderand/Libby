@@ -84,17 +84,6 @@ authRoutes.route('/publications/:publicationId/rent', {
   },
 });
 
-// RENTS
-
-authRoutes.route('/rents/', {
-  action: function() {
-    BlazeLayout.render('contentLayout', {
-      content: 'rentList',
-      sidebar: 'sidebar',
-    });
-  },
-});
-
 // STATS
 
 authRoutes.route('/stats', {

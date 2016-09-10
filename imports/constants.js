@@ -10,6 +10,12 @@ const roles = {
   admin: 'ADMIN',
 };
 
+const filters = {
+  all: 'ALL',
+  rented: 'RENTED',
+  available: 'AVAILABLE',
+};
+
 const minQueryLength = 1;
 
 export {
@@ -19,5 +25,6 @@ export {
   str_method_update,
   googleAPIKey,
   roles,
+  filters,
   minQueryLength,
 };

@@ -73,10 +73,7 @@
                 </div>
 
                 <div class="pad">
-                  {{#if eq rent.extended false}}
-                    <div class="btn btn-sm btn-warning publication-extend" data-id={{_id}}>Extend</div>
-                  {{/if}}
-                  <div class="btn btn-sm btn-primary publication-return" data-id={{_id}}>Return</div>
+                  {{>publicationActions this}}
                 </div>
               </div>
             {{/each}}

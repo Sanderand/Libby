@@ -60,6 +60,10 @@ main {
   padding-right: 0 !important;
 }
 
+.mar-left-sm {
+  margin-left: 5px;
+}
+
 .mar-right-sm {
   margin-right: 5px;
 }
@@ -377,7 +381,7 @@ header .glyphicon {
   border-radius: 3px;
   padding: 10px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   background-color: #fff;
 }
 
@@ -484,4 +488,42 @@ header .glyphicon {
 .quote-wrapper .quote:after {
   content: '”';
   padding-left: 2px;
+}
+
+/* pills */
+
+.pills {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.pill {
+  box-sizing: border-box;
+  padding: 0px 12px;
+  line-height: 26px;
+  margin: 0px;
+  border-right: 1px solid #ff6868;
+  border-bottom: 1px solid #ff6868;
+  border-top: 1px solid #ff6868;
+  cursor: pointer;
+  color: #ff6868;
+  background-color: #fff;
+}
+
+.pill:first-child {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-left: 1px solid #ff6868;
+}
+
+.pill:last-child {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.pill.selected {
+  background-color: #ff6868;
+  color: #fff;
 }

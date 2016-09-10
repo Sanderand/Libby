@@ -4,6 +4,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 
 import { Patrons } from '../api/patrons.js';
 import { Publications } from '../api/publications.js';
+import './publicationActions.js';
 import './patron.html';
 
 
@@ -54,24 +55,6 @@ Template.patron.events({
       }
 
       FlowRouter.go('/app/patrons/');
-    });
-  },
-
-  'click .publication-return'(event) {
-    const publicationId = event.currentTarget.dataset.id;
-    Meteor.call('publication.return', publicationId, (err, data) => {
-      if (err) {
-        console.error(err);
-      }
-    });
-  },
-
-  'click .publication-extend'(event) {
-    const publicationId = event.currentTarget.dataset.id;
-    Meteor.call('publication.extend', publicationId, (err, data) => {
-      if (err) {
-        console.error(err);
-      }
     });
   },
 

@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
+import * as constants from '../constants.js';
 import { Libraries } from '../api/libraries.js';
 import './settings.html';
 
@@ -20,6 +21,17 @@ Template.settings.events({
       if (err) {
         console.error(err);
         event.target.checked = !hasPublicPage;
+      }
+    });
+  },
+
+  'change .non-admins-add'(event) {
+    const nonAdminsCanAddUsers = event.target.checked || false;
+
+    Meteor.call('libraries.setNonAdminAddUsers', nonAdminsCanAddUsers, (err, res) => {
+      if (err) {
+        console.error(err);
+        event.target.checked = !nonAdminsCanAddUsers;
       }
     });
   },
@@ -43,6 +55,16 @@ Template.settings.events({
       }
     });
   },
+
+  'change .max-extends'(event, context) {
+    const maxExtends = parseInt(context.find('[name=maxExtends]').value);
+
+    Meteor.call('libraries.setMaxExtends', maxExtends, (err, res) => {
+      if (err) {
+        console.error(err);
+      }
+    });
+  },
 });
 
 Template.settings.helpers({
@@ -55,4 +77,8 @@ Template.settings.helpers({
 
     return {};
   },
+
+  isAdmin(user) {
+    return (Meteor.user() && Meteor.user().profile.role === constants.roles.admin);
+  }
 });

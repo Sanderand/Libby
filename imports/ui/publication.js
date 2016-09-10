@@ -4,6 +4,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 
 import { Publications } from '../api/publications.js';
 import { Books } from '../api/books.js';
+import './publicationActions.js';
 import './publication.html';
 
 
@@ -55,24 +56,6 @@ Template.publication.events({
       }
 
       FlowRouter.go('/app/publications/');
-    });
-  },
-
-  'click .publication-return'() {
-    const publicationId = FlowRouter.getParam('publicationId');
-    Meteor.call('publication.return', publicationId, (err, data) => {
-      if (err) {
-        console.error(err);
-      }
-    });
-  },
-
-  'click .publication-extend'() {
-    const publicationId = FlowRouter.getParam('publicationId');
-    Meteor.call('publication.extend', publicationId, (err, data) => {
-      if (err) {
-        console.error(err);
-      }
     });
   },
 

@@ -29,10 +29,7 @@
               <span>until {{formatDate publication.rent.end_at 'DD.MM.YYYY'}}</span>
             </span>
 
-            {{#if eq publication.rent.extended false}}
-              <div class="btn btn-sm btn-warning publication-extend mar-right-sm">Extend</div>
-            {{/if}}
-            <span class="btn btn-sm btn-primary publication-return">Return</span>
+            {{>publicationActions publication}}
           </div>
         {{else}}
           <div class="bg-info pad flex-row mar-bottom">
