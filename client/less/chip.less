@@ -1,0 +1,40 @@
+@import 'variables.less';
+
+.chip {
+  height: 30px;
+  display: inline-flex;
+  line-height: 30px;
+  background-color: @brightGrey;
+  padding: 0px 4px 0px 10px;
+  border-radius: 15px;
+  margin: 0px 5px 5px 0px;
+}
+
+.chip .chip-label {
+  font-size: 14px;
+}
+
+.chip .chip-btn {
+  width: 24px;
+  line-height: 23px;
+  text-align: center;
+  height: 24px;
+  background-color: @lightGrey;
+  border-radius: 12px;
+  color: @white;
+  margin-top: 3px;
+  margin-left: 5px;
+}
+
+.chip.active .chip-btn {
+    background-color: @highlight;
+}
+
+.chip .chip-btn:hover {
+  background-color: @lowlight;
+}
+
+.chip-btn .glyphicon {
+  top: 2px;
+  font-size: 12px;
+}

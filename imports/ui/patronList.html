@@ -13,6 +13,10 @@
         <span class="glyphicon glyphicon-plus-sign"></span>
       </a>
 
+      {{#if not patrons.count}}
+        <p class="text-light text-center pad">No results</p>
+      {{/if}}
+
       {{#each patrons}}
         {{> patronListItem}}
       {{/each}}

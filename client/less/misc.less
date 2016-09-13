@@ -1,0 +1,116 @@
+@import 'variables.less';
+
+main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+}
+
+section {
+  width: 100%;
+  overflow-y: auto;
+}
+
+aside {
+  min-width: 200px;
+  background-color: @white;
+  z-index: 1;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
+}
+
+aside .link {
+  color: @darkGrey;
+  padding: 10px 10px 10px 20px;
+  display: block;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+aside .link:hover,
+aside .link:focus,
+aside .link:active {
+  text-decoration: none;
+  color: @lowlight;
+}
+
+aside .link.active {
+  color: @highlight;
+}
+
+aside a.head {
+  text-decoration: none;
+  font-size: 20px;
+  display: block;
+  height: 50px;
+  margin-bottom: 10px;
+  line-height: 50px;
+  background-color: @lowlight;
+  color: @white;
+  padding-left: 20px;
+}
+
+aside .divider {
+  height: 25px;
+}
+
+@media (max-width: 600px) {
+  aside {
+    display: none;
+  }
+
+  aside.open {
+    display: block !important;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+  }
+
+  aside .mobile-focus-shade {
+    display: block;
+    position: fixed;
+    left: 200px;
+    background-color: rgba(0, 0, 0, 0.5);
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+  }
+}
+
+/* stuff */
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-light {
+  color: @lightGrey;
+}
+
+.text-icon {
+  font-size: 14px;
+}
+
+.text-primary {
+  color: @highlight;
+}
+
+.text-primary-hover:hover {
+  color: @lowlight !important;
+}
+
+.whitespace {
+  height: 32px;
+}
+
+.pointer {
+  cursor: pointer;
+}

@@ -1,0 +1,35 @@
+@import 'variables.less';
+
+.quote-wrapper {
+  padding: 100px 60px;
+}
+
+.quote-wrapper .author {
+  color: @midGrey;
+  font-size: 14px;
+  padding-left: 10px;
+  white-space: nowrap; /* no line breaks */
+}
+
+.quote-wrapper .quote {
+  color: @highlight;
+  font-size: 22px;
+  font-weight: 200;
+  line-height: 35px;
+}
+
+.quote-wrapper .quote:after,
+.quote-wrapper .quote:before {
+  font-size: 35px;
+  vertical-align: middle;
+}
+
+.quote-wrapper .quote:before {
+  content: '“';
+  padding-right: 2px;
+}
+
+.quote-wrapper .quote:after {
+  content: '”';
+  padding-left: 2px;
+}

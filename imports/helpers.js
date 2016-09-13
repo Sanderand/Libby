@@ -45,7 +45,10 @@ Template.registerHelper('selectedClass', (a, b) => {
 	return a == b ? 'selected' : '';
 });
 
-
 Template.registerHelper('inc', (value) => {
 	return parseInt(value) + 1;
+});
+
+Template.registerHelper('not', (statement) => {
+	return !statement;
 });

@@ -19,6 +19,10 @@
         <span class="glyphicon glyphicon-plus-sign"></span>
       </a>
 
+      {{#if not publications.count}}
+        <p class="text-light text-center pad">No results</p>
+      {{/if}}
+
       {{#each publications}}
         {{> publicationListItem}}
       {{/each}}
