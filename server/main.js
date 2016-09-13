@@ -16,26 +16,30 @@ Meteor.startup(() => {
 });
 
 Accounts.onCreateUser(function(options, user) {
+  const createdByAdmin = (!!options.profile.libRef);
+
   user.profile = options.profile || {};
-  user.profile.role = 'ADMIN';
-  user.profile.libRef = Random.id();
+  user.profile.role = options.profile.role || 'ADMIN';
+  user.profile.libRef = options.profile.libRef || Random.id();
 
-  Libraries.upsert({
-    _id: user.profile.libRef,
-  }, {
-    $set: {
-      name: 'My Library',
+  if (!createdByAdmin) {
+    Libraries.upsert({
+      _id: user.profile.libRef,
+    }, {
+      $set: {
+        name: 'My Library',
 
-      hasPublicPage: false,
-      publicId: Random.id(),
-      nonAdminsCanAddUsers: false,
+        hasPublicPage: false,
+        publicId: Random.id(),
+        nonAdminsCanAddUsers: false,
 
-      rentDays: 30,
-      extendDays: 15,
-      maxExtends: 1,
+        rentDays: 30,
+        extendDays: 15,
+        maxExtends: 1,
 
-    }
-  });
+      }
+    });
+  }
 
   return user;
 });

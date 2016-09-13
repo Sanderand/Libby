@@ -106,6 +106,15 @@ authRoutes.route('/library', {
   },
 });
 
+authRoutes.route('/library/add', {
+  action: function() {
+    BlazeLayout.render('contentLayout', {
+      content: 'libraryAdd',
+      sidebar: 'sidebar',
+    });
+  },
+});
+
 // SETTINGS
 
 authRoutes.route('/settings', {

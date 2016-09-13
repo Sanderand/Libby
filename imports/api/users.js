@@ -6,11 +6,11 @@ if (Meteor.isServer) {
     const user = Meteor.users.findOne(this.userId);
 
     return Meteor.users.find({
-      libRef: user.profile.libRef,
+      'profile.libRef': user.profile.libRef,
     }, {
       fields: {
         username: true,
-        role: true,
+        'profile.role': true,
       }
     });
   });

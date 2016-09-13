@@ -8,11 +8,13 @@ import './publication.js';
 import './publicationRent.js';
 import './publicationActions.js';
 
+import './library.js';
+import './libraryAdd.js';
+
 import './logoutConfirm.js';
 import './home.js';
 import './dashboard.js';
 import './stats.js';
-import './library.js';
 import './settings.js';
 
 import './publicProfile.js';

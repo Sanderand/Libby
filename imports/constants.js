@@ -8,6 +8,7 @@ const googleAPIKey = '';
 
 const roles = {
   admin: 'ADMIN',
+  user: 'USER',
 };
 
 const filters = {

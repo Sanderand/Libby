@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
+import { Accounts } from 'meteor/accounts-base';
 
 import * as constants from '../constants.js';
 export const Libraries = new Mongo.Collection('libraries');
@@ -163,5 +164,36 @@ Meteor.methods({
         }
       });
     }
+  },
+
+  'library.user.add'(newUser) {
+    const user = Meteor.user();
+    const libRef = user.profile.libRef;
+
+    check(newUser.email, String);
+    check(newUser.password, String);
+    check(newUser.role, String);
+
+    const queryUser = Meteor.users.findOne({
+      username: newUser.email,
+    });
+
+    if (!libRef) {
+      throw new Meteor.Error('library-not-found');
+    }
+
+    if (queryUser) {
+      throw new Meteor.Error('user-already-exists');
+    }
+
+    Accounts.createUser({
+      email: newUser.email,
+      username: newUser.email,
+      password: newUser.password,
+      profile: {
+        role: newUser.role,
+        libRef: libRef,
+      },
+    });
   },
 });
