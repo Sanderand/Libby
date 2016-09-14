@@ -20,7 +20,7 @@ Template.publicationActions.onCreated(function() {
 
 Template.publicationActions.events({
   'click .extend-publication'(event, context) {
-    Meteor.call('publication.extend', context.data._id, (err, data) => {
+    Meteor.call('publication.extend', context.data._id, (err, res) => {
       if (err) {
         console.error(err);
       }
@@ -28,7 +28,7 @@ Template.publicationActions.events({
   },
 
   'click .return-publication'(event, context) {
-    Meteor.call('publication.return', context.data._id, (err, data) => {
+    Meteor.call('publication.return', context.data._id, (err, res) => {
       if (err) {
         console.error(err);
       }

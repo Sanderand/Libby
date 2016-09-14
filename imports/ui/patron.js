@@ -35,13 +35,13 @@ Template.patron.events({
       },
     };
 
-    Meteor.call('patrons.upsert', patron, (err, data) => {
+    Meteor.call('patrons.upsert', patron, (err, res) => {
       if (err) {
         console.error(err);
       }
 
       // update path and go to view mode
-      const patronId = patron._id || data.insertedId;
+      const patronId = patron._id || res.insertedId;
       FlowRouter.go('/app/patrons/' + patronId);
       instance.state.set('mode', 'VIEW');
     });
@@ -49,7 +49,7 @@ Template.patron.events({
 
   'click .delete-patron'() {
     const patronId = FlowRouter.getParam('patronId');
-    Meteor.call('patrons.remove', patronId, (err, data) => {
+    Meteor.call('patrons.remove', patronId, (err, res) => {
       if (err) {
         console.error(err);
       }

@@ -36,13 +36,13 @@ Template.publication.events({
       length: context.find('[name=length]').value,
     };
 
-    Meteor.call('publications.upsert', publication, (err, data) => {
+    Meteor.call('publications.upsert', publication, (err, res) => {
       if (err) {
         console.error(err);
       }
 
       // update path and go to view mode
-      const publicationId = publication._id || data.insertedId;
+      const publicationId = publication._id || res.insertedId;
       FlowRouter.go('/app/publications/' + publicationId);
       instance.state.set('mode', 'VIEW');
     });
@@ -50,7 +50,7 @@ Template.publication.events({
 
   'click .delete-publication'() {
     const publicationId = FlowRouter.getParam('publicationId');
-    Meteor.call('publications.remove', publicationId, (err, data) => {
+    Meteor.call('publications.remove', publicationId, (err, res) => {
       if (err) {
         console.error(err);
       }
@@ -66,7 +66,7 @@ Template.publication.events({
     const tagName = target.tagName.value;
     const publicationId = FlowRouter.getParam('publicationId');
 
-    Meteor.call('publications.tag.add', publicationId, tagName, (err, data) => {
+    Meteor.call('publications.tag.add', publicationId, tagName, (err, res) => {
       if (err) {
         console.error(err);
       }
