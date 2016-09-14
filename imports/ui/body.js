@@ -9,7 +9,7 @@ import './publicationRent.js';
 import './publicationActions.js';
 
 import './library.js';
-import './libraryAdd.js';
+import './libraryUser.js';
 
 import './logoutConfirm.js';
 import './home.js';

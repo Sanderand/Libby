@@ -46,6 +46,11 @@ Template.library.events({
   'click .enter-view-mode'() {
     Template.instance().state.set('mode', 'VIEW');
   },
+
+  'click .library-user'(event) {
+    const userId = event.currentTarget.dataset.id;
+    FlowRouter.go('/app/library/users/' + userId);
+  },
 });
 
 Template.library.helpers({
@@ -65,7 +70,11 @@ Template.library.helpers({
 
   libraryUsers: function() {
     if (Meteor.user()) {
-      return Meteor.users.find().fetch();
+      return Meteor.users.find({}, {
+        sort: {
+          'profile.role': 1,
+        }
+      }).fetch();
     }
 
     return [];

@@ -65,7 +65,10 @@
         </div>
 
         <div class="card">
-          <h5 class="text-light">Team</h5>
+          <div class="flex-row">
+            <h5 class="text-light flex-max">Team</h5>
+            <a href="/app/library/users/new" class="glyphicon mini-fab glyphicon-plus-sign"></a>
+          </div>
 
           <table class="table table-hover table-striped">
             <thead>
@@ -76,17 +79,13 @@
             </thead>
             <tbody>
               {{#each libraryUsers}}
-              <tr>
+              <tr class="library-user pointer" data-id="{{_id}}">
                 <td>{{username}}</td>
                 <td>{{profile.role}}</td>
               </tr>
               {{/each}}
             </tbody>
           </table>
-
-          <div class="text-right">
-            <a href="/app/library/add" class="btn btn-primary">Add user</a>
-          </div>
         </div>
       {{/if}}
 

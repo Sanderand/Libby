@@ -106,10 +106,10 @@ authRoutes.route('/library', {
   },
 });
 
-authRoutes.route('/library/add', {
+authRoutes.route('/library/users/:userId', {
   action: function() {
     BlazeLayout.render('contentLayout', {
-      content: 'libraryAdd',
+      content: 'libraryUser',
       sidebar: 'sidebar',
     });
   },

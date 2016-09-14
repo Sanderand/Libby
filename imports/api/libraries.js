@@ -186,7 +186,7 @@ Meteor.methods({
       throw new Meteor.Error('user-already-exists');
     }
 
-    Accounts.createUser({
+    return Accounts.createUser({
       email: newUser.email,
       username: newUser.email,
       password: newUser.password,
@@ -194,6 +194,63 @@ Meteor.methods({
         role: newUser.role,
         libRef: libRef,
       },
+    });
+  },
+
+  'library.user.update'(updateUser) {
+    check(updateUser._id, String);
+    check(updateUser.role, String);
+
+    const updatingUser = Meteor.user();
+    const updatedUser = Meteor.users.findOne({_id: updateUser._id});
+
+    if (!updatedUser) {
+      throw new Meteor.Error('updated-user-not-found');
+    }
+
+    if (!updatingUser) {
+      throw new Meteor.Error('updating-user-not-found');
+    }
+
+    const updatinglibRef = updatingUser.profile.libRef;
+    const updatedlibRef = updatedUser.profile.libRef;
+
+    if (updatedlibRef !== updatinglibRef) {
+      throw new Meteor.Error('no-lib-ref-match');
+    }
+
+    return Meteor.users.update({
+      _id: updateUser._id
+    }, {
+      $set: {
+        'profile.role': updateUser.role,
+      },
+    });
+  },
+
+  'library.user.remove'(userId) {
+    check(userId, String);
+
+    const removingUser = Meteor.user();
+    const removedUser = Meteor.users.findOne({_id: userId});
+
+    if (!removedUser) {
+      throw new Meteor.Error('removed-user-not-found');
+    }
+
+    if (!removingUser) {
+      throw new Meteor.Error('removing-user-not-found');
+    }
+
+    const removinglibRef = removingUser.profile.libRef;
+    const removedlibRef = removedUser.profile.libRef;
+
+    if (removedlibRef !== removinglibRef) {
+      throw new Meteor.Error('no-lib-ref-match');
+    }
+
+    return Meteor.users.remove({
+      _id: userId
     });
   },
 });
