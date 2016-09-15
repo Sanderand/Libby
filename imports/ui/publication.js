@@ -6,6 +6,7 @@ import { Publications } from '../api/publications.js';
 import { Books } from '../api/books.js';
 import './publicationActions.js';
 import './publication.html';
+import './spinner.html';
 
 
 Template.publication.onCreated(function() {
@@ -16,6 +17,7 @@ Template.publication.onCreated(function() {
   this.state = new ReactiveDict();
   this.state.set('ISBN', '')
   this.state.set('mode', (publicationId === 'new') ? 'FORM' : 'VIEW');
+  this.state.set('ISBNLookup', false);
 });
 
 Template.publication.events({
@@ -86,6 +88,8 @@ Template.publication.events({
   },
 
   'click .isbn-look-up'(event, context) {
+    var instance = Template.instance();
+    instance.state.set('ISBNLookup', true);
     const ISBN = context.find('[name=isbn]').value;
 
     Books.queryISBNInfo(ISBN)
@@ -96,6 +100,8 @@ Template.publication.events({
             node.value = res[key];
           }
         }
+
+        instance.state.set('ISBNLookup', false);
       });
   },
 
@@ -145,5 +151,9 @@ Template.publication.helpers({
   getRatingClass: function(rating) {
     const currentRating = parseInt(Template.instance().state.get('rating'));
     return (parseInt(rating) <= currentRating) ? 'active' : 'inactive';
+  },
+
+  ISBNLookupPending: function() {
+    return Template.instance().state.get('ISBNLookup');
   },
 });

@@ -157,7 +157,13 @@
           <div class="form-group">
             <div class="input-group">
               <input class="form-control" type="text" name="isbn" value={{publication.isbn}} placeholder="Enter or scan">
-              <span class="input-group-addon btn isbn-look-up">Look Up</span>
+              <span class="input-group-addon btn isbn-look-up">
+                {{#if ISBNLookupPending}}
+                  <span class="glyphicon glyphicon-refresh spin"></span>
+                {{else}}
+                  <span>Look Up</span>
+                {{/if}}
+              </span>
             </div>
           </div>
 
