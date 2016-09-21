@@ -1,54 +1,49 @@
 <template name="publicProfile">
   <section>
-    <div class="pad">
 
-      <div class="card">
-        <h5 class="text-light">General</h5>
+    <div class="hero">
+      {{#if library.name}}
+        <h2>{{library.name}}</h2>
+      {{/if}}
 
-        <div class="row">
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            {{#if library.name}}
-              <p><b>{{library.name}}</b></p>
-            {{/if}}
-            {{#if library.email}}
-              <p>
-                <span class="glyphicon glyphicon-envelope pad-right-sm"></span>
-                <a href="mailto:{{library.email}}">{{library.email}}</a>
-              </p>
-            {{/if}}
-            {{#if library.phone}}
-            <p>
-              <span class="glyphicon glyphicon-earphone pad-right-sm"></span>
-              <a href="call:{{library.phone}}">{{library.phone}}</a>
-            </p>
-            {{/if}}
-          </div>
+      {{#if library.organization}}
+        <h5>{{library.organization}}</h5>
+      {{/if}}
 
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            {{#if library.organization}}
-              <p><b>{{library.organization}}</b></p>
-            {{/if}}
-            {{#if inlineAddress library.address}}
+      <p class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          {{#if library.email}}
             <p>
-              <span class="glyphicon glyphicon-map-marker pad-right-sm"></span>
-              <span>{{inlineAddress library.address}}</span>
+              <span class="glyphicon glyphicon-envelope pad-right-sm"></span>
+              <a href="mailto:{{library.email}}">{{library.email}}</a>
             </p>
-            {{/if}}
-            {{#if library.notes}}
-            <p>
-              <span class="glyphicon glyphicon-comment pad-right-sm"></span>
-              <span>{{library.notes}}</span>
-            </p>
-            {{/if}}
-          </div>
+          {{/if}}
+          {{#if library.phone}}
+          <p>
+            <span class="glyphicon glyphicon-earphone pad-right-sm"></span>
+            <a href="call:{{library.phone}}">{{library.phone}}</a>
+          </p>
+          {{/if}}
         </div>
-      </div>
 
-      <div class="whitespace"></div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          {{#if inlineAddress library.address}}
+          <p>
+            <span class="glyphicon glyphicon-map-marker pad-right-sm"></span>
+            <span>{{inlineAddress library.address}}</span>
+          </p>
+          {{/if}}
+          {{#if library.notes}}
+          <p>
+            <span class="glyphicon glyphicon-comment pad-right-sm"></span>
+            <span>{{library.notes}}</span>
+          </p>
+          {{/if}}
+        </div>
+      </p>
+    </div>
 
-      <div class="text-light text-center">Publications</div>
-
-      <div class="whitespace"></div>
+    <div class="pad">
 
       {{#each publications}}
         <div class="card flex-row open-publication">
