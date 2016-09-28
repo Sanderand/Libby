@@ -1,6 +1,7 @@
 import { check } from 'meteor/check';
 
 import * as constants from '../constants.js';
+import { sanitizeISBN, isValidISBN } from '../shared.js';
 
 
 export const ISBNLookup = {
@@ -9,11 +10,11 @@ export const ISBNLookup = {
 
   queryISBNInfo: function(isbn) {
     check(isbn, String);
-    isbn = this.sanitizeISBN(isbn);
+    isbn = sanitizeISBN(isbn);
 
     var deferred = $.Deferred();
 
-    if (this.isValidISBN(isbn)) {
+    if (isValidISBN(isbn)) {
       $.ajax({
         url: this.basePath + '?q=' + isbn + '+isbn',
       })
@@ -53,13 +54,6 @@ export const ISBNLookup = {
     return deferred.promise();
   },
 
-  sanitizeISBN: function(isbn) {
-    isbn = isbn.replace(/\s+/g, ''); // spaces
-    isbn = isbn.replace(/-/g, ''); // hyphens
-
-    return isbn;
-  },
-
   getISBNMatch: function(items, isbn) {
     return items.filter((item) => {
       if (item.volumeInfo && item.volumeInfo.industryIdentifiers) {
@@ -71,8 +65,4 @@ export const ISBNLookup = {
       }
     })[0];
   },
-
-  isValidISBN: function(isbn) {
-    return (isbn.length === 10 || isbn.length === 13);
-  }
 };

@@ -3,6 +3,7 @@ import { Mongo } from 'meteor/mongo';
 import { check, Match } from 'meteor/check';
 
 import * as constants from '../constants.js';
+import { sanitizeISBN } from '../shared.js';
 import { Libraries } from './libraries.js';
 export const Publications = new Mongo.Collection('publications');
 
@@ -91,7 +92,7 @@ Meteor.methods({
         type: publication.type,
         year: publication.year,
         length: publication.length,
-        isbn: publication.isbn,
+        isbn: sanitizeISBN(publication.isbn),
         barcode: publication.barcode,
         subtitle: publication.subtitle,
         description: publication.description,
