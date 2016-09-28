@@ -3,7 +3,7 @@ import { check } from 'meteor/check';
 import * as constants from '../constants.js';
 
 
-export const Books = {
+export const ISBNLookup = {
   apiKey: constants.googleAPIKey,
   basePath: 'https://www.googleapis.com/books/v1/volumes',
 

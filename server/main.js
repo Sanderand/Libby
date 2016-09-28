@@ -6,7 +6,7 @@ import { Libraries } from '../imports/api/libraries.js';
 import { Logs } from '../imports/api/logs.js';
 import { Patrons } from '../imports/api/patrons.js';
 import { Publications } from '../imports/api/publications.js';
-import { Books } from '../imports/api/books.js';
+import { ISBNLookup } from '../imports/api/isbnlookup.js';
 import { Quotes } from '../imports/api/quotes.js';
 import { Public } from '../imports/api/public.js';
 

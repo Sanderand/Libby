@@ -3,7 +3,7 @@ import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
 import { Publications } from '../api/publications.js';
-import { Books } from '../api/books.js';
+import { ISBNLookup } from '../api/isbnlookup.js';
 import './publicationActions.js';
 import './publication.html';
 import './spinner.html';
@@ -92,7 +92,7 @@ Template.publication.events({
     instance.state.set('ISBNLookup', true);
     const ISBN = context.find('[name=isbn]').value;
 
-    Books.queryISBNInfo(ISBN)
+    ISBNLookup.queryISBNInfo(ISBN)
       .then((res) => {
         for (key in res) {
           var node = context.find('[name=' + key + ']');
