@@ -3,19 +3,19 @@ import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
 import * as constants from '../constants.js';
-import { Patrons } from '../api/patrons.js';
-import './patronListItem.js';
-import './patronList.html';
+import { Borrowers } from '../api/borrowers.js';
+import './borrowerListItem.js';
+import './borrowerList.html';
 
 
-Template.patronList.onCreated(function() {
-  Meteor.subscribe('patrons');
+Template.borrowerList.onCreated(function() {
+  Meteor.subscribe('borrowers');
 
   this.state = new ReactiveDict();
   this.state.set('searchQuery', '');
 });
 
-Template.patronList.events({
+Template.borrowerList.events({
   'submit .search'(event) {
     event.preventDefault();
     const searchQuery = event.target.searchValue.value;
@@ -29,8 +29,8 @@ Template.patronList.events({
   },
 });
 
-Template.patronList.helpers({
-  patrons() {
+Template.borrowerList.helpers({
+  borrowers() {
     const searchQuery = Template.instance().state.get('searchQuery');
     var selector = {};
     const options = {
@@ -49,6 +49,6 @@ Template.patronList.helpers({
       }];
     }
 
-    return Patrons.find(selector, options);
+    return Borrowers.find(selector, options);
   },
 });

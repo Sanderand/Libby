@@ -15,6 +15,6 @@ Template.publicationListItem.events({
 
 Template.publicationListItem.helpers({
   isRented(publication) {
-    return (publication.rent && publication.rent.patronId);
+    return (publication.rent && publication.rent.borrowerId);
   },
 });

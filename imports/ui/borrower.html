@@ -1,13 +1,13 @@
-<template name="patron">
+<template name="borrower">
   <section>
     <header class="flex-row">
       {{#if eqMode "VIEW"}}
-        <a href="/app/patrons/" class="glyphicon glyphicon-chevron-left enter-view-mode"></a>
+        <a href="/app/borrowers/" class="glyphicon glyphicon-chevron-left enter-view-mode"></a>
       {{else}}
         <span class="glyphicon glyphicon-chevron-left enter-view-mode"></span>
       {{/if}}
 
-      <span class="title flex-max text-center">Patron</span>
+      <span class="title flex-max text-center">Borrower</span>
 
       {{#if eqMode "VIEW"}}
         <span class="glyphicon glyphicon-pencil enter-form-mode"></span>
@@ -22,35 +22,35 @@
 
       {{#if eqMode "VIEW"}}
         <div class="card">
-          <h5 class="text-light">{{patron.first_name}} {{patron.last_name}}</h5>
+          <h5 class="text-light">{{borrower.first_name}} {{borrower.last_name}}</h5>
 
           <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-              {{#if patron.email}}
+              {{#if borrower.email}}
                 <p>
                   <span class="glyphicon glyphicon-envelope pad-right-sm"></span>
-                  <a href="mailto:{{patron.email}}">{{patron.email}}</a>
+                  <a href="mailto:{{borrower.email}}">{{borrower.email}}</a>
                 </p>
               {{/if}}
-              {{#if patron.phone}}
+              {{#if borrower.phone}}
               <p>
                 <span class="glyphicon glyphicon-earphone pad-right-sm"></span>
-                <a href="call:{{patron.phone}}">{{patron.phone}}</a>
+                <a href="call:{{borrower.phone}}">{{borrower.phone}}</a>
               </p>
               {{/if}}
             </div>
 
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-              {{#if inlineAddress patron.address}}
+              {{#if inlineAddress borrower.address}}
               <p>
                 <span class="glyphicon glyphicon-map-marker pad-right-sm"></span>
-                <span>{{inlineAddress patron.address}}</span>
+                <span>{{inlineAddress borrower.address}}</span>
               </p>
               {{/if}}
-              {{#if patron.notes}}
+              {{#if borrower.notes}}
               <p>
                 <span class="glyphicon glyphicon-comment pad-right-sm"></span>
-                <span>{{patron.notes}}</span>
+                <span>{{borrower.notes}}</span>
               </p>
               {{/if}}
             </div>
@@ -92,24 +92,24 @@
           <div class="row">
             <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
               <label>First Name</label>
-              <input class="form-control" type="text" name="first_name" value={{patron.first_name}}>
+              <input class="form-control" type="text" name="first_name" value={{borrower.first_name}}>
             </div>
 
             <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
               <label>Last Name</label>
-              <input class="form-control" type="text" name="last_name" value={{patron.last_name}}>
+              <input class="form-control" type="text" name="last_name" value={{borrower.last_name}}>
             </div>
           </div>
 
           <div class="row">
             <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
               <label>Email</label>
-              <input class="form-control" type="text" name="email" value={{patron.email}}>
+              <input class="form-control" type="text" name="email" value={{borrower.email}}>
             </div>
 
             <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
               <label>Phone</label>
-              <input class="form-control" type="text" name="phone" value={{patron.phone}}>
+              <input class="form-control" type="text" name="phone" value={{borrower.phone}}>
             </div>
           </div>
         </div>
@@ -120,19 +120,19 @@
           <div class="row">
             <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
               <label>Street</label>
-              <input class="form-control" type="text" name="street" value={{patron.address.street}}>
+              <input class="form-control" type="text" name="street" value={{borrower.address.street}}>
             </div>
 
             <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
               <label>Postal Code</label>
-              <input class="form-control" type="text" name="postal_code" value={{patron.address.postal_code}}>
+              <input class="form-control" type="text" name="postal_code" value={{borrower.address.postal_code}}>
             </div>
           </div>
 
           <div class="row">
             <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
               <label>City</label>
-              <input class="form-control" type="text" name="city" value={{patron.address.city}}>
+              <input class="form-control" type="text" name="city" value={{borrower.address.city}}>
             </div>
           </div>
         </div>
@@ -141,11 +141,11 @@
           <h5 class="text-light">Notes</h5>
 
           <div class="form-group">
-            <textarea class="form-control" rows="3" name="notes">{{patron.notes}}</textarea>
+            <textarea class="form-control" rows="3" name="notes">{{borrower.notes}}</textarea>
           </div>
         </div>
 
-        {{#if patron._id}}
+        {{#if borrower._id}}
           <div class="whitespace"></div>
 
           <div class="text-light text-center">· · ·</div>
@@ -155,7 +155,7 @@
           <div class="card">
             <h5 class="text-light">Handle with care</h5>
             <div class="text-right">
-              <button class="btn btn-danger delete-patron">Delete patron</button>
+              <button class="btn btn-danger delete-borrower">Delete borrower</button>
             </div>
           </div>
         {{/if}}

@@ -4,7 +4,7 @@ import { AccountsServer } from 'meteor/accounts-base'
 import { Users } from '../imports/api/users.js';
 import { Libraries } from '../imports/api/libraries.js';
 import { Logs } from '../imports/api/logs.js';
-import { Patrons } from '../imports/api/patrons.js';
+import { Borrowers } from '../imports/api/borrowers.js';
 import { Publications } from '../imports/api/publications.js';
 import { ISBNLookup } from '../imports/api/isbnlookup.js';
 import { Quotes } from '../imports/api/quotes.js';

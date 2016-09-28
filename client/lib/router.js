@@ -126,21 +126,21 @@ authRoutes.route('/settings', {
   },
 });
 
-// PATRONS
+// BORROWERS
 
-authRoutes.route('/patrons', {
+authRoutes.route('/borrowers', {
   action: function() {
     BlazeLayout.render('contentLayout', {
-      content: 'patronList',
+      content: 'borrowerList',
       sidebar: 'sidebar',
     });
   },
 });
 
-authRoutes.route('/patrons/:patronId', {
+authRoutes.route('/borrowers/:borrowerId', {
   action: function() {
     BlazeLayout.render('contentLayout', {
-      content: 'patron',
+      content: 'borrower',
       sidebar: 'sidebar',
     });
   },

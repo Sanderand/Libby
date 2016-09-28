@@ -2,27 +2,27 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
-import { Patrons } from '../api/patrons.js';
+import { Borrowers } from '../api/borrowers.js';
 import { Publications } from '../api/publications.js';
 import './publicationActions.js';
-import './patron.html';
+import './borrower.html';
 
 
-Template.patron.onCreated(function() {
-  Meteor.subscribe('patrons');
+Template.borrower.onCreated(function() {
+  Meteor.subscribe('borrowers');
   Meteor.subscribe('publications');
 
-  const patronId = FlowRouter.getParam('patronId');
+  const borrowerId = FlowRouter.getParam('borrowerId');
   this.state = new ReactiveDict();
-  this.state.set('mode', (patronId === 'new') ? 'FORM' : 'VIEW');
+  this.state.set('mode', (borrowerId === 'new') ? 'FORM' : 'VIEW');
 });
 
-Template.patron.events({
+Template.borrower.events({
   'click .save-changes'(event, context) {
     var instance = Template.instance();
-    const patronId = FlowRouter.getParam('patronId');
-    const patron = {
-      _id: (patronId === 'new') ? null : patronId,
+    const borrowerId = FlowRouter.getParam('borrowerId');
+    const borrower = {
+      _id: (borrowerId === 'new') ? null : borrowerId,
       first_name: context.find('[name=first_name]').value,
       last_name: context.find('[name=last_name]').value,
       email: context.find('[name=email]').value,
@@ -35,26 +35,26 @@ Template.patron.events({
       },
     };
 
-    Meteor.call('patrons.upsert', patron, (err, res) => {
+    Meteor.call('borrowers.upsert', borrower, (err, res) => {
       if (err) {
         console.error(err);
       }
 
       // update path and go to view mode
-      const patronId = patron._id || res.insertedId;
-      FlowRouter.go('/app/patrons/' + patronId);
+      const borrowerId = borrower._id || res.insertedId;
+      FlowRouter.go('/app/borrowers/' + borrowerId);
       instance.state.set('mode', 'VIEW');
     });
   },
 
-  'click .delete-patron'() {
-    const patronId = FlowRouter.getParam('patronId');
-    Meteor.call('patrons.remove', patronId, (err, res) => {
+  'click .delete-borrower'() {
+    const borrowerId = FlowRouter.getParam('borrowerId');
+    Meteor.call('borrowers.remove', borrowerId, (err, res) => {
       if (err) {
         console.error(err);
       }
 
-      FlowRouter.go('/app/patrons/');
+      FlowRouter.go('/app/borrowers/');
     });
   },
 
@@ -63,26 +63,26 @@ Template.patron.events({
   },
 
   'click .enter-view-mode'() {
-    const patronId = FlowRouter.getParam('patronId');
-    if (patronId === 'new') {
-        FlowRouter.go('/app/patrons');
+    const borrowerId = FlowRouter.getParam('borrowerId');
+    if (borrowerId === 'new') {
+        FlowRouter.go('/app/borrowers');
     } else {
       Template.instance().state.set('mode', 'VIEW');
     }
   },
 });
 
-Template.patron.helpers({
-  patron: function() {
-    const patronId = FlowRouter.getParam('patronId');
-    var patron = Patrons.findOne({_id: patronId}) || {};
-    return patron;
+Template.borrower.helpers({
+  borrower: function() {
+    const borrowerId = FlowRouter.getParam('borrowerId');
+    var borrower = Borrowers.findOne({_id: borrowerId}) || {};
+    return borrower;
   },
 
   rentedPublications: function() {
-    const patronId = FlowRouter.getParam('patronId');
+    const borrowerId = FlowRouter.getParam('borrowerId');
     var rentedPublications = Publications.find({
-      'rent.patronId': patronId,
+      'rent.borrowerId': borrowerId,
     }) || [];
     return rentedPublications;
   },

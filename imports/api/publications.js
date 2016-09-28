@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { check } from 'meteor/check';
+import { check, Match } from 'meteor/check';
 
 import * as constants from '../constants.js';
 import { Libraries } from './libraries.js';
@@ -14,7 +14,7 @@ if (Meteor.isServer) {
 
     return Publications.find({
       libRef: user.profile.libRef,
-
+      deleted: false,
     }, {
       fields: {
         title: true,
@@ -61,6 +61,7 @@ Meteor.methods({
 
   'publications.upsert'(publication) {
     check(publication, {
+      _id: Match.OneOf(String, null),
       title: String,
       author: String,
       publisher: String,
@@ -81,6 +82,8 @@ Meteor.methods({
       $set: {
         libRef: Meteor.user().profile.libRef,
         userRef: Meteor.userId(),
+
+        deleted: false,
 
         title: publication.title,
         author: publication.author,
@@ -129,9 +132,9 @@ Meteor.methods({
     });
   },
 
-  'publication.rent'(publicationId, patronId) {
+  'publication.rent'(publicationId, borrowerId) {
     check(publicationId, String);
-    check(patronId, String);
+    check(borrowerId, String);
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
@@ -148,7 +151,7 @@ Meteor.methods({
         $set: {
           'rent.start_at': new Date(),
           'rent.end_at': new Date(Date.now() + rentDays * 24 * 60 * 60 * 1000),
-          'rent.patronId': patronId,
+          'rent.borrowerId': borrowerId,
           'rent.extended': 0,
         }
       });

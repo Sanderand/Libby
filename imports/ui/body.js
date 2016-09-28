@@ -1,7 +1,7 @@
 // templates + logic
 
-import './patronList.js';
-import './patron.js';
+import './borrowerList.js';
+import './borrower.js';
 
 import './publicationList.js';
 import './publication.js';

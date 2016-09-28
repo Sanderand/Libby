@@ -9,6 +9,7 @@ export const ISBNLookup = {
 
   queryISBNInfo: function(isbn) {
     check(isbn, String);
+    isbn = this.sanitizeISBN(isbn);
 
     var deferred = $.Deferred();
 
@@ -21,14 +22,21 @@ export const ISBNLookup = {
           const match = this.getISBNMatch(res.items, isbn)
 
           if (match) {
-            deferred.resolve({
+            const lookupResult = {
               title: match.volumeInfo.title || null,
               subtitle: match.volumeInfo.subtitle || null,
-              author: match.volumeInfo.authors.join(', ') || null,
               publisher: match.volumeInfo.publisher || null,
               year: match.volumeInfo.publishedDate || null,
               description: match.volumeInfo.description || null,
-            });
+            };
+
+            if (match.volumeInfo.authors) {
+              lookupResult.author = match.volumeInfo.authors.join(', ');
+            } else {
+              lookupResult.author = null;
+            }
+
+            deferred.resolve(lookupResult);
           }
         }
 
@@ -45,6 +53,12 @@ export const ISBNLookup = {
     return deferred.promise();
   },
 
+  sanitizeISBN: function(isbn) {
+    isbn = isbn.replace(/\s+/g, ''); // spaces
+    isbn = isbn.replace(/-/g, ''); // hyphens
+
+    return isbn;
+  },
 
   getISBNMatch: function(items, isbn) {
     return items.filter((item) => {

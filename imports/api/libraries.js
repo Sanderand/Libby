@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { check } from 'meteor/check';
+import { check, Match } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
 
 import * as constants from '../constants.js';
@@ -62,6 +62,7 @@ Meteor.methods({
     const libRef = Meteor.user().profile.libRef;
 
     check(library, {
+      _id: Match.OneOf(String, null),
       name: String,
       notes: String,
       organization: String,

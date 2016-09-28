@@ -1,17 +1,18 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { check } from 'meteor/check';
+import { check, Match } from 'meteor/check';
 
-export const Patrons = new Mongo.Collection('patrons');
+export const Borrowers = new Mongo.Collection('borrowers');
 
 
 if (Meteor.isServer) {
-  Meteor.publish('patrons', function() {
-    if(!this.userId) return [];
+  Meteor.publish('borrowers', function() {
+    if (!this.userId) return [];
     const user = Meteor.users.findOne(this.userId);
 
-    return Patrons.find({
+    return Borrowers.find({
       libRef: user.profile.libRef,
+      deleted: false,
     }, {
       fields: {
         first_name: true,
@@ -24,7 +25,7 @@ if (Meteor.isServer) {
     });
   });
 
-  Patrons.deny({
+  Borrowers.deny({
     insert() { return true; },
     update() { return true; },
     remove() { return true; },
@@ -32,16 +33,16 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-  'patrons.remove'(patronId) {
-    check(patronId, String);
+  'borrowers.remove'(borrowerId) {
+    check(borrowerId, String);
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
-    check(patronId, String);
+    check(borrowerId, String);
 
-    Patrons.update(patronId, {
+    Borrowers.update(borrowerId, {
       $set: {
         deleted: true,
         deleted_at: new Date(),
@@ -49,8 +50,9 @@ Meteor.methods({
     });
   },
 
-  'patrons.upsert'(patron) {
-    check(patron, {
+  'borrowers.upsert'(borrower) {
+    check(borrower, {
+      _id: Match.OneOf(String, null),
       first_name: String,
       last_name: String,
       email: String,
@@ -67,21 +69,23 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
-    return Patrons.upsert(patron._id, {
+    return Borrowers.upsert(borrower._id, {
       $set: {
         libRef: Meteor.user().profile.libRef,
         userRef: Meteor.userId(),
 
-        first_name: patron.first_name,
-        last_name: patron.last_name,
-        email: patron.email,
-        phone: patron.phone,
+        deleted: false,
+
+        first_name: borrower.first_name,
+        last_name: borrower.last_name,
+        email: borrower.email,
+        phone: borrower.phone,
         address: {
-          street: patron.address.street,
-          postal_code: patron.address.postal_code,
-          city: patron.address.city,
+          street: borrower.address.street,
+          postal_code: borrower.address.postal_code,
+          city: borrower.address.city,
         },
-        notes: patron.notes,
+        notes: borrower.notes,
       }
     });
   },

@@ -34,9 +34,9 @@ Meteor.methods({
   'logs.libraries.update'() {},
   'logs.libraries.remove'() {},
 
-  'logs.patron.add'() {},
-  'logs.patron.update'() {},
-  'logs.patron.remove'() {},
+  'logs.borrower.add'() {},
+  'logs.borrower.update'() {},
+  'logs.borrower.remove'() {},
 
   'logs.publication.add'() {},
   'logs.publication.update'() {},

@@ -2,16 +2,16 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
-import { Patrons } from '../api/patrons.js';
+import { Borrowers } from '../api/borrowers.js';
 import * as constants from '../constants.js';
 import './publicationRent.html';
 
 
 Template.publicationRent.onCreated(function() {
-  Meteor.subscribe('patrons');
+  Meteor.subscribe('borrowers');
 
   this.state = new ReactiveDict();
-  this.state.set('selectedPatron', null);
+  this.state.set('selectedBorrower', null);
   this.state.set('searchQuery', null);
 });
 
@@ -20,19 +20,19 @@ Template.publicationRent.events({
     event.preventDefault();
     const searchQuery = event.target.searchQuery.value;
 
-    Template.instance().state.set('selectedPatron', null);
+    Template.instance().state.set('selectedBorrower', null);
     Template.instance().state.set('searchQuery', searchQuery);
   },
 
-  'click .select-patron'(event) {
-    Template.instance().state.set('selectedPatron', event.currentTarget.dataset.id);
+  'click .select-borrower'(event) {
+    Template.instance().state.set('selectedBorrower', event.currentTarget.dataset.id);
   },
 
   'click .rent-publication'() {
-    const patronId = Template.instance().state.get('selectedPatron');
+    const borrowerId = Template.instance().state.get('selectedBorrower');
     const publicationId = FlowRouter.getParam('publicationId');
 
-    Meteor.call('publication.rent', publicationId, patronId, (err, res) => {
+    Meteor.call('publication.rent', publicationId, borrowerId, (err, res) => {
       if (err) {
         console.error(err);
       }
@@ -47,17 +47,17 @@ Template.publicationRent.helpers({
     return FlowRouter.getParam('publicationId');
   },
 
-  selectedPatron: function() {
-    return Template.instance().state.get('selectedPatron');
+  selectedBorrower: function() {
+    return Template.instance().state.get('selectedBorrower');
   },
 
   searchQuery: function() {
     return Template.instance().state.get('searchQuery');
   },
 
-  activeClass: function(resultPatronId) {
-    const selectedPatronId = Template.instance().state.get('selectedPatron');
-    return (resultPatronId === selectedPatronId) ? 'active' : '';
+  activeClass: function(resultBorrowerId) {
+    const selectedBorrowerId = Template.instance().state.get('selectedBorrower');
+    return (resultBorrowerId === selectedBorrowerId) ? 'active' : '';
   },
 
   searchResults: function() {
@@ -65,7 +65,7 @@ Template.publicationRent.helpers({
     const regex = new RegExp(searchQuery, 'i');
 
     if (searchQuery && searchQuery.length) {
-      return Patrons.find({
+      return Borrowers.find({
         $or: [{
           first_name: regex,
         }, {

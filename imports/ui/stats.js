@@ -2,21 +2,21 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
-import { Patrons } from '../api/patrons.js';
+import { Borrowers } from '../api/borrowers.js';
 import { Publications } from '../api/publications.js';
 import './stats.html';
 
 
 Template.stats.onCreated(function() {
   Meteor.subscribe('publications');
-  Meteor.subscribe('patrons');
+  Meteor.subscribe('borrowers');
 
   this.state = new ReactiveDict();
 });
 
 Template.stats.helpers({
-  patronsCount() {
-    return Patrons.find().count();
+  borrowersCount() {
+    return Borrowers.find().count();
   },
 
   publicationsCount() {

@@ -1,24 +1,24 @@
-<template name="patronList">
+<template name="borrowerList">
   <section>
     <header class="flex-row">
       <button type="button" class="glyphicon glyphicon-menu-hamburger sidebar-toggle lg-screen-hide"></button>
       <form class="search flex-max flex-row">
-        <input class="flex-max" type="text" placeholder="Search patrons" name="searchValue">
+        <input class="flex-max" type="text" placeholder="Search borrowers" name="searchValue">
         <button type="submit" class="glyphicon glyphicon-search"></button>
       </form>
     </header>
 
     <div class="pad">
-      <a class="fab-btn text-primary text-primary-hover" href="/app/patrons/new">
+      <a class="fab-btn text-primary text-primary-hover" href="/app/borrowers/new">
         <span class="glyphicon glyphicon-plus-sign"></span>
       </a>
 
-      {{#if not patrons.count}}
+      {{#if not borrowers.count}}
         <p class="text-light text-center pad">No results</p>
       {{/if}}
 
-      {{#each patrons}}
-        {{> patronListItem}}
+      {{#each borrowers}}
+        {{> borrowerListItem}}
       {{/each}}
     </div>
   </section>
