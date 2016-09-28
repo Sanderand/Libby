@@ -8,6 +8,8 @@ import { Publications } from './publications.js';
 
 Meteor.methods({
   'public.library'(publicId) {
+    check(publicId, String);
+
     if (!publicId) {
       throw new Meteor.Error('parameter-missing');
     }
@@ -25,12 +27,14 @@ Meteor.methods({
         organization: true,
         phone: true,
         email: true,
-        address: true
+        address: true,
       }
     });
   },
 
   'public.publications'(publicId) {
+    check(publicId, String);
+
     if (!publicId) {
       throw new Meteor.Error('parameter-missing');
     }

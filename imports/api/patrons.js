@@ -33,6 +33,8 @@ if (Meteor.isServer) {
 
 Meteor.methods({
   'patrons.remove'(patronId) {
+    check(patronId, String);
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
@@ -48,14 +50,18 @@ Meteor.methods({
   },
 
   'patrons.upsert'(patron) {
-    check(patron.first_name, String);
-    check(patron.last_name, String);
-    check(patron.email, String);
-    check(patron.phone, String);
-    check(patron.notes, String);
-    check(patron.address.street, String);
-    check(patron.address.postal_code, String);
-    check(patron.address.city, String);
+    check(patron, {
+      first_name: String,
+      last_name: String,
+      email: String,
+      phone: String,
+      notes: String,
+      address: {
+        street: String,
+        postal_code: String,
+        city: String,
+      },
+    });
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');

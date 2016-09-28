@@ -44,6 +44,7 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
+  // returns the number of maxExtends for publications
   'libraries.maxExtends'() {
     const libRef = Meteor.user().profile.libRef;
 
@@ -56,17 +57,22 @@ Meteor.methods({
     });
   },
 
+  // creates or updates library details
   'libraries.upsert'(library) {
     const libRef = Meteor.user().profile.libRef;
 
-    check(library.name, String);
-    check(library.notes, String);
-    check(library.organization, String);
-    check(library.phone, String);
-    check(library.email, String);
-    check(library.address.street, String);
-    check(library.address.postal_code, String);
-    check(library.address.city, String);
+    check(library, {
+      name: String,
+      notes: String,
+      organization: String,
+      phone: String,
+      email: String,
+      address: {
+        street: String,
+        postal_code: String,
+        city: String,
+      },
+    });
 
     if (!libRef) {
       throw new Meteor.Error('not-authorized');
@@ -170,9 +176,11 @@ Meteor.methods({
     const user = Meteor.user();
     const libRef = user.profile.libRef;
 
-    check(newUser.email, String);
-    check(newUser.password, String);
-    check(newUser.role, String);
+    check(newUser, {
+      email: String,
+      password: String,
+      role: String,
+    });
 
     const queryUser = Meteor.users.findOne({
       username: newUser.email,

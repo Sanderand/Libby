@@ -43,6 +43,8 @@ if (Meteor.isServer) {
 
 Meteor.methods({
   'publications.remove'(publicationId) {
+    check(publicationId, String);
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
@@ -58,16 +60,18 @@ Meteor.methods({
   },
 
   'publications.upsert'(publication) {
-    check(publication.title, String);
-    check(publication.author, String);
-    check(publication.publisher, String);
-    check(publication.type, String);
-    check(publication.year, String);
-    check(publication.length, String);
-    check(publication.isbn, String);
-    check(publication.barcode, String);
-    check(publication.subtitle, String);
-    check(publication.description, String);
+    check(publication, {
+      title: String,
+      author: String,
+      publisher: String,
+      type: String,
+      year: String,
+      length: String,
+      isbn: String,
+      barcode: String,
+      subtitle: String,
+      description: String,
+    });
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');

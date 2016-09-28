@@ -1,10 +1,15 @@
+import { check } from 'meteor/check';
+
 import * as constants from '../constants.js';
+
 
 export const Books = {
   apiKey: constants.googleAPIKey,
   basePath: 'https://www.googleapis.com/books/v1/volumes',
 
   queryISBNInfo: function(isbn) {
+    check(isbn, String);
+
     var deferred = $.Deferred();
 
     if (this.isValidISBN(isbn)) {
