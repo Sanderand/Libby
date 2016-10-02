@@ -4,13 +4,31 @@
 
     <a href="/app/" class="head">Libby</a>
 
-    <a href="/app/borrowers/" class="link {{isActivePath regex='^\\/app/borrowers'}}">Borrowers</a>
-    <a href="/app/publications/" class="link {{isActivePath regex='^\\/app/publications'}}">Publications</a>
+    <a href="/app/borrowers/" class="link {{isActivePath regex='^\\/app/borrowers'}}">
+      <span class="glyphicon glyphicon-user"></span>
+      <span>Borrowers</span>
+    </a>
+
+    <a href="/app/publications/" class="link {{isActivePath regex='^\\/app/publications'}}">
+      <span class="glyphicon glyphicon-book"></span>
+      <span>Publications</span>
+    </a>
 
     <div class="divider"></div>
 
-    <a href="/app/library/" class="link {{isActivePath regex='^\\/app/library'}}">Library</a>
-    <a href="/app/stats/" class="link {{isActivePath regex='^\\/app/stats'}}">Statistics</a>
-    <a href="/app/settings/" class="link {{isActivePath regex='^\\/app/settings'}}">Settings</a>
+    <a href="/app/library/" class="link {{isActivePath regex='^\\/app/library'}}">
+      <span class="glyphicon glyphicon-briefcase"></span>
+      <span>Library</span>
+    </a>
+
+    <a href="/app/stats/" class="link {{isActivePath regex='^\\/app/stats'}}">
+      <span class="glyphicon glyphicon-stats"></span>
+      <span>Statistics</span>
+    </a>
+
+    <a href="/app/settings/" class="link {{isActivePath regex='^\\/app/settings'}}">
+      <span class="glyphicon glyphicon-cog"></span>
+      <span>Settings</span>
+    </a>
   </aside>
 </template>
