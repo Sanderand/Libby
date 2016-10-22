@@ -1,0 +1,157 @@
+<template name="library">
+  <section>
+    <header class="flex-row">
+      {{#if eqMode "VIEW"}}
+        <span class="glyphicon sm-screen-hide"></span>
+        <span class="glyphicon glyphicon-menu-hamburger sidebar-toggle lg-screen-hide"></span>
+      {{else}}
+        <span class="glyphicon glyphicon-chevron-left enter-view-mode"></span>
+      {{/if}}
+
+      <span class="title flex-max text-center">Library</span>
+
+      {{#if eqMode "VIEW"}}
+        <span class="glyphicon glyphicon-pencil enter-form-mode"></span>
+      {{else}}
+        <span class="glyphicon glyphicon-floppy-disk save-changes"></span>
+      {{/if}}
+    </header>
+
+    <div class="pad scroll-container">
+
+      <!-- VIEW -->
+
+      {{#if eqMode "VIEW"}}
+        <div class="card">
+          <h5 class="text-light">General</h5>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              {{#if library.name}}
+                <p><b>{{library.name}}</b></p>
+              {{/if}}
+              {{#if library.email}}
+                <p>
+                  <span class="glyphicon glyphicon-envelope pad-right-sm"></span>
+                  <a href="mailto:{{library.email}}">{{library.email}}</a>
+                </p>
+              {{/if}}
+              {{#if library.phone}}
+              <p>
+                <span class="glyphicon glyphicon-earphone pad-right-sm"></span>
+                <a href="call:{{library.phone}}">{{library.phone}}</a>
+              </p>
+              {{/if}}
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              {{#if library.organization}}
+                <p><b>{{library.organization}}</b></p>
+              {{/if}}
+              {{#if inlineAddress library.address}}
+              <p>
+                <span class="glyphicon glyphicon-map-marker pad-right-sm"></span>
+                <span>{{inlineAddress library.address}}</span>
+              </p>
+              {{/if}}
+              {{#if library.notes}}
+              <p>
+                <span class="glyphicon glyphicon-comment pad-right-sm"></span>
+                <span>{{library.notes}}</span>
+              </p>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="flex-row">
+            <h5 class="text-light flex-max">Team</h5>
+            <a href="/app/library/users/new" class="glyphicon mini-fab glyphicon-plus-sign"></a>
+          </div>
+
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each libraryUsers}}
+              <tr class="library-user pointer" data-id="{{_id}}">
+                <td>{{username}}</td>
+                <td>{{profile.role}}</td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      {{/if}}
+
+      <!-- FORM -->
+
+      {{#if eqMode "FORM"}}
+        <div class="card">
+          <h5 class="text-light">General</h5>
+
+          <div class="row">
+            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <label>Name</label>
+              <input class="form-control" type="text" name="name" value={{library.name}}>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <label>Organization</label>
+              <input class="form-control" type="text" name="organization" value={{library.organization}}>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <label>Email</label>
+              <input class="form-control" type="text" name="email" value={{library.email}}>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <label>Phone</label>
+              <input class="form-control" type="text" name="phone" value={{library.phone}}>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h5 class="text-light">Address</h5>
+
+          <div class="row">
+            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <label>Street</label>
+              <input class="form-control" type="text" name="street" value={{library.address.street}}>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <label>Postal Code</label>
+              <input class="form-control" type="text" name="postal_code" value={{library.address.postal_code}}>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <label>City</label>
+              <input class="form-control" type="text" name="city" value={{library.address.city}}>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h5 class="text-light">Notes</h5>
+
+          <div class="form-group">
+            <textarea class="form-control" rows="3" name="notes">{{library.notes}}</textarea>
+          </div>
+        </div>
+      {{/if}}
+
+    </div>
+  </section>
+</template>
