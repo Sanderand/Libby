@@ -1,4 +1,7 @@
 import '../imports/startup/accounts-config.js';
-import '../imports/ui/body.js';
-import '../imports/helpers.js';
 import './lib/router.js';
+
+import '../imports/ui/index.js';
+
+import '../imports/helpers.js';
+import '../imports/shared.js';
