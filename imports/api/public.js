@@ -4,11 +4,11 @@ import { check } from 'meteor/check';
 
 import { Libraries } from './libraries.js';
 import { Publications } from './publications.js';
-
+import { publicRequest, publicResponse, publicPublicationsRequest, publicPublicationsResponse } from './models/public.js';
 
 Meteor.methods({
   'public.library'(publicId) {
-    check(publicId, String);
+    check(publicId, publicRequest);
 
     if (!publicId) {
       throw new Meteor.Error('parameter-missing');
@@ -18,22 +18,12 @@ Meteor.methods({
       publicId: publicId,
       hasPublicPage: true,
     }, {
-      fields: {
-        _id: false,
-        publicId: true,
-
-        name: true,
-        notes: true,
-        organization: true,
-        phone: true,
-        email: true,
-        address: true,
-      }
+      fields: publicResponse,
     });
   },
 
   'public.publications'(publicId) {
-    check(publicId, String);
+    check(publicId, publicPublicationsRequest);
 
     if (!publicId) {
       throw new Meteor.Error('parameter-missing');
@@ -53,18 +43,7 @@ Meteor.methods({
         libRef: library._id,
       }, {
         limit: 100,
-        fields: {
-          title: true,
-          author: true,
-          publisher: true,
-          type: true,
-          year: true,
-          length: true,
-          subtitle: true,
-          description: true,
-          rating: true,
-          'rent._id': true,
-        }
+        fields: publicPublicationsResponse,
       }).fetch();
     }
   },

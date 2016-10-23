@@ -5,6 +5,17 @@ import { check, Match } from 'meteor/check';
 import * as constants from '../constants.js';
 import { sanitizeISBN } from '../shared.js';
 import { Libraries } from './libraries.js';
+import {
+  publicationResponse,
+  publicationUpsertRequest,
+  publicationRateRequest,
+  publicationTagAddRequest,
+  publicationTagRemoveRequest,
+  publicationRentRequest,
+  publicationRemoveRequest,
+  publicationExtendRequest,
+  publicationReturnRequest
+} from './models/publications.js';
 export const Publications = new Mongo.Collection('publications');
 
 
@@ -17,21 +28,7 @@ if (Meteor.isServer) {
       libRef: user.profile.libRef,
       deleted: false,
     }, {
-      fields: {
-        title: true,
-        author: true,
-        publisher: true,
-        type: true,
-        year: true,
-        length: true,
-        isbn: true,
-        barcode: true,
-        subtitle: true,
-        description: true,
-        rating: true,
-        tags: true,
-        rent: true,
-      }
+      fields: publicationResponse,
     });
   });
 
@@ -44,13 +41,11 @@ if (Meteor.isServer) {
 
 Meteor.methods({
   'publications.remove'(publicationId) {
-    check(publicationId, String);
+    check(publicationId, publicationRemoveRequest);
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-
-    check(publicationId, String);
 
     Publications.update(publicationId, {
       $set: {
@@ -61,19 +56,7 @@ Meteor.methods({
   },
 
   'publications.upsert'(publication) {
-    check(publication, {
-      _id: Match.OneOf(String, null),
-      title: String,
-      author: String,
-      publisher: String,
-      type: String,
-      year: String,
-      length: String,
-      isbn: String,
-      barcode: String,
-      subtitle: String,
-      description: String,
-    });
+    check(publication, publicationUpsertRequest);
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
@@ -100,45 +83,53 @@ Meteor.methods({
     });
   },
 
-  'publications.rate'(publicationId, rating) {
-    check(publicationId, String);
-    check(rating, Number);
+  'publications.rate'(request) {
+    check(request, publicationRateRequest);
 
-    return Publications.update(publicationId, {
+    return Publications.update(request.publicationId, {
       $set: {
-        rating: rating
+        rating: request.rating,
       }
     });
   },
 
-  'publications.tag.add'(publicationId, tagName) {
-    check(publicationId, String);
-    check(tagName, String);
+  'publications.tag.add'(request) {
+    check(request, publicationTagAddRequest);
 
-    return Publications.update(publicationId, {
+    return Publications.update(request.publicationId, {
       $addToSet: {
-        tags: tagName
+        tags: request.tagName,
       }
     });
   },
 
-  'publications.tag.remove'(publicationId, tagName) {
-    check(publicationId, String);
-    check(tagName, String);
+  'publications.tag.remove'(request) {
+    check(request, publicationTagRemoveRequest);
 
-    return Publications.update(publicationId, {
+    return Publications.update(request.publicationId, {
       $pull: {
-        tags: tagName
+        tags: request.tagName,
       }
     });
   },
 
-  'publication.rent'(publicationId, borrowerId) {
-    check(publicationId, String);
-    check(borrowerId, String);
+  'publication.rent'(request) {
+    check(request, publicationRentRequest);
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
+    }
+
+    // check if not rented yet
+    const matchingRentedPublications = Publications.find({
+      _id: request.publicationId,
+      rent: {
+        $exists: true,
+      }
+    }).count();
+
+    if (matchingRentedPublications) {
+      throw new Meteor.Error('not-available');
     }
 
     const library = Libraries.findOne({
@@ -148,11 +139,11 @@ Meteor.methods({
     if (library) {
       const rentDays = library.rentDays;
 
-      return Publications.update(publicationId, {
+      return Publications.update(request.publicationId, {
         $set: {
           'rent.start_at': new Date(),
           'rent.end_at': new Date(Date.now() + rentDays * 24 * 60 * 60 * 1000),
-          'rent.borrowerId': borrowerId,
+          'rent.borrowerId': request.borrowerId,
           'rent.extended': 0,
         }
       });
@@ -160,7 +151,7 @@ Meteor.methods({
   },
 
   'publication.extend'(publicationId) {
-    check(publicationId, String);
+    check(publicationId, publicationExtendRequest);
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
@@ -187,7 +178,7 @@ Meteor.methods({
   },
 
   'publication.return'(publicationId) {
-    check(publicationId, String);
+    check(publicationId, publicationReturnRequest);
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');

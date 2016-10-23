@@ -65,10 +65,12 @@ Template.publication.events({
     event.preventDefault();
 
     const target = event.target;
-    const tagName = target.tagName.value;
-    const publicationId = FlowRouter.getParam('publicationId');
+    const request = {
+      tagName: target.tagName.value,
+      publicationId: FlowRouter.getParam('publicationId'),
+    }
 
-    Meteor.call('publications.tag.add', publicationId, tagName, (err, res) => {
+    Meteor.call('publications.tag.add', request, (err, res) => {
       if (err) {
         console.error(err);
       }
@@ -78,9 +80,16 @@ Template.publication.events({
   },
 
   'click .tag-remove'(event) {
-    const tagName = event.currentTarget.dataset.name;
-    const publicationId = FlowRouter.getParam('publicationId');
-    Meteor.call('publications.tag.remove', publicationId, tagName);
+    const request = {
+      tagName: event.currentTarget.dataset.name,
+      publicationId: FlowRouter.getParam('publicationId'),
+    }
+
+    Meteor.call('publications.tag.remove', request, (err, res) => {
+      if (err) {
+        console.error(err);
+      }
+    });
   },
 
   'keyup [name=isbn]'(event) {
@@ -119,10 +128,12 @@ Template.publication.events({
   },
 
   'click .set-rating'(event) {
-    const publicationId = FlowRouter.getParam('publicationId');
-    const rating = parseInt(event.currentTarget.dataset.rating);
+    const request = {
+      publicationId: FlowRouter.getParam('publicationId'),
+      rating: parseInt(event.currentTarget.dataset.rating),
+    };
 
-    Meteor.call('publications.rate', publicationId, rating, (err, res) => {
+    Meteor.call('publications.rate', request, (err, res) => {
       if (err) {
         console.error(err);
       }

@@ -2,6 +2,7 @@ import { check } from 'meteor/check';
 
 import * as constants from '../constants.js';
 import { sanitizeISBN, isValidISBN } from '../shared.js';
+import { isbnRequest } from './models/isbnlookup.js';
 
 
 export const ISBNLookup = {
@@ -9,7 +10,7 @@ export const ISBNLookup = {
   basePath: 'https://www.googleapis.com/books/v1/volumes',
 
   queryISBNInfo: function(isbn) {
-    check(isbn, String);
+    check(isbn, isbnRequest);
     isbn = sanitizeISBN(isbn);
 
     var deferred = $.Deferred();

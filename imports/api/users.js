@@ -1,5 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 
+import { userResponse } from './models/users.js';
+
 if (Meteor.isServer) {
   Meteor.publish('libraryUsers', function () {
     if(!this.userId) return [];
@@ -8,10 +10,7 @@ if (Meteor.isServer) {
     return Meteor.users.find({
       'profile.libRef': user.profile.libRef,
     }, {
-      fields: {
-        username: true,
-        'profile.role': true,
-      }
+      fields: userResponse,
     });
   });
 

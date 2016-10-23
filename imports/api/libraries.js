@@ -4,6 +4,19 @@ import { check, Match } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
 
 import * as constants from '../constants.js';
+import {
+  libraryResponse,
+  libraryUpsertRequest,
+  librarySetPublicPageRequest,
+  librarySetRentDaysRequest,
+  librarySetExtendDaysRequest,
+  librarySetMaxExtendsRequest,
+  librarySetMaxExtendsResponse,
+  librarySetNonAdminAddUsersRequest,
+  libraryUserAddRequest,
+  libraryUserRemoveRequest,
+  libraryUserUpdateRequest
+} from './models/libraries.js';
 export const Libraries = new Mongo.Collection('libraries');
 
 
@@ -15,24 +28,7 @@ if (Meteor.isServer) {
     return Libraries.find({
       _id: user.profile.libRef,
     }, {
-      fields: {
-        _id: true,
-
-        name: true,
-        notes: true,
-        organization: true,
-        phone: true,
-        email: true,
-        address: true,
-
-        hasPublicPage: true,
-        publicId: true,
-        nonAdminsCanAddUsers: true,
-
-        rentDays: true,
-        extendDays: true,
-        maxExtends: true,
-      }
+      fields: libraryResponse,
     });
   });
 
@@ -51,9 +47,7 @@ Meteor.methods({
     return Libraries.findOne({
       _id: libRef,
     }, {
-      fields: {
-        maxExtends: true,
-      }
+      fields: librarySetMaxExtendsResponse,
     });
   },
 
@@ -61,19 +55,7 @@ Meteor.methods({
   'libraries.upsert'(library) {
     const libRef = Meteor.user().profile.libRef;
 
-    check(library, {
-      _id: Match.OneOf(String, null),
-      name: String,
-      notes: String,
-      organization: String,
-      phone: String,
-      email: String,
-      address: {
-        street: String,
-        postal_code: String,
-        city: String,
-      },
-    });
+    check(library, libraryUpsertRequest);
 
     if (!libRef) {
       throw new Meteor.Error('not-authorized');
@@ -100,7 +82,7 @@ Meteor.methods({
     const libRef = user.profile.libRef;
 
     if (user.profile.role === constants.roles.admin) {
-      check(hasPublicPage, Boolean);
+      check(hasPublicPage, librarySetPublicPageRequest);
 
       return Libraries.update(libRef, {
         $set: {
@@ -115,7 +97,7 @@ Meteor.methods({
     const libRef = user.profile.libRef;
 
     if (user.profile.role === constants.roles.admin) {
-      check(rentDays, Number);
+      check(rentDays, librarySetRentDaysRequest);
       rentDays = parseInt(rentDays);
 
       return Libraries.update(libRef, {
@@ -131,7 +113,7 @@ Meteor.methods({
     const libRef = user.profile.libRef;
 
     if (user.profile.role === constants.roles.admin) {
-      check(extendDays, Number);
+      check(extendDays, librarySetExtendDaysRequest);
       extendDays = parseInt(extendDays);
 
       return Libraries.update(libRef, {
@@ -147,7 +129,7 @@ Meteor.methods({
     const libRef = user.profile.libRef;
 
     if (user.profile.role === constants.roles.admin) {
-      check(maxExtends, Number);
+      check(maxExtends, librarySetMaxExtendsRequest);
       maxExtends = parseInt(maxExtends);
 
       return Libraries.update(libRef, {
@@ -163,7 +145,7 @@ Meteor.methods({
     const libRef = user.profile.libRef;
 
     if (user.profile.role === constants.roles.admin) {
-      check(nonAdminsCanAddUsers, Boolean);
+      check(nonAdminsCanAddUsers, librarySetNonAdminAddUsersRequest);
 
       return Libraries.update(libRef, {
         $set: {
@@ -177,11 +159,7 @@ Meteor.methods({
     const user = Meteor.user();
     const libRef = user.profile.libRef;
 
-    check(newUser, {
-      email: String,
-      password: String,
-      role: String,
-    });
+    check(newUser, libraryUserAddRequest);
 
     const queryUser = Meteor.users.findOne({
       username: newUser.email,
@@ -207,8 +185,7 @@ Meteor.methods({
   },
 
   'library.user.update'(updateUser) {
-    check(updateUser._id, String);
-    check(updateUser.role, String);
+    check(updateUser, libraryUserUpdateRequest);
 
     const updatingUser = Meteor.user();
     const updatedUser = Meteor.users.findOne({_id: updateUser._id});
@@ -238,7 +215,7 @@ Meteor.methods({
   },
 
   'library.user.remove'(userId) {
-    check(userId, String);
+    check(userId, libraryUserRemoveRequest);
 
     const removingUser = Meteor.user();
     const removedUser = Meteor.users.findOne({_id: userId});

@@ -1,16 +1,25 @@
+'use strict';
+
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
 
-Deps.autorun(function() {
-  Meteor.subscribe('users');
-});
-
-Accounts.ui.config({
+const ACCOUNTS_CONFIGURATION = {
   passwordSignupFields: 'USERNAME_ONLY',
-});
+}
 
-Accounts.onLogin(() => {
+Deps.autorun(autoRunDependencies);
+Accounts.ui.config(ACCOUNTS_CONFIGURATION);
+Accounts.onLogin(onLogin)
+Accounts.onLogout(onLogout);
+
+// implementation
+
+function autoRunDependencies() {
+  Meteor.subscribe('users');
+}
+
+function onLogin() {
   const authPath = '/app/';
   const publicPath = '/public/';
   const currentPath = FlowRouter._current.path;
@@ -20,9 +29,9 @@ Accounts.onLogin(() => {
   if (!isAuthPath && !isPublicPath) {
     FlowRouter.go(authPath);
   }
-});
+}
 
-Accounts.onLogout(() => {
+function onLogout() {
   console.log('logged out');
   FlowRouter.go('/');
-});
+}

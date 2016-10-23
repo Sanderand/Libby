@@ -1,35 +1,47 @@
 import { Template } from 'meteor/templating';
 
-// HELPER-HELPERS
 
-Template.registerHelper('fromNow', (date) => {
+Template.registerHelper('fromNow', fromNow);
+Template.registerHelper('formatDate', formatDate);
+Template.registerHelper('serialize', serialize);
+Template.registerHelper('eq', eq);
+Template.registerHelper('le', le);
+Template.registerHelper('maxLength', maxLength);
+Template.registerHelper('inlineAddress', inlineAddress);
+Template.registerHelper('selectedClass', selectedClass);
+Template.registerHelper('inc', inc);
+Template.registerHelper('not', not);
+
+// implementation
+
+function fromNow(date) {
 	return moment(date).fromNow();
-});
+}
 
-Template.registerHelper('formatDate', (date) => {
+function formatDate(date) {
 	return moment(date).format('DD.MM.YYYY');
-});
+}
 
-Template.registerHelper('serialize', (data) => {
+function serialize(data) {
 	return JSON.stringify(data);
-});
+}
 
-Template.registerHelper('eq', (a, b) => {
+function eq(a, b) {
 	return a === b; // {{#if eq fruit 'pineapple'}}...{{/if}}
-});
+}
 
-Template.registerHelper('le', (a, b) => {
+function le(a, b) {
 	return a <= b;
-});
+}
 
-Template.registerHelper('maxLength', (val, len) => {
+function maxLength(val, len) {
 	if (val && len) {
 		len = parseInt(len);
 		return (val.length > len) ? val.substr(0, len) + '...' : val;
 	}
-});
+}
 
-Template.registerHelper('inlineAddress', (address) => {
+function inlineAddress(address) {
 	if (address) {
 		var addressParts = [];
 
@@ -39,16 +51,16 @@ Template.registerHelper('inlineAddress', (address) => {
 
 		return addressParts.join(', ');
 	}
-});
+}
 
-Template.registerHelper('selectedClass', (a, b) => {
+function selectedClass(a, b) {
 	return a == b ? 'selected' : '';
-});
+}
 
-Template.registerHelper('inc', (value) => {
+function inc(value) {
 	return parseInt(value) + 1;
-});
+}
 
-Template.registerHelper('not', (statement) => {
+function not(statement) {
 	return !statement;
-});
+}

@@ -29,15 +29,17 @@ Template.publicationRent.events({
   },
 
   'click .rent-publication'() {
-    const borrowerId = Template.instance().state.get('selectedBorrower');
-    const publicationId = FlowRouter.getParam('publicationId');
+    const request = {
+      borrowerId: Template.instance().state.get('selectedBorrower'),
+      publicationId: FlowRouter.getParam('publicationId'),
+    };
 
-    Meteor.call('publication.rent', publicationId, borrowerId, (err, res) => {
+    Meteor.call('publication.rent', request, (err, res) => {
       if (err) {
         console.error(err);
       }
 
-      FlowRouter.go('/app/publications/' + publicationId);
+      FlowRouter.go('/app/publications/' + request.publicationId);
     });
   },
 });

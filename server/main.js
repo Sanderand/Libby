@@ -11,11 +11,16 @@ import { Quotes } from '../imports/api/quotes.js';
 import { Public } from '../imports/api/public.js';
 
 
-Meteor.startup(() => {
-  console.log('hello');
-});
+Meteor.startup(onStartup);
+Accounts.onCreateUser(onCreateUser);
 
-Accounts.onCreateUser(function(options, user) {
+// implementation
+
+function onStartup() {
+  console.log('start up @ ' + Date());
+}
+
+function onCreateUser(options, user) {
   const createdByAdmin = (!!options.profile.libRef);
 
   user.profile = options.profile || {};
@@ -36,10 +41,9 @@ Accounts.onCreateUser(function(options, user) {
         rentDays: 30,
         extendDays: 15,
         maxExtends: 1,
-
       }
     });
   }
 
   return user;
-});
+}

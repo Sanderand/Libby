@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check, Match } from 'meteor/check';
 
+import { borrowerResponse, borrowersRemoveRequest, borrowersUpsertRequest } from './models/borrowers.js';
 export const Borrowers = new Mongo.Collection('borrowers');
 
 
@@ -14,14 +15,7 @@ if (Meteor.isServer) {
       libRef: user.profile.libRef,
       deleted: false,
     }, {
-      fields: {
-        first_name: true,
-        last_name: true,
-        email: true,
-        phone: true,
-        notes: true,
-        address: true,
-      }
+      fields: borrowerResponse,
     });
   });
 
@@ -34,13 +28,11 @@ if (Meteor.isServer) {
 
 Meteor.methods({
   'borrowers.remove'(borrowerId) {
-    check(borrowerId, String);
+    check(borrowerId, borrowersRemoveRequest);
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-
-    check(borrowerId, String);
 
     Borrowers.update(borrowerId, {
       $set: {
@@ -51,19 +43,7 @@ Meteor.methods({
   },
 
   'borrowers.upsert'(borrower) {
-    check(borrower, {
-      _id: Match.OneOf(String, null),
-      first_name: String,
-      last_name: String,
-      email: String,
-      phone: String,
-      notes: String,
-      address: {
-        street: String,
-        postal_code: String,
-        city: String,
-      },
-    });
+    check(borrower, borrowersUpsertRequest);
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
