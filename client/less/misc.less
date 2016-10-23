@@ -22,10 +22,11 @@ section {
 }
 
 aside {
-  min-width: 200px;
+  min-width: @sidebar-width;
   background-color: @white;
   z-index: 1;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
+  transition: left 0.25s;
 }
 
 aside .link {
@@ -67,27 +68,35 @@ aside .divider {
   height: 25px;
 }
 
+aside .mobile-focus-shade {
+  transition: left 0.25s;
+}
+
 @media (max-width: 600px) {
   aside {
-    display: none;
+    display: block;
+    position: fixed;
+    top: 0px;
+    left: -@sidebar-width;
+    bottom: 0px;
   }
 
   aside.open {
-    display: block !important;
-    position: fixed;
-    top: 0px;
     left: 0px;
-    bottom: 0px;
   }
 
   aside .mobile-focus-shade {
     display: block;
     position: fixed;
-    left: 200px;
     background-color: rgba(0, 0, 0, 0.5);
+    left: 100%;
     right: 0px;
     top: 0px;
     bottom: 0px;
+  }
+
+  aside.open .mobile-focus-shade {
+    left: @sidebar-width;
   }
 }
 
